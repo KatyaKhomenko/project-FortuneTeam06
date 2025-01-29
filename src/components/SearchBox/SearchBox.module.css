@@ -1,0 +1,19 @@
+.inputWrap {
+  max-width: 320px;
+  margin: 20px 0;
+}
+.inputLabel {
+  font-size: 16px;
+  line-height: 1.33;
+  letter-spacing: 0.04em;
+}
+.input {
+  width: 100%;
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  border-radius: 5px;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.33;
+  letter-spacing: 0.04em;
+}

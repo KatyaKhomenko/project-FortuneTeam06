@@ -1,0 +1,21 @@
+.contactCard {
+  min-width: 280px;
+  display: flex;
+  justify-content: space-between;
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+.infoWrap {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.deleteButton {
+  margin: auto 0;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
