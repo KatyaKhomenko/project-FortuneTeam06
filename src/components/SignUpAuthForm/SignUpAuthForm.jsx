@@ -3,7 +3,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { register } from 'redux/auth/operations';
+import { register } from '../../redux/auth/operations';
 
 const RegisterSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address').required('Required'),

@@ -37,3 +37,5 @@ export const authSlice = createSlice({
       })
       .addCase(register.rejected, handleRejected),
 });
+
+export const authReducer = authSlice.reducer;
