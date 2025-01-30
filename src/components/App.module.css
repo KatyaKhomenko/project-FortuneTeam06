@@ -1,0 +1,19 @@
+.app {
+  width: 320px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .app {
+    width: 768px;
+    padding: 0 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .app {
+    width: 1440px;
+    padding: 0 112px;
+  }
+}
