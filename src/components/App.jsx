@@ -1,10 +1,10 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import NotFoundPage from './pages/NotFoundPage';
-import SigninPage from './pages/SigninPage';
-import SignupPage from './pages/SignupPage';
-import WelcomePage from './pages/WelcomePage';
+import HomePage from '../pages/HomePage';
+import NotFoundPage from '../pages/NotFoundPage';
+import SigninPage from '../pages/SigninPage';
+import SignupPage from '../pages/SignupPage';
+import WelcomePage from '../pages/WelcomePage';
 
 function App() {
   return (
