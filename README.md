@@ -1,8 +1,16 @@
-# React + Vite
+Над створенням цього проекту процювала group-6. Проект було створено за допомогою Vite.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Склад команди:
 
-Currently, two official plugins are available:
+Катерина - Team-lead frontend (https://github.com/KatyaKhomenko) Євген - Team-lead backend (https://github.com/Eugene-Khonich)  Іван - Scrum macter (https://github.com/IvanBogachov)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Та разробники:
+
+Данило - (https://github.com/forzin)
+Інна - (https://github.com/Inna0308)
+Катерина - (https://github.com/KaterynaTsybulia)
+Кирило - (https://github.com/kiryhanchiiiik)
+Володимир - (https://github.com/korniyenko88)
+Остап - (https://github.com/Kost1v)
+Сергій - (https://github.com/Ladniak)
+Олександр - (https://github.com/Shvets-Oleksandr)
