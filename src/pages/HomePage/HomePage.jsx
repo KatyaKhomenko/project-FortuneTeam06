@@ -6,7 +6,7 @@ import styles from './HomePage.module.css';
 
 const HomePage = () => {
   return (
-    <main className={styles.container}>
+    <main>
       <DailyNorma />
       <WaterRatioPanel />
       <div className={styles.statiscs}>
