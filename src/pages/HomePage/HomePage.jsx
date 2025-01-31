@@ -6,7 +6,7 @@ import TodayWaterList from '../../components/TodayWaterList/TodayWaterList';
 
 const HomePage = () => {
   return (
-    <main className={styles.container}>
+    <main>
       <DailyNorma />
       <WaterRatioPanel />
       <TodayWaterList />
