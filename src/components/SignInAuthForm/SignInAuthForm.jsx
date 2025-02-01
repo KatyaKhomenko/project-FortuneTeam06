@@ -1,105 +1,42 @@
-import * as Yup from 'yup';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { register } from '../../redux/auth/operations';
-import css from '../SignInAuthForm/SignInAuthForm.module.css';
+import toast from 'react-hot-toast';
 
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email address').required('Required'),
-  password: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
-    .max(64, 'Password must be the most 64 characters')
-    .required('Required'),
-});
+import AuthForm from '../AuthForm/AuthForm';
+import { login } from '../../redux/auth/operations';
+import { validationLoginSchema } from '../../utils/schema';
 
-const initialValues = {
-  email: '',
-  password: '',
-};
+const INITIAL_VALUES = { email: '', password: '' };
 
-const SingInAuthForm = () => {
+const SignInAuthForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [sendForm, setSendForm] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (values, actions) => {
-    await dispatch(register(values))
-    setSendForm(true);
+    try {
+      await dispatch(login({ ...values, email: values.email.trim() })).unwrap();
+      navigate('/');
+    } catch (err) {
+      toast.error('Invalid email or password');
+    }
     actions.resetForm();
   };
-  useEffect(() => {
-    if (sendForm && !!'error') {
-      navigate('/');
-    }
 
-    setSendForm(false);
-  }, [sendForm, navigate]);
   return (
-    <Formik
-      initialValues={initialValues}
+    <AuthForm
+      title="Sign In"
+      initialValues={INITIAL_VALUES}
+      validationSchema={validationLoginSchema}
       onSubmit={handleSubmit}
-      validationSchema={LoginSchema}
-    >
-      <Form className={css.form}>
-        <h2 className={css.title}>Sign In</h2>
-        <label className={css.label}>
-          <p className={css.inputText}>Enter your email</p>
-          <Field
-            className={css.input}
-            type="text"
-            name="email"
-            placeholder="E-mail"
-          />
-          <ErrorMessage
-            className={css.errorMessage}
-            name="email"
-            component="span"
-          />
-        </label>
-        <label className={css.label}>
-          <p className={css.inputText}>Enter your password</p>
-          <div className={css.inputCont}>
-            <Field
-              className={css.input}
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              placeholder="Password"
-            />
-            <button
-              className={css.eye}
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? 'Close' : 'Open'}
-            </button>
-          </div>
-          <ErrorMessage
-            className={css.errorMessage}
-            name="password"
-            component="span"
-          />
-        </label>
-        <button type="submit" className={css.singin}>
-          Sing In
+      submitText="Sign In"
+      extraButton={
+        <button onClick={() => navigate('/forgot-password')}>
+          Forgot password?
         </button>
-        <div className={css.btnCont}>
-          <button
-            type="button"
-            className={css.footerBtn}
-            onClick={() => navigate('/signup')}
-          >
-            Sing In
-          </button>
-          <button type="button" className={css.footerBtn}>
-            Forgot Password
-          </button>
-        </div>
-      </Form>
-    </Formik>
+      }
+      extraNav={<button onClick={() => navigate('/signup')}>Sign Up</button>}
+    />
   );
 };
 
-export default SingInAuthForm;
+export default SignInAuthForm;
