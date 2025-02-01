@@ -1,6 +1,6 @@
 import SignUpAuthForm from '../../components/SignUpAuthForm/SignUpAuthForm';
 
-const SingupPage = () => {
+const SignupPage = () => {
   return (
     <>
       <SignUpAuthForm />
@@ -8,4 +8,4 @@ const SingupPage = () => {
   );
 };
 
-export default SingupPage;
+export default SignupPage;
