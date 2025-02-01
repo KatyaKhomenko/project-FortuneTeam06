@@ -1,5 +1,7 @@
 const WaterRatioPanel = () => {
-  return <div>WaterRatioPanel</div>;
-};
+  return (
+    <div>WaterRatioPanel</div>
+  )
+}
 
-export default WaterRatioPanel;
+export default WaterRatioPanel

@@ -1,5 +1,7 @@
 const DailyNorma = () => {
-  return <div>DailyNorma</div>;
-};
+  return (
+    <div>DailyNorma</div>
+  )
+}
 
-export default DailyNorma;
+export default DailyNorma

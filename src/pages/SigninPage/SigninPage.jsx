@@ -1,5 +1,11 @@
+import SingInAuthForm from '../../components/SignInAuthForm/SignInAuthForm';
+
 const SigninPage = () => {
-  return <div>SigninPage</div>;
+  return (
+    <>
+      <SingInAuthForm />
+    </>
+  );
 };
 
 export default SigninPage;
