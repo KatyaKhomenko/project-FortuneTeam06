@@ -55,7 +55,7 @@ const DeleteConfirmationModal = () => {
             onClick={e => e.stopPropagation()}
           >
             <div className={styles.modalHeader}>
-              <h2 clasName={styles.titleModal}>Delete entry</h2>
+              <h2 className={styles.titleModal}>Delete entry</h2>
               <button className={styles.closeBtn} onClick={handleCloseModal}>
                 &times;
               </button>
