@@ -1,9 +1,9 @@
-import SingInAuthForm from '../../components/SignInAuthForm/SignInAuthForm';
+import SignInAuthForm from '../../components/SignInAuthForm/SignInAuthForm';
 
 const SigninPage = () => {
   return (
     <>
-      <SingInAuthForm />
+      <SignInAuthForm />
     </>
   );
 };
