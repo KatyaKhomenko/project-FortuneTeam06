@@ -5,7 +5,7 @@ import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import SigninPage from '../pages/SigninPage/SigninPage';
 import SignupPage from '../pages/SignupPage/SingupPage';
 import WelcomePage from '../pages/WelcomePage/WelcomePage';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from '../components/ProtectedRoute';
 
 function App() {
   const isAuthenticated = Boolean(localStorage.getItem("token"));
