@@ -36,39 +36,28 @@ const WelcomePage = () => {
                 Personal rate setting
               </li>
             </ul>
+            <button className={css['btn']}>Try tracker</button>
           </div>
-          <button className={css['btn']}>Try tracker</button>
         </div>
         <section className={css['info']}>
           <h2 className={css['infoTitle']}>Why drink water</h2>
           <ul className={css['infoList']}>
             <li className={css['infoItem']}>
-              <span className={css['green-icon']}></span>
               Supply of nutrients to all organs
             </li>
+            <li className={css['infoItem']}> Providing oxygen to the lungs</li>
             <li className={css['infoItem']}>
-              <span className={css['green-icon']}></span> Providing oxygen to
-              the lungs
+              Maintaining the work of the heart
+            </li>
+            <li className={css['infoItem']}>Release of processed substances</li>
+            <li className={css['infoItem']}>
+              Ensuring the stability of the internal environment
             </li>
             <li className={css['infoItem']}>
-              <span className={css['green-icon']}></span> Maintaining the work
-              of the heart
+              Maintaining within the normal temperature
             </li>
             <li className={css['infoItem']}>
-              <span className={css['green-icon']}></span> Release of processed
-              substances
-            </li>
-            <li className={css['infoItem']}>
-              <span className={css['green-icon']}></span> Ensuring the stability
-              of the internal environment
-            </li>
-            <li className={css['infoItem']}>
-              <span className={css['green-icon']}></span> Maintaining within the
-              normal temperature
-            </li>
-            <li className={css['infoItem']}>
-              <span className={css['green-icon']}></span> Maintaining an immune
-              system capable of resisting disease
+              Maintaining an immune system capable of resisting disease
             </li>
           </ul>
         </section>
