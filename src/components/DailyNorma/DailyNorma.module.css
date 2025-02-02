@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
 
-  display: none;
+  /* display: none; */
 }
 
 .container {
@@ -253,6 +253,18 @@
 .Input.filled {
   color: #2563eb;
   font-weight: 500;
+}
+
+input[type='number'] {
+  appearance: textfield;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .timeField {

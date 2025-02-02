@@ -14,8 +14,8 @@ const DailyNorma = () => {
         <div className={module.contentDiv}>
           <div className={module.infoDiv}>
             <div className={module.formuls}>
-              <p className={module.formula}>For girl: <span className={module.spanFormula}>V=(M*0,03) + (T*0,4)</span></p>
-              <p className={module.formula2}>For man: <span className={module.spanFormula}>V=(M*0,04) + (T*0,6)</span></p>
+              <p className={module.formula}>For girl: <span className={module.spanFormula}>V=(M*0.03) + (T*0.4)</span></p>
+              <p className={module.formula2}>For man: <span className={module.spanFormula}>V=(M*0.04) + (T*0.6)</span></p>
             </div>
             <p className={module.infoParagraph}> <span className={module.infoParagraphSpan}>*</span> V is the volume of the water norm in liters per day, M is your body weight, T is the time of active sports, or another type of activity commensurate in terms of loads (in the absence of these, you must set 0)</p>
           </div>
@@ -43,7 +43,7 @@ const DailyNorma = () => {
                 <input
                   className={module.Input}
                   name="weight"
-                  type="text"
+                  type="number"
                 />
               </label>
               <label className={module.timeField}>
@@ -51,7 +51,7 @@ const DailyNorma = () => {
                 <input
                   className={module.Input}
                   name="time"
-                  type="text"
+                  type="number"
                 />
               </label>
               <p className={module.answer}>The required amount of water in liters per day: <span className={module.answerSpan}>2000</span></p>
@@ -62,7 +62,7 @@ const DailyNorma = () => {
             <input
               className={module.Input}
               name="water"
-              type="text"
+              type="number"
             />
           </label>
         </div>
