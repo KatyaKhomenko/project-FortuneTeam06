@@ -1,8 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import module from './DailyNormaModal.module.css'
 
 const DailyNormaModal = () => {
     const [selectedOption, setSelectedOption] = useState("option1");
+    const [weight, setWeight] = useState(0);
+    const [time, setTime] = useState(0);
+    const [waterAmount, setWaterAmount] = useState(0);
+
+    useEffect(() => {
+        if (weight > 0) {
+            const V = selectedOption === "option1"
+                ? (weight * 0.03) + (time * 0.4)
+                : (weight * 0.04) + (time * 0.6);
+            setWaterAmount(V.toFixed(2));
+        }
+    }, [weight, time, selectedOption]);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+    }
 
     return (
         <div className={module.modal}>
@@ -54,7 +70,7 @@ const DailyNormaModal = () => {
                                     type="number"
                                 />
                             </label>
-                            <p className={module.answer}>The required amount of water in liters per day: <span className={module.answerSpan}>2000</span></p>
+                            <p className={module.answer}>The required amount of water in liters per day: <span className={module.answerSpan}>{waterAmount}</span></p>
                         </form>
                     </div>
                     <label className={module.waterField}>
@@ -66,7 +82,7 @@ const DailyNormaModal = () => {
                         />
                     </label>
                 </div>
-                <button type='submit' form="Form" className={module.submitBtn}>Save</button>
+                <button type='submit' form="Form" className={module.submitBtn} onSubmit={handleSubmit}>Save</button>
             </div>
         </div>
     )
