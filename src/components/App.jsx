@@ -5,15 +5,22 @@ import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import SigninPage from '../pages/SigninPage/SigninPage';
 import SignupPage from '../pages/SignupPage/SingupPage';
 import WelcomePage from '../pages/WelcomePage/WelcomePage';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
+  const isAuthenticated = Boolean(localStorage.getItem("token"));
+
   return (
     <div>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+          <Route path="/" element={<HomePage />} />
+        </Route>
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
