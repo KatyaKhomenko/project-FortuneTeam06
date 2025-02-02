@@ -1,0 +1,245 @@
+body {
+  background-image: url('../../assets//img/welcome/BkgWeb.png');
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.container {
+  width: 1404px;
+  height: 582px;
+  gap: 0px;
+
+  margin: auto;
+}
+
+.header {
+  width: 1216px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 112px;
+  margin-top: 12px;
+  gap: 1024px;
+}
+
+.logoWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-sign-in {
+  width: 28px;
+  height: 28px;
+  gap: 0px;
+  opacity: 0px;
+}
+
+.logoText {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.signIn {
+  width: 54px;
+  height: 24px;
+  gap: 0px;
+  opacity: 0px;
+
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+
+  color: #407bff;
+}
+
+.main {
+  width: 1014px;
+  height: 366px;
+  display: flex;
+  margin: 80px auto;
+  justify-content: space-between;
+}
+
+.main-benefits {
+  width: 439px;
+  height: 366px;
+  gap: 24px;
+}
+
+.title {
+  /* width: 439px;
+  height: 42px;
+  gap: 0px;
+  opacity: 0px; */
+
+  font-family: Roboto;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 42px;
+  text-align: left;
+  /* text-underline-position: from-font;
+  text-decoration-skip-ink: none; */
+}
+
+.subtitle {
+  width: 404px;
+  height: 32px;
+  margin: 16px 0px 24px 0px;
+
+  font-family: Roboto;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 32px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+
+.benefits {
+  /* width: 248px;
+  height: 152px;
+  gap: 16px;
+  opacity: 0px; */
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.benefitsTitle {
+  width: 132px;
+  height: 20px;
+  gap: 0px;
+  opacity: 0px;
+
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+
+.benefitsList {
+  padding: 0;
+  margin: 0;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+}
+
+.btn {
+  display: inline-block;
+  width: 100%;
+  padding: 8px 30px;
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  background-color: rgb(64, 123, 255);
+  box-shadow: rgba(64, 123, 255, 0.34) 0px 4px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+.btn:hover {
+  box-shadow: rgba(64, 123, 255, 0.54) 0px 4px 14px;
+}
+
+.info {
+  width: 494px;
+  height: 332px;
+  padding: 32px 24px;
+  gap: 12px;
+  border-radius: 10px 0px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ecf2ff;
+  margin-top: 34px;
+}
+
+.infoTitle {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #2f2f2f;
+}
+
+.infoList {
+  width: 446px;
+  height: 236px;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.infoItem {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+
+  color: #2f2f2f;
+}
+
+.footer {
+  margin-top: 32px;
+}
+
+.bottle {
+  height: 120px;
+}
+
+.green-icon {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background: rgb(85, 204, 68);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
+  animation: blink 2s infinite;
+  margin-right: 6px;
+}
+
+@keyframes blink {
+  0% {
+    background: rgb(85, 204, 68);
+  }
+  50% {
+    background: rgba(85, 204, 68, 0);
+  }
+  100% {
+    background: rgb(85, 204, 68);
+  }
+}
