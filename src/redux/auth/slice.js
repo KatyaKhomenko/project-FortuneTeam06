@@ -46,3 +46,4 @@ export const authSlice = createSlice({
       .addCase(login.rejected, handleRejected),
 });
 export const authReducer = authSlice.reducer;
+

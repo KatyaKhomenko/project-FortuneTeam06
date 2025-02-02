@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../DeleteConfirmationModal/DeleteConfirmationModal.module.css';
 import { useDispatch } from 'react-redux';
+import { deleteWater } from 'redux/todayWater/operations';
+import toast from 'react-hot-toast';
 
-const DeleteConfirmationModal = () => {
-  const [isOpen, setIsOpen] = useState(true);
+
+const DeleteConfirmationModal = ({ isOpen, setIsOpen, id }) => {
   const [isEscKeyDown, setIsEscKeyDown] = useState(false);
-  // const dispatch = useDispatch();
-
-  const handleOpenModal = () => {
-    setIsOpen(true);
-    setIsEscKeyDown(false);
-  };
+  const dispatch = useDispatch();
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -22,6 +19,7 @@ const DeleteConfirmationModal = () => {
       handleCloseModal();
     }
   };
+
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
 
@@ -30,10 +28,14 @@ const DeleteConfirmationModal = () => {
     };
   }, [isOpen]);
 
-  const handleDelete = () => {
-    console.log('Delete!');
-    handleCloseModal();
-    // dispatch(delete (id));
+  const handleDelete = async () => {
+    try {
+      await dispatch(deleteWater(id));
+      toast.success('Entry deleted successfully');
+      handleCloseModal(); 
+    } catch (error) {
+      toast.error('Failed to delete the entry. Please try again.'); 
+    }
   };
 
   const handleCancel = () => {
@@ -51,7 +53,7 @@ const DeleteConfirmationModal = () => {
       {isOpen && (
         <div className={styles.modalOverlay} onClick={handleCloseModal}>
           <div
-            className={styles.modalWwindow}
+            className={styles.modalWindow}
             onClick={e => e.stopPropagation()}
           >
             <div className={styles.modalHeader}>
