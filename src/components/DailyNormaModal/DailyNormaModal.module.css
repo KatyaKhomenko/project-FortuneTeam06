@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
 
-  display: none;
+  /* display: none; */
 }
 
 .container {
@@ -290,7 +290,6 @@ input[type='number']::-webkit-outer-spin-button {
   flex-direction: row;
   gap: 6px;
 
-  width: 376px;
   height: 24px;
 }
 

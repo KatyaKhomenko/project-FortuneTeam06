@@ -8,11 +8,16 @@ const DailyNormaModal = () => {
     const [waterAmount, setWaterAmount] = useState(0);
 
     useEffect(() => {
-        if (weight > 0) {
+        const w = parseFloat(weight);
+        const t = parseFloat(time);
+
+        if (!isNaN(w) && w > 0 && !isNaN(t) && t >= 0) {
             const V = selectedOption === "option1"
-                ? (weight * 0.03) + (time * 0.4)
-                : (weight * 0.04) + (time * 0.6);
+                ? (w * 0.03) + (t * 0.4)
+                : (w * 0.04) + (t * 0.6);
             setWaterAmount(V.toFixed(2));
+        } else {
+            setWaterAmount(0);
         }
     }, [weight, time, selectedOption]);
 
@@ -25,7 +30,9 @@ const DailyNormaModal = () => {
             <div className={module.container}>
                 <div className={module.headerDiv}>
                     <h1 className={module.header}>My daily norma</h1>
-                    <button className={module.closeButton}>X</button>
+                    <button className={module.closeButton}>
+                        X
+                    </button>
                 </div>
                 <div className={module.contentDiv}>
                     <div className={module.infoDiv}>
@@ -37,7 +44,7 @@ const DailyNormaModal = () => {
                     </div>
                     <div className={module.calculateDiv}>
                         <h2 className={module.calculateHeader}>Calculate your rate:</h2>
-                        <form id='Form' className={module.calculateForm}>
+                        <form id='Form' className={module.calculateForm} onSubmit={handleSubmit}>
                             <div className={module.checkBoxDiv}>
                                 <div className={module.radio1}>
                                     <label>
@@ -58,19 +65,25 @@ const DailyNormaModal = () => {
                                 Your weight in kilograms:
                                 <input
                                     className={module.Input}
+                                    min="0"
                                     name="weight"
                                     type="number"
+                                    value={weight}
+                                    onChange={(e) => setWeight(e.target.value)}
                                 />
                             </label>
                             <label className={module.timeField}>
                                 The time of active participation in sports or other activities with a high physical. load in hours:
                                 <input
                                     className={module.Input}
+                                    min="0"
                                     name="time"
                                     type="number"
+                                    value={time}
+                                    onChange={(e) => setTime(e.target.value)}
                                 />
                             </label>
-                            <p className={module.answer}>The required amount of water in liters per day: <span className={module.answerSpan}>{waterAmount}</span></p>
+                            <p className={module.answer}>The required amount of water in liters per day: <span className={module.answerSpan}>{waterAmount} L</span></p>
                         </form>
                     </div>
                     <label className={module.waterField}>
@@ -82,7 +95,7 @@ const DailyNormaModal = () => {
                         />
                     </label>
                 </div>
-                <button type='submit' form="Form" className={module.submitBtn} onSubmit={handleSubmit}>Save</button>
+                <button type='submit' form="Form" className={module.submitBtn}>Save</button>
             </div>
         </div>
     )
