@@ -1,14 +1,16 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import HomePage from '../pages/HomePage/HomePage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import SigninPage from '../pages/SigninPage/SigninPage';
 import SignupPage from '../pages/SignupPage/SingupPage';
 import WelcomePage from '../pages/WelcomePage/WelcomePage';
-import ProtectedRoute from '../components/ProtectedRoute';
+import { RestrictedRoute } from '../components/RestrictedRoute/RestrictedRoute';
+import { selectIsLoggedIn } from '../redux/auth/selectors';
 
 function App() {
-  const isAuthenticated = Boolean(localStorage.getItem("token"));
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
     <div>
@@ -17,9 +19,10 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/welcome" element={<WelcomePage />} />
 
-        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-          <Route path="/" element={<HomePage />} />
-        </Route>
+        <Route
+          path="/"
+          element={<RestrictedRoute component={<HomePage />} />}
+        />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
