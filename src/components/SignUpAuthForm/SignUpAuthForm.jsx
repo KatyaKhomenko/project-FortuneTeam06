@@ -1,30 +1,43 @@
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
 import AuthForm from '../AuthForm/AuthForm';
 import { register } from '../../redux/auth/operations';
 import { validationRegisterSchema } from '../../utils/schema';
+import { useEffect, useState } from 'react';
+import { selectError } from '../../redux/auth/selectors';
 
-const INITIAL_VALUES = { email: '', password: '', confirmPassword: '' };
+const INITIAL_VALUES = { email: '', password: '', repeatPassword: '' };
 
 const SignUpAuthForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const error = useSelector(selectError);
+  // const [sendForm, setSendForm] = useState(false);
 
   const handleSubmit = async (values, actions) => {
+    delete values.repeatPassword;
     console.log(values);
+    console.log(error);
+
 
     try {
-      await dispatch(
-        register({ ...values, email: values.email.trim() })
-      ).unwrap();
-      navigate('/signin');
+       dispatch(register(values))
+
+      // setSendForm(true);
+      actions.resetForm();
     } catch (err) {
       toast.error('Registration failed');
     }
-    actions.resetForm();
   };
+  // useEffect(() => {
+  //   if (sendForm && !'error') {
+  //   } else if (sendForm && !!'error') {
+  //     navigate('/signin');
+  //   }
+  //   setSendForm(false);
+  // }, [sendForm, navigate]);
 
   return (
     <AuthForm
