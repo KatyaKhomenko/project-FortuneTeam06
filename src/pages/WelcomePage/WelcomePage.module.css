@@ -1,0 +1,407 @@
+body {
+  background-image: url('../../assets//img/welcome/BkgWeb.png');
+  background-color: #ecf2ff;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
+}
+
+.container {
+  width: 320px;
+  height: 958px;
+}
+
+.main {
+  width: 280px;
+  height: 840px;
+  margin: 24px 20px;
+}
+
+.main-benefits {
+  width: 280px;
+  height: 384px;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-family: Roboto;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 32px;
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 30px;
+  text-align: left;
+  text-underline-position: from-font;
+  margin-bottom: 24px;
+}
+
+.benefits {
+  width: 216px;
+  height: 160px;
+  gap: 12px;
+}
+
+.benefitsTitle {
+  width: 132px;
+  height: 20px;
+
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: left;
+  text-underline-position: from-font;
+  margin-bottom: 12px;
+}
+
+.benefitsList {
+  width: 216px;
+  height: 128px;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+}
+
+.btn {
+  width: 280px;
+  height: 36px;
+  padding: 8px 30px;
+  color: rgb(255, 255, 255);
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  background-color: rgb(64, 123, 255);
+  box-shadow: rgba(64, 123, 255, 0.34) 0px 4px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+.btn:hover {
+  box-shadow: rgba(64, 123, 255, 0.54) 0px 4px 14px;
+}
+
+.info {
+  width: 280px;
+  height: 460px;
+  padding: 24px 16px;
+  border-radius: 10px 0px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ecf2ff;
+}
+
+.infoTitle {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+
+  color: #2f2f2f;
+  margin-bottom: 12px;
+}
+
+.infoList {
+  width: 248px;
+  height: 36px;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.infoItem {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+
+  color: #2f2f2f;
+}
+
+.infoItem {
+  position: relative;
+  padding-left: 16px;
+}
+
+.infoItem::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background-color: rgb(64, 123, 255);
+  border-radius: 50%;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 704px;
+    height: 646px;
+  }
+
+  .main {
+    width: 704px;
+    height: 254px;
+  }
+
+  .main-benefits {
+    width: 280px;
+    height: 256px;
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    margin-bottom: 60px;
+  }
+
+  .title {
+    width: 439px;
+    height: 42px;
+    font-family: Roboto;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 42px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .subtitle {
+    width: 404px;
+    height: 32px;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 32px;
+    margin: 0;
+  }
+
+  .benefits {
+    width: 704px;
+    height: 72px;
+    gap: 12px;
+  }
+
+  .benefitsTitle {
+    width: 132px;
+    height: 20px;
+
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  .benefitsList {
+    width: 704px;
+    height: 40px;
+    gap: 16px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 24px;
+    justify-content: space-between;
+  }
+
+  .benefitItem {
+    width: 224px;
+    height: 40px;
+    gap: 8px;
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .btn {
+    width: 336px;
+    height: 44px;
+    padding: 10px 30px 10px 30px;
+    gap: 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .btn:hover {
+    box-shadow: rgba(64, 123, 255, 0.54) 0px 4px 14px;
+  }
+
+  .info {
+    width: 494px;
+    height: 332px;
+  }
+
+  .infoTitle {
+    width: 256px;
+    height: 20px;
+  }
+
+  .infoList {
+    width: 446px;
+    height: 236px;
+  }
+}
+
+@media screen and (min-width: 1158px) {
+  .container {
+    width: 1404px;
+    height: 582px;
+    gap: 0px;
+    margin: auto;
+  }
+
+  .main {
+    width: 1014px;
+    height: 366px;
+    display: flex;
+    margin: 80px auto;
+    justify-content: space-between;
+  }
+
+  .main-benefits {
+    width: 439px;
+    height: 366px;
+    gap: 24px;
+  }
+
+  .title {
+    font-family: Roboto;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 42px;
+    text-align: left;
+  }
+
+  .benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  .benefitsList {
+    width: 248px;
+    height: 184px;
+    padding: 0;
+    margin: 0;
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+  }
+
+  .benefitItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .btn {
+    width: 384px;
+    height: 44px;
+    padding: 8px 30px;
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    background-color: rgb(64, 123, 255);
+    box-shadow: rgba(64, 123, 255, 0.34) 0px 4px 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+  }
+
+  .btn:hover {
+    box-shadow: rgba(64, 123, 255, 0.54) 0px 4px 14px;
+  }
+
+  .info {
+    width: 494px;
+    height: 332px;
+    padding: 32px 24px;
+    gap: 12px;
+    border-radius: 10px 0px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ecf2ff;
+    margin-top: 34px;
+  }
+
+  .infoTitle {
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #2f2f2f;
+  }
+
+  .infoList {
+    width: 446px;
+    height: 236px;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .infoItem {
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+
+    color: #2f2f2f;
+  }
+}

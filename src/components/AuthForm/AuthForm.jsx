@@ -13,7 +13,7 @@ const AuthForm = ({
 }) => {
   const emailFieldId = useId();
   const passwordFieldId = useId();
-  const confirmPasswordFieldId = useId();
+  const repeatPasswordId = useId();
 
   return (
     <Formik
@@ -60,19 +60,19 @@ const AuthForm = ({
 
         {title === 'Sign Up' && (
           <>
-            <label htmlFor={confirmPasswordFieldId} className={css.label}>
+            <label htmlFor={repeatPasswordId} className={css.label}>
               Repeat password
             </label>
             <Field
-              id={confirmPasswordFieldId}
+              id={repeatPasswordId}
               className={css.input}
               type="password"
-              name="confirmPassword"
+              name="repeatPassword"
               placeholder="Repeat password"
             />
             <ErrorMessage
               className={css.errorMessage}
-              name="confirmPassword"
+              name="repeatPassword"
               component="span"
             />
           </>
