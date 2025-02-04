@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const authInstance = axios.create({
-  baseURL: 'https://water-tracker-x26o.onrender.com',
+  baseURL: 'https://water-tracker-x26o.onrender.com/',
 });
 
 export const setToken = token => {
@@ -18,8 +18,9 @@ export const register = createAsyncThunk(
   async (formData, thunkApi) => {
     try {
       const { data } = await authInstance.post('/auth/register', formData);
-      setToken(data.token);
-      return data;
+
+      setToken(data.data.accessToken);
+      return data.data.user;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }

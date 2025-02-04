@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../UserLogoutModal/UserLogoutModal.module.css';
 import { useDispatch } from 'react-redux';
+import { logout } from 'redux/auth/operations';
+import toast from 'react-hot-toast';
 
-const UserLogoutModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isEscKeyDown, setIsEscKeyDown] = useState(false);
-  // const dispatch = useDispatch();
+const UserLogoutModal = ({ isOpen, setIsOpen }) => {
+  const dispatch = useDispatch();
 
   const handleCloseModal = () => {
     setIsOpen(false);
-    setIsEscKeyDown(false);
   };
 
   const handleKeyDown = event => {
@@ -26,10 +25,14 @@ const UserLogoutModal = () => {
     };
   }, [isOpen]);
 
-  const handleLogout = () => {
-    console.log('Lgout!');
-    // dispatch(logout());
-    handleCloseModal();
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout());
+      toast.success('Successfully logged out!');
+      handleCloseModal();
+    } catch (error) {
+      toast.error('Failed to log out. Please try again.');
+    }
   };
 
   const handleCancel = () => {
@@ -47,7 +50,7 @@ const UserLogoutModal = () => {
       {isOpen && (
         <div className={styles.modalOverlay} onClick={handleCloseModal}>
           <div
-            className={styles.modalWwindow}
+            className={styles.modalWindow}
             onClick={e => e.stopPropagation()}
           >
             <div className={styles.modalHeader}>

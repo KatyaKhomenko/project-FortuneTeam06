@@ -136,7 +136,6 @@
   cursor: pointer;
 }
 
-/* Для планшетов (768px) */
 @media (min-width: 768px) {
   .container {
     background-image: image-set(
@@ -185,7 +184,6 @@
   }
 }
 
-/* Для десктопов (1440px) */
 @media (min-width: 1440px) {
   .container {
     background-image: image-set(
