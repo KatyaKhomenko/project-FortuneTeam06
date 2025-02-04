@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const authInstance = axios.create({
-  baseURL: 'https://connections-api.goit.global/',
+  baseURL: 'https://water-tracker-x26o.onrender.com/',
 });
 
 export const setToken = token => {
@@ -17,9 +17,10 @@ export const register = createAsyncThunk(
   'auth/register',
   async (formData, thunkApi) => {
     try {
-      const { data } = await authInstance.post('/users/signup', formData);
-      setToken(data.token);
-      return data;
+      const { data } = await authInstance.post('/auth/register', formData);
+
+      setToken(data.data.accessToken);
+      return data.data.user;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
@@ -30,7 +31,7 @@ export const login = createAsyncThunk(
   'auth/login',
   async (formData, thunkApi) => {
     try {
-      const { data } = await authInstance.post('/users/login', formData);
+      const { data } = await authInstance.post('/auth/login', formData);
       setToken(data.token);
 
       return data;
