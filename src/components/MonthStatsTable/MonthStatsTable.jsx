@@ -1,70 +1,103 @@
-import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  changeMonth,
+  generateDaysInMonth,
+  setSelectedDay,
+  closeModal,
+} from '../../redux/monthWater/slice';
+import {
+  selectSelectedMonth,
+  selectDaysInMonth,
+  selectSelectedDay,
+  selectLoading,
+  selectError,
+  selectIsCurrentMonth,
+  selectIsModalOpen,
+} from '../../redux/monthWater/selectors';
+import { fetchWaterData } from '../../redux/monthWater/operations';
+import DaysGeneralStats from '../DaysGeneralStats/DaysGeneralStats';
 import styles from './MonthStatsTable.module.css';
 
 const MonthStatsTable = () => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const dispatch = useDispatch();
+  const selectedMonth = useSelector(selectSelectedMonth);
+  const isCurrentMonth = useSelector(selectIsCurrentMonth);
+  const daysInMonth = useSelector(selectDaysInMonth);
+  const selectedDay = useSelector(selectSelectedDay);
+  const isModalOpen = useSelector(selectIsModalOpen);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
 
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+  useEffect(() => {
+    dispatch(generateDaysInMonth());
+    const date = new Date(selectedMonth + '-01');
+    dispatch(fetchWaterData(date.toISOString().slice(0, 7)));
+  }, [selectedMonth, dispatch]);
 
-  const handlePrevMonth = () => {
-    const prevMonth = new Date(currentMonth);
-    prevMonth.setMonth(currentMonth.getMonth() - 1);
-    setCurrentMonth(prevMonth);
+  const handleMonthChange = offset => {
+    dispatch(changeMonth(offset));
   };
 
-  const handleNextMonth = () => {
-    const nextMonth = new Date(currentMonth);
-    nextMonth.setMonth(currentMonth.getMonth() + 1);
-    setCurrentMonth(nextMonth);
+  const handleDayClick = day => {
+    const monthName = new Date(selectedMonth + '-01').toLocaleString('en-US', {
+      month: 'long',
+    });
+    dispatch(setSelectedDay({ day, month: monthName })); // Передаємо назву місяця, а не YYYY-MM
   };
 
-  const monthName = months[currentMonth.getMonth()];
-  const year = currentMonth.getFullYear();
-
-  const daysInMonth = new Date(year, currentMonth.getMonth() + 1, 0).getDate();
-
-  const daysArray = Array.from(
-    { length: daysInMonth },
-    (_, index) => index + 1
-  );
+  const handleCloseModal = () => {
+    dispatch(closeModal()); // Закриваємо модалку
+  };
 
   return (
-    <div className={styles.monthStatsTable}>
+    <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.monthTitle}>Month</h2>
-        <div className={styles.monthControls}>
-          <button className={styles.switchButton} onClick={handlePrevMonth}>
-            ←
+        <h2>Month</h2>
+        <div className={styles.paginator}>
+          <button
+            className={styles.arrow}
+            onClick={() => handleMonthChange(-1)}
+          >
+            &lt;
           </button>
-          <span className={styles.monthName}>
-            {monthName}, {year}
+          <span>
+            {new Date(selectedMonth + '-01').toLocaleString('en-US', {
+              month: 'long',
+              year: 'numeric',
+            })}
           </span>
-          <button className={styles.switchButton} onClick={handleNextMonth}>
-            →
-          </button>
+          {!isCurrentMonth && (
+            <button
+              className={styles.arrow}
+              onClick={() => handleMonthChange(1)}
+            >
+              &gt;
+            </button>
+          )}
         </div>
       </div>
 
-      <div className={styles.daysWrapper}>
-        {daysArray.map(day => (
-          <div key={day} className={styles.dayCell}>
-            {day}
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+
+      <div className={styles.daysList}>
+        {daysInMonth.map(({ day, dailyNorma }) => (
+          <div
+            key={day}
+            className={`${styles.day} ${
+              dailyNorma && dailyNorma < 100 ? styles.incomplete : ''
+            }`}
+            onClick={() => handleDayClick(day)}
+          >
+            <div className={styles.dayCircle}>{day}</div>
+            <p>{dailyNorma ? `${dailyNorma}%` : ''}</p>
           </div>
         ))}
       </div>
+      {isModalOpen && selectedDay && (
+        <DaysGeneralStats dayData={selectedDay} onClose={handleCloseModal} />
+      )}
     </div>
   );
 };
