@@ -16,13 +16,12 @@ const monthWaterSlice = createSlice({
   initialState,
   reducers: {
     changeMonth(state, action) {
-      const newMonth = new Date(state.selectedMonth + '-01'); // Конвертуємо в дату
+      const newMonth = new Date(state.selectedMonth + '-01');
       newMonth.setMonth(newMonth.getMonth() + action.payload);
 
-      const updatedMonth = newMonth.toISOString().slice(0, 7); // Отримуємо новий місяць у форматі YYYY-MM
+      const updatedMonth = newMonth.toISOString().slice(0, 7);
       state.selectedMonth = updatedMonth;
 
-      // Оновлюємо стан: чи є вибраний місяць поточним?
       state.isCurrentMonth =
         updatedMonth === new Date().toISOString().slice(0, 7);
     },
@@ -43,13 +42,13 @@ const monthWaterSlice = createSlice({
         const { day, month } = action.payload;
         state.selectedDay = { day, month };
       } else {
-        state.selectedDay = null; // ✅ Закриваємо модалку без помилок
+        state.selectedDay = null;
       }
-      state.isModalOpen = true; // Відкриваємо модальне вікно
+      state.isModalOpen = true;
     },
     closeModal: state => {
       state.isModalOpen = false;
-      state.selectedDay = null; // Очищаємо вибраний день
+      state.selectedDay = null;
     },
   },
 

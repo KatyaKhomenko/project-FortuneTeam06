@@ -32,7 +32,9 @@ const MonthStatsTable = () => {
   useEffect(() => {
     dispatch(generateDaysInMonth());
     const date = new Date(selectedMonth + '-01');
-    dispatch(fetchWaterData(date.toISOString().slice(0, 7)));
+    if (selectedMonth) {
+      dispatch(fetchWaterData(selectedMonth)); // ✅ Передаємо "YYYY-MM"
+    }
   }, [selectedMonth, dispatch]);
 
   const handleMonthChange = offset => {
@@ -43,17 +45,17 @@ const MonthStatsTable = () => {
     const monthName = new Date(selectedMonth + '-01').toLocaleString('en-US', {
       month: 'long',
     });
-    dispatch(setSelectedDay({ day, month: monthName })); // Передаємо назву місяця, а не YYYY-MM
+    dispatch(setSelectedDay({ day, month: monthName }));
   };
 
   const handleCloseModal = () => {
-    dispatch(closeModal()); // Закриваємо модалку
+    dispatch(closeModal());
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2>Month</h2>
+        <h3>Month</h3>
         <div className={styles.paginator}>
           <button
             className={styles.arrow}

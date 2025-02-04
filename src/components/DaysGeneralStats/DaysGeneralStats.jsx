@@ -7,7 +7,6 @@ const DaysGeneralStats = () => {
   const dispatch = useDispatch();
   const selectedDay = useSelector(selectSelectedDay);
 
-  console.log('selectedDay:', selectedDay);
   if (!selectedDay) return null;
 
   const closeModal = e => {
