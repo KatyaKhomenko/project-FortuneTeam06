@@ -32,7 +32,7 @@
 .headerDiv {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-direction: row;
   gap: 340px;
 
@@ -53,6 +53,7 @@
   height: 24px;
   border: none;
   background: none;
+  cursor: pointer;
 }
 
 /* ==== CONTENT  STYLES ==== */
@@ -190,7 +191,15 @@
   height: 20px;
 }
 
+.label {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
 .radio {
+  display: flex;
+  margin-top: 2px;
   cursor: pointer;
 }
 
