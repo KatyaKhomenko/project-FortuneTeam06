@@ -29,11 +29,11 @@ const SignInAuthForm = () => {
       validationSchema={validationLoginSchema}
       onSubmit={handleSubmit}
       submitText="Sign In"
-      extraButton={
-        <button onClick={() => navigate('/forgot-password')}>
-          Forgot password?
-        </button>
-      }
+      // extraButton={
+      //   <button onClick={() => navigate('/forgot-password')}>
+      //     Forgot password?
+      //   </button>
+      // }
       extraNav={<button onClick={() => navigate('/signup')}>Sign Up</button>}
     />
   );

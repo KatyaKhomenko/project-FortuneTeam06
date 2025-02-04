@@ -6,7 +6,7 @@ import AuthForm from '../AuthForm/AuthForm';
 import { register } from '../../redux/auth/operations';
 import { validationRegisterSchema } from '../../utils/schema';
 
-const INITIAL_VALUES = { email: '', password: '', confirmPassword: '' };
+const INITIAL_VALUES = { email: '', password: '', repeatPassword: '' };
 
 const SignUpAuthForm = () => {
   const dispatch = useDispatch();
@@ -14,11 +14,11 @@ const SignUpAuthForm = () => {
 
   const handleSubmit = async (values, actions) => {
     console.log(values);
+    delete values.repeatPassword
 
     try {
       await dispatch(
-        register({ ...values, email: values.email.trim() })
-      ).unwrap();
+        register({ ...values, email: values.email.trim() })).unwrap();
       navigate('/signin');
     } catch (err) {
       toast.error('Registration failed');
