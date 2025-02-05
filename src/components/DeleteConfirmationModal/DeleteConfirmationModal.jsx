@@ -32,9 +32,9 @@ const DeleteConfirmationModal = ({ isOpen, setIsOpen, id }) => {
     try {
       await dispatch(deleteWater(id));
       toast.success('Entry deleted successfully');
-      handleCloseModal(); 
+      handleCloseModal();
     } catch (error) {
-      toast.error('Failed to delete the entry. Please try again.'); 
+      toast.error('Failed to delete the entry. Please try again.');
     }
   };
 
