@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { authInstance } from "redux/auth/operations";
 import toast from "react-hot-toast";
+import { authInstance } from "../../redux/auth/operations";
 
 export const getUserInfo = createAsyncThunk(
     'user/getUserInfo',
