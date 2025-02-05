@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchWaterData } from './operations';
+import { fetchMonthWater } from './operations';
+
+const today = new Date();
+const currentDay = today.getDate();
+const currentMonth = today.toISOString().slice(0, 7);
 
 const initialState = {
-  selectedMonth: new Date().toISOString().slice(0, 7),
+  selectedMonth: currentMonth,
   isCurrentMonth: true,
   daysInMonth: [],
   selectedDay: null,
@@ -18,12 +22,10 @@ const monthWaterSlice = createSlice({
     changeMonth(state, action) {
       const newMonth = new Date(state.selectedMonth + '-01');
       newMonth.setMonth(newMonth.getMonth() + action.payload);
-
       const updatedMonth = newMonth.toISOString().slice(0, 7);
-      state.selectedMonth = updatedMonth;
 
-      state.isCurrentMonth =
-        updatedMonth === new Date().toISOString().slice(0, 7);
+      state.selectedMonth = updatedMonth;
+      state.isCurrentMonth = updatedMonth === state.currentMonth;
     },
     generateDaysInMonth(state) {
       const selectedDate = new Date(state.selectedMonth);
@@ -31,11 +33,19 @@ const monthWaterSlice = createSlice({
       const year = selectedDate.getFullYear();
       const daysCount = new Date(year, month + 1, 0).getDate();
 
-      state.daysInMonth = Array.from({ length: daysCount }, (_, i) => ({
-        day: i + 1,
-        month: state.selectedMonth.toLocaleString('default', { month: 'long' }),
-        dailyNorma: null,
-      }));
+      state.daysInMonth = Array.from({ length: daysCount }, (_, i) => {
+        const day = i + 1;
+        return {
+          day,
+          month: state.selectedMonth.toLocaleString('default', {
+            month: 'long',
+          }),
+          dailyNorma: null,
+          isFuture:
+            state.selectedMonth > currentMonth ||
+            (state.selectedMonth === currentMonth && day > currentDay),
+        };
+      });
     },
     setSelectedDay: (state, action) => {
       if (action.payload) {
@@ -54,27 +64,37 @@ const monthWaterSlice = createSlice({
 
   extraReducers: builder => {
     builder
-      .addCase(fetchWaterData.pending, state => {
+      .addCase(fetchMonthWater.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchWaterData.fulfilled, (state, action) => {
+      .addCase(fetchMonthWater.fulfilled, (state, action) => {
         state.isLoading = false;
-        const waterMonthData = action.payload;
+        const waterMonthData = action.payload.data;
+        const dayliNorma = 2500;
+
+        const groupedWaterData = waterMonthData.reduce((acc, item) => {
+          const drinkDay = new Date(item.drinkTime).getDate();
+          if (!acc[drinkDay]) {
+            acc[drinkDay] = 0;
+          }
+          acc[drinkDay] += item.drinkedWater;
+          return acc;
+        }, {});
 
         state.daysInMonth = state.daysInMonth.map(day => {
-          const found = waterMonthData.find(item =>
-            item.Day.startsWith(day.day)
-          );
-          return found
-            ? {
-                ...day,
-                dailyNorma: found['Daily norma'],
-              }
-            : day;
+          const totalDrinkedWater = groupedWaterData[day.day] || 0;
+          return {
+            ...day,
+            drinkedWater: totalDrinkedWater,
+            dailyNorma: Math.min(
+              100,
+              Math.round((totalDrinkedWater / dayliNorma) * 100)
+            ),
+          };
         });
       })
-      .addCase(fetchWaterData.rejected, (state, action) => {
+      .addCase(fetchMonthWater.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

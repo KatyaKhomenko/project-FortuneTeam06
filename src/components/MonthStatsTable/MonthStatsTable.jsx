@@ -15,7 +15,7 @@ import {
   selectIsCurrentMonth,
   selectIsModalOpen,
 } from '../../redux/monthWater/selectors';
-import { fetchWaterData } from '../../redux/monthWater/operations';
+import { fetchMonthWater } from '../../redux/monthWater/operations';
 import DaysGeneralStats from '../DaysGeneralStats/DaysGeneralStats';
 import styles from './MonthStatsTable.module.css';
 
@@ -31,9 +31,8 @@ const MonthStatsTable = () => {
 
   useEffect(() => {
     dispatch(generateDaysInMonth());
-    const date = new Date(selectedMonth + '-01');
     if (selectedMonth) {
-      dispatch(fetchWaterData(selectedMonth)); // ✅ Передаємо "YYYY-MM"
+      dispatch(fetchMonthWater(selectedMonth));
     }
   }, [selectedMonth, dispatch]);
 
@@ -84,16 +83,22 @@ const MonthStatsTable = () => {
       {error && <p>Error: {error}</p>}
 
       <div className={styles.daysList}>
-        {daysInMonth.map(({ day, dailyNorma }) => (
+        {daysInMonth.map(({ day, dailyNorma, isFuture }) => (
           <div
             key={day}
-            className={`${styles.day} ${
-              dailyNorma && dailyNorma < 100 ? styles.incomplete : ''
-            }`}
+            className={`${styles.day} ${isFuture ? styles.disabled : ''}`}
             onClick={() => handleDayClick(day)}
           >
-            <div className={styles.dayCircle}>{day}</div>
-            <p>{dailyNorma ? `${dailyNorma}%` : ''}</p>
+            <div
+              className={`${styles.dayCircle} ${
+                dailyNorma < 100 ? styles.incomplete : ''
+              }`}
+            >
+              {day}
+            </div>
+            <p className={styles.dayDrinked}>
+              {dailyNorma > 0 ? `${dailyNorma}%` : ''}
+            </p>{' '}
           </div>
         ))}
       </div>

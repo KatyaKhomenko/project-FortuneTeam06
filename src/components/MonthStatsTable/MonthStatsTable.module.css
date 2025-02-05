@@ -47,6 +47,20 @@
   justify-content: center;
 }
 
+.dayDrinked {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.6;
+  text-align: center;
+  color: #9ebbff;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: default;
+}
+
 .incomplete {
   border: 1px solid #ff9d43;
 }
