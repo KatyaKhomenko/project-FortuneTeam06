@@ -7,7 +7,9 @@ import styles from './HomePage.module.css';
 const HomePage = () => {
   return (
     <main className={styles.pageContainer}>
-      <DailyNorma />
+      <div className="dailyNorma">
+        <DailyNorma />
+      </div>
       <WaterRatioPanel />
       <div className={styles.statiscsContainer}>
         <TodayWaterList />

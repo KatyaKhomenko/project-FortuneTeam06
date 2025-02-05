@@ -9,7 +9,6 @@ import WelcomePage from '../pages/WelcomePage/WelcomePage';
 import { RestrictedRoute } from '../components/RestrictedRoute/RestrictedRoute';
 import { selectIsLoggedIn } from '../redux/auth/selectors';
 
-
 function App() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
