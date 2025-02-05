@@ -1,20 +1,16 @@
 import { useEffect, useState } from 'react';
 import module from './DailyNormaModal.module.css'
 
-const DailyNormaModal = ({ modalIsOpen, modalSetIsOpen }) => {
+const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
     const [selectedOption, setSelectedOption] = useState("option1");
     const [weight, setWeight] = useState(0);
     const [time, setTime] = useState(0);
     const [waterAmount, setWaterAmount] = useState(0);
     const [amountWaterDrunk, setAmountWaterDrunk] = useState(0);
 
-    const handleCloseModal = () => {
-        modalSetIsOpen(false);
-    };
-
     const handleEscape = event => {
         if (event.key === 'Escape' && isOpen) {
-            handleCloseModal();
+            onClose();
         }
     };
 
@@ -34,6 +30,7 @@ const DailyNormaModal = ({ modalIsOpen, modalSetIsOpen }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        onWaterNormChange(waterAmount);
     }
 
     useEffect(() => {
@@ -44,11 +41,11 @@ const DailyNormaModal = ({ modalIsOpen, modalSetIsOpen }) => {
     }, [modalIsOpen]);
 
     return (
-        <div className={module.modal} onClick={handleCloseModal}>
+        <div className={module.modal} onClick={onClose}>
             <div className={module.container}>
                 <div className={module.headerDiv}>
                     <h1 className={module.header}>My daily norma</h1>
-                    <button className={module.closeButton} onClick={handleCloseModal}>
+                    <button className={module.closeButton} onClick={onClose}>
                         X
                     </button>
                 </div>

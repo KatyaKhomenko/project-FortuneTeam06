@@ -6,10 +6,10 @@ import styles from './HomePage.module.css';
 
 const HomePage = () => {
   return (
-    <main>
+    <main className={styles.pageContainer}>
       <DailyNorma />
       <WaterRatioPanel />
-      <div className={styles.statiscs}>
+      <div className={styles.statiscsContainer}>
         <TodayWaterList />
         <MonthStatsTable />
       </div>

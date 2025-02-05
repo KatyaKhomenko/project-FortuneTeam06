@@ -33,7 +33,6 @@ export const login = createAsyncThunk(
     try {
       const { data } = await authInstance.post('/auth/login', formData);
       setToken(data.token);
-
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
