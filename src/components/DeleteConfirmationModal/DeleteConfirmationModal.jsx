@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../DeleteConfirmationModal/DeleteConfirmationModal.module.css';
 import { useDispatch } from 'react-redux';
-import { deleteWater } from 'redux/todayWater/operations';
+import { deleteWater } from '../../redux/todayWater/operations';
 import toast from 'react-hot-toast';
-
 
 const DeleteConfirmationModal = ({ isOpen, setIsOpen, id }) => {
   const [isEscKeyDown, setIsEscKeyDown] = useState(false);
@@ -32,9 +31,9 @@ const DeleteConfirmationModal = ({ isOpen, setIsOpen, id }) => {
     try {
       await dispatch(deleteWater(id));
       toast.success('Entry deleted successfully');
-      handleCloseModal(); 
+      handleCloseModal();
     } catch (error) {
-      toast.error('Failed to delete the entry. Please try again.'); 
+      toast.error('Failed to delete the entry. Please try again.');
     }
   };
 
