@@ -47,7 +47,9 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
                 <div className={module.headerDiv}>
                     <h1 className={module.header}>My daily norma</h1>
                     <button className={module.closeButton} onClick={onClose}>
-                        X
+                        <svg className={module.icon}>
+                            <use href="/src/assets/icons/sprite.svg#icon-outline"></use>
+                        </svg>
                     </button>
                 </div>
                 <div className={module.contentDiv}>

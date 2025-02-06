@@ -46,11 +46,21 @@
 }
 
 .closeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 24px;
   height: 24px;
   border: none;
   background: none;
   cursor: pointer;
+}
+
+.iconCloseButton {
+  fill: #407bff;
+  stroke: #407bff;
+  height: 24px;
+  width: 24px;
 }
 
 .contentDiv {

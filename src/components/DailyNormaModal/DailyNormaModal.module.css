@@ -54,6 +54,13 @@
   cursor: pointer;
 }
 
+.icon {
+  fill: #407bff;
+  stroke: #407bff;
+  height: 24px;
+  width: 24px;
+}
+
 /* ==== CONTENT  STYLES ==== */
 
 .contentDiv {
