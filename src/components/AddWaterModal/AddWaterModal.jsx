@@ -18,7 +18,7 @@ const AddWaterModal = () => {
                 <div className={module.contentDiv}>
                     <div className={module.amountWater}>
                         <h2 className={module.formHeader}>Choose a value:</h2>
-                        <p className={module.waterText}>Amount of water</p>
+                        <p className={module.waterText}>Amount of water:</p>
                         <div className={module.buttonDiv}>
                             <button
                                 className={module.amountBtn}
