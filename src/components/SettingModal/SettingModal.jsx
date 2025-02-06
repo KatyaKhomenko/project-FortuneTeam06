@@ -5,6 +5,7 @@ import { ErrorMessage, Field, Formik, Form } from "formik";
 import { useEffect, useState } from 'react';
 
 import { profileUserDataSchema } from '../../utils/schema.js'
+import { updateUser } from '../../redux/userDataSettings/operations';
 
 const initialValues = {
   gender: '',
@@ -38,7 +39,7 @@ const SettingModal = () => {
   };
 
   const handleSubmit = (values, actions) => {
-    dispatch(register(values));
+    dispatch(updateUser(values));
     actions.resetForm();
   }
 
