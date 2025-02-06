@@ -15,7 +15,10 @@ import {
   selectIsCurrentMonth,
   selectIsModalOpen,
 } from '../../redux/monthWater/selectors';
-import { fetchMonthWater } from '../../redux/monthWater/operations';
+import {
+  fetchMonthWater,
+  fetchDayWater,
+} from '../../redux/monthWater/operations';
 import DaysGeneralStats from '../DaysGeneralStats/DaysGeneralStats';
 import styles from './MonthStatsTable.module.css';
 
@@ -44,7 +47,9 @@ const MonthStatsTable = () => {
     const monthName = new Date(selectedMonth + '-01').toLocaleString('en-US', {
       month: 'long',
     });
+    const formattedDate = `${selectedMonth}-${String(day).padStart(2, '0')}`;
     dispatch(setSelectedDay({ day, month: monthName }));
+    dispatch(fetchDayWater(formattedDate));
   };
 
   const handleCloseModal = () => {
@@ -79,7 +84,7 @@ const MonthStatsTable = () => {
         </div>
       </div>
 
-      {loading && <p>Loading...</p>}
+      {/* {loading && <p>Loading...</p>} */}
       {error && <p>Error: {error}</p>}
 
       <div className={styles.daysList}>

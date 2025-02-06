@@ -26,7 +26,6 @@ export const fetchMonthWater = createAsyncThunk(
   async (yearMonth, { rejectWithValue }) => {
     try {
       const { data } = await authInstance.get(`/water/month/${yearMonth}`);
-      console.log(data);
       return data;
     } catch (error) {
       return handleError(error, rejectWithValue);
