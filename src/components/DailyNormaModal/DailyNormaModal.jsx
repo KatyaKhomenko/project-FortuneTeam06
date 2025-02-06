@@ -43,7 +43,7 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
 
     return (
         <div className={module.modal} onClick={onClose}>
-            <div className={module.container}>
+            <div className={module.container} onClick={(e) => e.stopPropagation()}>
                 <div className={module.headerDiv}>
                     <h1 className={module.header}>My daily norma</h1>
                     <button className={module.closeButton} onClick={onClose}>
@@ -101,7 +101,11 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
                                     onChange={(e) => setTime(Number(e.target.value))}
                                 />
                             </label>
-                            <p className={module.answer}>The required amount of water in liters per day: <span className={module.answerSpan}>{waterAmount} L</span></p>
+                            <div className={module.answer}>
+                                <p className={module.text}>The required amount of water in liters per day:</p>
+                                <p className={module.answerSpan}>{waterAmount} L</p>
+                            </div>
+
                         </form>
                     </div>
                     <label className={module.waterField}>
