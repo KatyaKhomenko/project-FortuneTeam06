@@ -1,16 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-export const authInstance = axios.create({
-  baseURL: 'https://673b0ea4339a4ce4451a6048.mockapi.io/',
-});
+import { authInstance } from '../auth/operations';
 
 export const getAllTodayWater = createAsyncThunk(
   'todayWater/getTodayWater',
-  async (_, thunkApi) => {
+  async (date, thunkApi) => {
     try {
-      const { data } = await authInstance.get('/todayWater');
-      console.log(data);
+      const { data } = await authInstance.get(`/water/day/${date}`);
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -20,10 +15,10 @@ export const getAllTodayWater = createAsyncThunk(
 
 export const deleteWater = createAsyncThunk(
   'todayWater/deleteWater',
-  async (id, thunkApi) => {
+  async (waterId, thunkApi) => {
     try {
-      const response = await authInstance.delete(`/todayWater/${id}`);
-      return response.data;
+      await authInstance.delete(`water/${waterId}`);
+      return waterId;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
