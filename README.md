@@ -1,5 +1,7 @@
 Над створенням цього проекту процювала group-6. Проект було створено за допомогою Vite.
 
+backend проекту - (https://github.com/Eugene-Khonich/project-FortuneTeam06)
+
 Склад команди:
 
 Катерина - Team-lead frontend (https://github.com/KatyaKhomenko) Євген - Team-lead backend (https://github.com/Eugene-Khonich)  Іван - Scrum macter (https://github.com/IvanBogachov)

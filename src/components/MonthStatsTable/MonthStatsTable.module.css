@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.paginator {
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin: 0 8px;
+}
+
+.daysList {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 16px;
+  column-gap: 26px;
+  max-width: 264px;
+}
+
+.day {
+  height: 52px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.dayCircle {
+  width: 32px;
+  height: 32px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.incomplete {
+  border: 1px solid #ff9d43;
+}
