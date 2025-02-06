@@ -9,7 +9,7 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
     const [amountWaterDrunk, setAmountWaterDrunk] = useState(0);
 
     const handleEscape = event => {
-        if (event.key === 'Escape' && isOpen) {
+        if (event.key === 'Escape') {
             onClose();
         }
     };
@@ -38,7 +38,8 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
         return () => {
             document.removeEventListener('keydown', handleEscape);
         };
-    }, [modalIsOpen]);
+    }, []);
+
 
     return (
         <div className={module.modal} onClick={onClose}>
