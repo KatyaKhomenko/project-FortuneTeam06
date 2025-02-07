@@ -1,18 +1,7 @@
-body {
-  background-image: url('../../assets//img/welcome/BkgWeb.png');
-  background-color: #ecf2ff;
-  min-height: 100vh;
-  padding: 0;
-  margin: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  /* background-repeat: no-repeat; */
-}
-
 .container {
   width: 320px;
   height: 958px;
+  background-image: url('../../assets//img/welcome/BkgMobile.png');
 }
 
 .main {
@@ -179,6 +168,15 @@ body {
   .container {
     width: 704px;
     height: 646px;
+    margin: auto;
+    background-image: url('../../assets//img/welcome/BkgTablet.png');
+    /* background-color: #ecf2ff; */
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
   }
 
   .main {
@@ -291,6 +289,14 @@ body {
     height: 582px;
     gap: 0px;
     margin: auto;
+    background-image: url('../../assets//img/welcome/BkgWeb.png');
+    /* background-color: #ecf2ff; */
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .main {
