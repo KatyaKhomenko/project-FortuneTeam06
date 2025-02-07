@@ -10,33 +10,34 @@
   align-items: center;
 }
 
-.modalWwindow {
+.modalWindow {
   background-color: #fff;
   padding: 32px 24px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 80%;
+  width: 280px;
 }
 .titleModal {
-  font-family: "Roboto", sans-serif;
+  margin: 0;
   font-weight: 500;
   font-size: 26px;
   line-height: 123%;
   color: #2f2f2f;
 }
 .textModal {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 18px;
   line-height: 111%;
   color: #2f2f2f;
+  margin: 0;
+  text-align: start;
 }
 
 .modalHeader {
+  position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 24px;
 }
 
 .closeBtn {
@@ -44,30 +45,27 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
- 
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
- /* .deleteBtn, .cancelBtn {
-    width: 100%; 
-  } */
 
 .modalContent {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .modalActions {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-direction: column;
   gap: 24px;
 }
 
 .deleteBtn {
- display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
-  gap: 10px;
   font-weight: 500;
   font-size: 16px;
   line-height: 125%;
@@ -101,4 +99,32 @@
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .modalWwindow {
+    width: 592px;
+    padding: 32px 24px 32px 24px;
+  }
+  .modalContent {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .modalActions {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 24px;
+  }
+  .deleteBtn {
+    font-size: 18px;
+    line-height: 133%;
+    padding: 10px 30px;
+    width: 160px;
+  }
+  .cancelBtn {
+    font-size: 18px;
+    line-height: 133%;
+    padding: 10px 30px;
+    width: 160px;
+  }
 }

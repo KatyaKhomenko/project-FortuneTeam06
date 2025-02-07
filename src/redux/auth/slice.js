@@ -21,6 +21,7 @@ const handlePending = state => {
 const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
+  state.user = null
 };
 
 export const authSlice = createSlice({
@@ -32,8 +33,7 @@ export const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLoggedIn = true;
-        state.token = action.payload.token;
-        state.user = action.payload.user;
+        state.user = action.payload;
       })
       .addCase(register.rejected, handleRejected)
       .addCase(login.pending, handlePending)

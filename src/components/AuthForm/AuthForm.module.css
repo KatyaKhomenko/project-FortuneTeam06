@@ -1,11 +1,21 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+p {
+  margin-bottom: 8px;
+}
 .container {
   background-color: transparent;
   position: relative;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  /* padding: 0;
-  margin: 0; */
 
   background-image: image-set(
       url('../../assets/img/signin/bubbles_signin_mobile_1x.png') 1x,
@@ -27,10 +37,8 @@
   justify-content: center;
   flex-direction: column;
   max-width: 280px;
-  /* max-height: 304px; */
-  /* margin: auto; */
-  /* padding: 16px; */
-  margin: 80px auto 24px;
+  gap: 16px;
+  margin: auto;
 }
 
 .title {
@@ -39,19 +47,38 @@
   line-height: 1.2;
   color: #2f2f2f;
   margin: 0;
-  margin-bottom: 16px;
 }
 
 .label {
-  /* display:block; */
   position: relative;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.3;
   color: #2f2f2f;
-  /* margin-bottom: 8px; */
-  /* margin-top: 16px; */
-  padding-bottom: 16px;
+}
+
+.cont {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+.eyeIcon {
+  stroke-width: 1px;
+  stroke: #407bff;
+  fill: none;
+  width: 16px;
+  height: 16px;
 }
 
 .input {
@@ -64,7 +91,6 @@
   width: 100%;
   max-width: 280px;
   max-height: 44px;
-  margin-top: 8px;
 }
 
 .input::placeholder {
@@ -80,12 +106,10 @@
 }
 
 .errorMessage {
-  position: absolute;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.2;
   color: #ef5050;
-  margin-top: 54px;
   left: 3px;
 }
 
@@ -103,8 +127,6 @@
   text-align: center;
   cursor: pointer;
   color: #ffffff;
-  /* margin: 16px 0; */
-  margin-bottom: 16px;
   transition: background-color 0.3s ease;
 }
 
@@ -121,19 +143,10 @@
   line-height: 1.2;
   cursor: pointer;
   transition: color 0.3s ease;
-  /* padding-bottom: 8px; */
 }
 
 .extrabtn button:hover {
   color: #ff9d43;
-}
-
-.eye {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
 }
 
 @media (min-width: 768px) {
@@ -164,10 +177,6 @@
     max-width: 100%;
   }
 
-  .errorMessage {
-    margin-top: 50px;
-  }
-
   .label {
     font-size: 18px;
   }
@@ -181,6 +190,7 @@
     font-size: 18px;
     line-height: 1.3;
     text-align: center;
+    max-height: 44px;
   }
 }
 
@@ -210,15 +220,11 @@
   }
 
   .input {
-    max-height: 46px;
-    /* max-width: 384px; */
+    max-height: 44px;
   }
 
   .submit {
     max-width: 384px;
-    max-height: 44px;
-  }
-  .submit {
     padding: 12px 30px;
   }
 }

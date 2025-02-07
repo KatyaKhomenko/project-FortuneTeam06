@@ -9,12 +9,16 @@ const AddWaterModal = () => {
             <div className={module.container}>
                 <div className={module.headerDiv}>
                     <h1 className={module.header}>Add water</h1>
-                    <button className={module.closeButton}>X</button>
+                    <button className={module.closeButton}>
+                        <svg className={module.iconCloseButton}>
+                            <use href="/src/assets/icons/sprite.svg#icon-outline"></use>
+                        </svg>
+                    </button>
                 </div>
                 <div className={module.contentDiv}>
                     <div className={module.amountWater}>
                         <h2 className={module.formHeader}>Choose a value:</h2>
-                        <p className={module.waterText}>Amount of water</p>
+                        <p className={module.waterText}>Amount of water:</p>
                         <div className={module.buttonDiv}>
                             <button
                                 className={module.amountBtn}
