@@ -27,7 +27,7 @@ export const validationRegisterSchema = Yup.object().shape({
 
 export const profileUserDataSchema = Yup.object().shape({
   photo: Yup.mixed(),
-  username: Yup.string()
+  name: Yup.string()
     .min(2, 'Name must be min 2 characters')
     .max(50, 'Name must be than 50 characters'),
   email: Yup.string()
@@ -56,7 +56,7 @@ export const profileUserDataSchema = Yup.object().shape({
       .oneOf([Yup.ref('passwordNew'), null], 'Passwords must match'),
   }),
   gender: Yup.string()
-    .oneOf(['woman', 'man'], 'Gender must be either'),
+    .oneOf(['female', 'man'], 'Gender must be either'),
 }, [
   ['passwordOutdated', 'passwordNew'],
   ['passwordOutdated', 'newPasswordRepeat'],

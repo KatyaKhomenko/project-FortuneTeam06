@@ -1,24 +1,43 @@
 import styles from './SettingModal.module.css';
+import toast from 'react-hot-toast';
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ErrorMessage, Field, Formik, Form } from "formik";
 import { useEffect, useState } from 'react';
 
 import { profileUserDataSchema } from '../../utils/schema.js'
-import { updateUser } from '../../redux/userDataSettings/operations';
+import { getUserInfo, updateUser } from '../../redux/userDataSettings/operations';
+import { selectUser } from '../../redux/userDataSettings/selectors';
 
-const initialValues = {
-  gender: '',
-  username: '',
-  email: '',
-  photo: '',
-  passwordOutdated: '',
-  passwordNew: '',
-  newPasswordRepeat: ''
-}
 
 const SettingModal = () => {
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+
+  const [initialValues, setInitialValues] = useState({
+    gender: '',
+    name: '',
+    email: '',
+    photo: '',
+    passwordOutdated: '',
+    passwordNew: '',
+    newPasswordRepeat: ''
+  });
+
+  useEffect(() => {
+    if (user && user.data) {
+      console.log('user: ', user.data);
+      setInitialValues({
+        gender: user.data.gender || '',
+        name: user.data.name || '',
+        email: user.data.email,
+        photo: user.data.photo || '',
+        passwordOutdated: '',
+        passwordNew: '',
+        newPasswordRepeat: ''
+      })
+    }
+  }, [user]);
 
   const [showPassword, setshowPassword] = useState({
     outdated: false,
@@ -38,10 +57,31 @@ const SettingModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setInitialValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = (values, actions) => {
-    dispatch(updateUser(values));
-    actions.resetForm();
+    console.log('Request data:', JSON.stringify(values, null, 2));
+
+    try {
+      dispatch(updateUser(values));
+      actions.resetForm();
+    } catch (error) {
+      toast.error('User not found');
+    }
   }
+
+  useEffect(() => {
+    if (isModalOpen) {
+      dispatch(getUserInfo());
+    }
+  }, [isModalOpen]);
 
   return (
     <div className={`${styles.modalOverlay} ${isModalOpen ? styles.isOpen : ''}`}>
@@ -56,7 +96,7 @@ const SettingModal = () => {
         </div>
         <div>
           <div>
-            <Formik initialValues={initialValues} validationSchema={profileUserDataSchema} onSubmit={handleSubmit}>
+            <Formik initialValues={initialValues} enableReinitialize={true} validationSchema={profileUserDataSchema} onSubmit={handleSubmit}>
               <Form>
                 <label htmlFor="photo">
                   <h4 className={styles.title}>Your photo</h4>
@@ -85,7 +125,7 @@ const SettingModal = () => {
                     <h4 className={styles.title}>Your gender identity</h4>
                     <div className={styles.radioContainer}>
                       <label className={styles.labelTitle}>
-                        <Field className={styles.radioButton} type='radio' name='gender' value='woman'/>
+                        <Field className={styles.radioButton} type='radio' name='gender' value='female'/>
                         Woman
                       </label>
                       <label className={styles.labelTitle}>
@@ -98,7 +138,7 @@ const SettingModal = () => {
                       <label className={styles.inputContainer}>
                         <span className={styles.title}>Your name</span>
                         <div className={styles.errorContainer}>
-                          <Field name='username'>
+                          <Field name='name'>
                             {({ field, meta }) => (
                               <input
                                 {...field}
@@ -108,7 +148,7 @@ const SettingModal = () => {
                               />
                             )}
                           </Field>
-                          <ErrorMessage className={styles.errorMsg} name='username' component='span' />
+                          <ErrorMessage className={styles.errorMsg} name='name' component='span' />
                         </div>
                       </label>
                       <label className={styles.inputContainer}>

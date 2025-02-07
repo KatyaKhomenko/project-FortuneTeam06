@@ -3,10 +3,7 @@ import { getUserInfo, updateUser } from "./operations";
 
 
 const INITIAL_STATE = {
-  user: {
-    name: null,
-    email: null,
-  },
+  user: null,
   isLoading: false,
   error: null,
 };
@@ -34,11 +31,11 @@ const userSlice = createSlice ({
     })
     .addCase(updateUser.fulfilled, ( state, action ) => {
         state.isLoading = false;
-        state.user.push(action.payload);
+        state.user = { ...state.user, ...action.payload };
     })
     .addCase(updateUser.rejected, ( state, action ) => {
-        state.contacts.loading = false;
-        state.contacts.error = action.payload;
+        state.isLoading = false;
+        state.error = action.payload;
     })
 })
 
