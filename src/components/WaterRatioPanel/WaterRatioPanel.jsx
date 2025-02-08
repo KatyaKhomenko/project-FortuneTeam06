@@ -1,7 +1,7 @@
-const WaterRatioPanel = () => {
-  return (
-    <div>WaterRatioPanel</div>
-  )
-}
+import styles from './WaterRatioPanel.module.css';
 
-export default WaterRatioPanel
+const WaterRatioPanel = () => {
+  return <div className={styles.waterRatioPanelBox}>WaterRatioPanel</div>;
+};
+
+export default WaterRatioPanel;

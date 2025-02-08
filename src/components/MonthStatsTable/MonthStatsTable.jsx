@@ -57,9 +57,9 @@ const MonthStatsTable = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.monthWaterBox}>
       <div className={styles.header}>
-        <h3>Month</h3>
+        <h3 className={styles.monthWaterTitle}>Month</h3>
         <div className={styles.paginator}>
           <button
             className={styles.arrow}
