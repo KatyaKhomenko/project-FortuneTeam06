@@ -12,14 +12,13 @@ const SignInAuthForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (values, actions) => {
+  const handleSubmit = (values, actions) => {
     try {
-      await dispatch(login({ ...values, email: values.email.trim() })).unwrap();
+      dispatch(login(values)).unwrap();
       navigate('/');
     } catch (err) {
       toast.error('Invalid email or password');
     }
-    actions.resetForm();
   };
 
   return (

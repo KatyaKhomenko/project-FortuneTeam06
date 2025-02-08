@@ -1,19 +1,58 @@
-.app {
-  width: 320px;
-  padding: 0 20px;
-  margin: 0 auto;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+button {
+  padding: 0;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #2f2f2f;
+}
+
+.container {
+  max-width: 320px;
 }
 
 @media (min-width: 768px) {
-  .app {
-    width: 768px;
-    padding: 0 32px;
+  .container {
+    max-width: 768px;
   }
 }
 
 @media (min-width: 1440px) {
-  .app {
-    width: 1440px;
-    padding: 0 112px;
+  .container {
+    max-width: 1440px;
   }
 }

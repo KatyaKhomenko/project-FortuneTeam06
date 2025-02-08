@@ -1,0 +1,55 @@
+body,
+html {
+  overflow: hidden;
+}
+
+.background {
+  background-image: image-set(
+      url('../../assets/img/signin/bubbles_signin_mobile_1x.png') 1x,
+      url('../../assets/img/signin/bubbles_signin_mobile_2x.png') 2x
+    ),
+    image-set(
+      url('../../assets/img/signin/bottle_signin_mobile_1x.png') 1x,
+      url('../../assets/img/signin/bottle_signin_mobile_2x.png') 2x
+    );
+
+  background-repeat: no-repeat, no-repeat;
+  background-size: auto, contain;
+  background-position: left 50% top 34px, center bottom;
+  background-attachment: fixed;
+}
+
+@media screen and (min-width: 768px) {
+  .background {
+    background-image: image-set(
+        url('../../assets/img/signin/bubbles_signin_tablet_1x.png') 1x,
+        url('../../assets/img/signin/bubbles_signin_tablet_2x.png') 2x
+      ),
+      image-set(
+        url('../../assets/img/signin/bottle_signin_tablet_1x.png') 1x,
+        url('../../assets/img/signin/bottle_signin_tablet_2x.png') 2x
+      );
+
+    background-repeat: no-repeat;
+    background-position: top 16px left, top 116px left 112px;
+    background-size: contain, 656px 548px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .background {
+    background-image: image-set(
+        url('../../assets/bubbles_desktop_any_1x.png') 1x,
+        url('../../assets/bubbles_desktop_any_2x.png') 2x
+      ),
+      image-set(
+        url('../../assets/img/signin/bottle_signin_desktop_1x.png') 1x,
+        url('../../assets/img/signin/bottle_signin_desktop_2x.png') 2x
+      );
+
+    background-repeat: no-repeat, no-repeat;
+    background-size: contain, 865px 680px;
+    background-position: center, -51px 80px;
+    background-attachment: fixed;
+  }
+}
