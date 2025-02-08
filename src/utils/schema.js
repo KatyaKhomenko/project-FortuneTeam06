@@ -28,8 +28,8 @@ export const validationRegisterSchema = Yup.object().shape({
 export const profileUserDataSchema = Yup.object().shape({
   photo: Yup.mixed(),
   name: Yup.string()
-    .min(2, 'Name must be min 2 characters')
-    .max(50, 'Name must be than 50 characters'),
+    .min(0, 'Name must be')
+    .max(32, 'Name must be than 32 characters'),
   email: Yup.string()
     .email('Incorrect mail format'),
   passwordOutdated: Yup.string().when(['passwordNew', 'newPasswordRepeat'], {
@@ -45,7 +45,8 @@ export const profileUserDataSchema = Yup.object().shape({
     },
     then: (schema) => schema
       .required('New password is required')
-      .min(8, 'Password must min 8 characters'),
+      .min(8, 'Password must min 8 characters')
+      .max(64, 'Password must min 8 characters'),
   }),
   newPasswordRepeat: Yup.string().when(['passwordNew', 'passwordOutdated'], {
     is: (passwordOutdated, passwordNew) => {

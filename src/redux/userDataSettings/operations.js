@@ -3,7 +3,7 @@ import axios from 'axios';
 
 //import { authInstance } from "../../redux/auth/operations";
 
-const token = 'CD7R3OUJmfKf8lSOqw1xLVdVO5L9xBXKxDBNecqm';
+const token = '9WK4LdFNN5Q/QSYN4kM9ntZpU2UGiFih4SarIAf5';
 
 export const authInstance = axios.create({
   baseURL: 'https://water-tracker-x26o.onrender.com/',

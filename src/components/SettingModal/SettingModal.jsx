@@ -57,23 +57,27 @@ const SettingModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    setInitialValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
   const handleSubmit = (values, actions) => {
-    console.log('Request data:', JSON.stringify(values, null, 2));
+    const getChangedFields = (initial, current) => {
+        return Object.keys(current).reduce((changedFields, key) => {
+            if (initial[key] !== current[key]) {
+              changedFields[key] = current[key];
+            }
+            return changedFields;
+        }, {});
+    };
 
-    try {
-      dispatch(updateUser(values));
-      actions.resetForm();
-    } catch (error) {
-      toast.error('User not found');
+    const changedValues = getChangedFields(initialValues, values);
+
+    console.log("Змінені дані:", changedValues);
+
+    if (Object.keys(changedValues).length > 0) {
+      try {
+        dispatch(updateUser(changedValues));
+        actions.resetForm();
+      } catch (error) {
+        toast.error('User not found');
+      }
     }
   }
 
