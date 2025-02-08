@@ -38,3 +38,13 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+export const logout = createAsyncThunk('auth/logout', async (_, thunkApi) => {
+  try {
+    await authInstance.post('/auth/logout');
+    clearToken();
+    return;
+  } catch (error) {
+    return thunkApi.rejectWithValue(error.message);
+  }
+});
