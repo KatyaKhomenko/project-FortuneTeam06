@@ -50,11 +50,11 @@ const UserLogoutModal = ({ isOpen, setIsOpen }) => {
       {isOpen && (
         <div className={styles.modalOverlay} onClick={handleCloseModal}>
           <div
-            className={styles.modalWindow}
+            className={styles.modalWwindow}
             onClick={e => e.stopPropagation()}
           >
             <div className={styles.modalHeader}>
-              <h2 className={styles.titleModal}>Log out</h2>
+              <h2 className={styles.mainTitle}>Log out</h2>
               <button className={styles.closeBtn} onClick={handleCloseModal}>
                 &times;
               </button>

@@ -15,7 +15,10 @@ import {
   selectIsCurrentMonth,
   selectIsModalOpen,
 } from '../../redux/monthWater/selectors';
-import { fetchWaterData } from '../../redux/monthWater/operations';
+import {
+  fetchMonthWater,
+  fetchDayWater,
+} from '../../redux/monthWater/operations';
 import DaysGeneralStats from '../DaysGeneralStats/DaysGeneralStats';
 import styles from './MonthStatsTable.module.css';
 
@@ -31,9 +34,8 @@ const MonthStatsTable = () => {
 
   useEffect(() => {
     dispatch(generateDaysInMonth());
-    const date = new Date(selectedMonth + '-01');
     if (selectedMonth) {
-      dispatch(fetchWaterData(selectedMonth)); // ✅ Передаємо "YYYY-MM"
+      dispatch(fetchMonthWater(selectedMonth));
     }
   }, [selectedMonth, dispatch]);
 
@@ -45,7 +47,9 @@ const MonthStatsTable = () => {
     const monthName = new Date(selectedMonth + '-01').toLocaleString('en-US', {
       month: 'long',
     });
+    const formattedDate = `${selectedMonth}-${String(day).padStart(2, '0')}`;
     dispatch(setSelectedDay({ day, month: monthName }));
+    dispatch(fetchDayWater(formattedDate));
   };
 
   const handleCloseModal = () => {
@@ -53,9 +57,9 @@ const MonthStatsTable = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.monthWaterBox}>
       <div className={styles.header}>
-        <h3>Month</h3>
+        <h3 className={styles.monthWaterTitle}>Month</h3>
         <div className={styles.paginator}>
           <button
             className={styles.arrow}
@@ -80,20 +84,26 @@ const MonthStatsTable = () => {
         </div>
       </div>
 
-      {loading && <p>Loading...</p>}
+      {/* {loading && <p>Loading...</p>} */}
       {error && <p>Error: {error}</p>}
 
       <div className={styles.daysList}>
-        {daysInMonth.map(({ day, dailyNorma }) => (
+        {daysInMonth.map(({ day, dailyNorma, isFuture }) => (
           <div
             key={day}
-            className={`${styles.day} ${
-              dailyNorma && dailyNorma < 100 ? styles.incomplete : ''
-            }`}
+            className={`${styles.day} ${isFuture ? styles.disabled : ''}`}
             onClick={() => handleDayClick(day)}
           >
-            <div className={styles.dayCircle}>{day}</div>
-            <p>{dailyNorma ? `${dailyNorma}%` : ''}</p>
+            <div
+              className={`${styles.dayCircle} ${
+                dailyNorma < 100 ? styles.incomplete : ''
+              }`}
+            >
+              {day}
+            </div>
+            <p className={styles.dayDrinked}>
+              {dailyNorma > 0 ? `${dailyNorma}%` : ''}
+            </p>{' '}
           </div>
         ))}
       </div>

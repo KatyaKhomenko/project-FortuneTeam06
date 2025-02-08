@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.dailyNormaBox {
+  border: 1px solid #ecf2ff;
+  border-radius: 10px;
+  padding: 8px 20px;
+  width: fit-content;
+
+  box-shadow: 0 4px 8px 0 rgba(158, 187, 255, 0.12);
+  background: #fff;
+}
+
+.dailyNormaTitle {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.33333;
+  color: #2f2f2f;
+  margin-bottom: 12px;
+}
+
+.dailyNormaValue {
+  display: inline;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+  color: #407bff;
+  margin-right: 12px;
+}
+
+.dailyNormaBtn {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #8baeff;
+}

@@ -1,34 +1,62 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import HomePage from '../pages/HomePage/HomePage';
-import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
-import SigninPage from '../pages/SigninPage/SigninPage';
-import SignupPage from '../pages/SignupPage/SignupPage';
-import WelcomePage from '../pages/WelcomePage/WelcomePage';
-import { RestrictedRoute } from '../components/RestrictedRoute/RestrictedRoute';
-import { selectIsLoggedIn } from '../redux/auth/selectors';
+import { Routes, Route, Navigate } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { SharedLayout } from "../components/SharedLayout/SharedLayout.jsx";
+import { PrivateRoute } from "../components/PrivateRoute/PrivateRoute.jsx";
+import { RestrictedRoute } from "../components/RestrictedRoute/RestrictedRoute.jsx";
+import Loader from "../components/Loader/Loader.jsx";
 
 
-function App() {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+import css from "./App.module.css";
+
+
+const HomePage = lazy(() => import("../pages/HomePage/HomePage.jsx"));
+const SignUpPage = lazy(() => import("../pages/SignupPage/SignupPage.jsx"));
+const SignInPage = lazy(() => import("../pages/SigninPage/SigninPage.jsx"));
+const WelcomePage = lazy(() => import("../pages/WelcomePage/WelcomePage.jsx"));
+
+const NotFoundPage = lazy(() =>import("../pages/NotFoundPage/NotFoundPage.jsx"));
+
+export default function App() {
+
 
   return (
-    <div>
-      <Routes>
-        <Route path="/signin" element={<SigninPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/welcome" element={<WelcomePage />} />
-
-        <Route
-          path="/"
-          element={<RestrictedRoute component={<HomePage />} />}
-        />
-
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+    <div className={css.app}>
+      <Suspense fallback={<Loader loader={true} />}>
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+          <Route index element={<Navigate to="/welcome" replace />} />
+            <Route path="/welcome" element={<WelcomePage />}></Route>
+            <Route
+              path="/signup"
+              element={
+                <RestrictedRoute
+                  redirectTo="/home"
+                  component={<SignUpPage />}
+                />
+              }
+            ></Route>
+            <Route
+              path="/signin"
+              element={
+                <RestrictedRoute
+                  redirectTo="/home"
+                  component={<SignInPage />}
+                />
+              }
+            ></Route>
+            <Route
+            path="/home"
+             element={
+                <PrivateRoute
+                  redirectTo="/signin"
+                  component={<HomePage />}
+                  />
+                }
+            ></Route>
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 }
-
-export default App;

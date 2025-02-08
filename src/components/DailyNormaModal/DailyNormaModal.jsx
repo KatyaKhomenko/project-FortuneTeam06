@@ -1,11 +1,18 @@
 import { useEffect, useState } from 'react';
 import module from './DailyNormaModal.module.css'
 
-const DailyNormaModal = () => {
+const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
     const [selectedOption, setSelectedOption] = useState("option1");
     const [weight, setWeight] = useState(0);
     const [time, setTime] = useState(0);
     const [waterAmount, setWaterAmount] = useState(0);
+    const [amountWaterDrunk, setAmountWaterDrunk] = useState(0);
+
+    const handleEscape = event => {
+        if (event.key === 'Escape') {
+            onClose();
+        }
+    };
 
     useEffect(() => {
         const w = parseFloat(weight);
@@ -23,15 +30,26 @@ const DailyNormaModal = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        onWaterNormChange(waterAmount);
     }
 
+    useEffect(() => {
+        document.addEventListener('keydown', handleEscape);
+        return () => {
+            document.removeEventListener('keydown', handleEscape);
+        };
+    }, []);
+
+
     return (
-        <div className={module.modal}>
-            <div className={module.container}>
+        <div className={module.modal} onClick={onClose}>
+            <div className={module.container} onClick={(e) => e.stopPropagation()}>
                 <div className={module.headerDiv}>
                     <h1 className={module.header}>My daily norma</h1>
-                    <button className={module.closeButton}>
-                        X
+                    <button className={module.closeButton} onClick={onClose}>
+                        <svg className={module.icon}>
+                            <use href="/src/assets/icons/sprite.svg#icon-outline"></use>
+                        </svg>
                     </button>
                 </div>
                 <div className={module.contentDiv}>
@@ -47,14 +65,14 @@ const DailyNormaModal = () => {
                         <form id='Form' className={module.calculateForm} onSubmit={handleSubmit}>
                             <div className={module.checkBoxDiv}>
                                 <div className={module.radio1}>
-                                    <label>
+                                    <label className={module.label}>
                                         <input type="radio" value="option1" className={module.radio} checked={selectedOption === "option1"}
                                             onChange={() => setSelectedOption("option1")} />
                                         For woman
                                     </label>
                                 </div>
                                 <div className={module.radio2}>
-                                    <label>
+                                    <label className={module.label}>
                                         <input type="radio" value="option2" className={module.radio} checked={selectedOption === "option2"}
                                             onChange={() => setSelectedOption("option2")} />
                                         For man
@@ -69,7 +87,7 @@ const DailyNormaModal = () => {
                                     name="weight"
                                     type="number"
                                     value={weight}
-                                    onChange={(e) => setWeight(e.target.value)}
+                                    onChange={(e) => setWeight(Number(e.target.value))}
                                 />
                             </label>
                             <label className={module.timeField}>
@@ -80,10 +98,14 @@ const DailyNormaModal = () => {
                                     name="time"
                                     type="number"
                                     value={time}
-                                    onChange={(e) => setTime(e.target.value)}
+                                    onChange={(e) => setTime(Number(e.target.value))}
                                 />
                             </label>
-                            <p className={module.answer}>The required amount of water in liters per day: <span className={module.answerSpan}>{waterAmount} L</span></p>
+                            <div className={module.answer}>
+                                <p className={module.text}>The required amount of water in liters per day:</p>
+                                <p className={module.answerSpan}>{waterAmount} L</p>
+                            </div>
+
                         </form>
                     </div>
                     <label className={module.waterField}>
@@ -92,6 +114,8 @@ const DailyNormaModal = () => {
                             className={module.Input}
                             name="water"
                             type="number"
+                            value={amountWaterDrunk}
+                            onChange={(e) => setAmountWaterDrunk(Number(e.target.value))}
                         />
                     </label>
                 </div>

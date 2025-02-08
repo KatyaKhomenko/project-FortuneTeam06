@@ -20,7 +20,7 @@ import { userReduser } from './userDataSettings/slice';
 const authConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'],
+  // whitelist: ['token'],
 };
 
 export const store = configureStore({

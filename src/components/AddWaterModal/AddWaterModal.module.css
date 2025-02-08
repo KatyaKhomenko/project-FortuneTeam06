@@ -12,7 +12,7 @@
 
 .container {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   gap: 24px;
@@ -20,7 +20,7 @@
   border-radius: 10px;
   padding: 24px 12px;
   width: 280px;
-  height: 816px;
+  height: 540px;
 
   background: #fff;
 }
@@ -29,14 +29,16 @@
   .container {
     padding: 32px 24px;
     width: 704px;
-    height: 696px;
+    height: 504px;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .container {
+    align-items: flex-end;
+    justify-content: flex-start;
     width: 592px;
-    height: 712px;
+    height: 504px;
   }
 }
 
@@ -45,14 +47,16 @@
   align-items: center;
   justify-content: flex-start;
   flex-direction: row;
-  gap: 52px;
+  gap: 104px;
 
+  width: 256px;
   height: 32px;
 }
 
 @media screen and (min-width: 768px) {
   .headerDiv {
     gap: 452px;
+    width: 656px;
     height: 32px;
   }
 }
@@ -60,19 +64,29 @@
 @media screen and (min-width: 1440px) {
   .headerDiv {
     gap: 340px;
+    width: 544px;
     height: 32px;
   }
 }
 
 .header {
-  font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 26px;
   line-height: 1.23077;
   color: #2f2f2f;
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    width: 180px;
+  }
 }
 
 .closeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 24px;
   height: 24px;
   border: none;
@@ -80,7 +94,7 @@
   cursor: pointer;
 }
 
-.icon {
+.iconCloseButton {
   fill: #407bff;
   stroke: #407bff;
   height: 24px;
@@ -94,242 +108,156 @@
   flex-direction: column;
   gap: 24px;
 
-  height: 652px;
+  width: 256px;
+  height: 392px;
 }
 
 @media screen and (min-width: 768px) {
   .contentDiv {
-    height: 564px;
+    width: 656px;
+    height: 372px;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .contentDiv {
-    height: 524px;
+    width: 544px;
+    height: 316px;
   }
 }
 
-.infoDiv {
+.formHeader {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.11111;
+  color: #2f2f2f;
+
+  margin: 0;
+}
+
+.amountWater {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
   gap: 12px;
 
-  height: 176px;
+  width: 194px;
 }
 
 @media screen and (min-width: 768px) {
-  .infoDiv {
-    height: 88px;
+  .amountWater {
+    gap: 16px;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  .infoDiv {
-    height: 104px;
+  .amountWater {
+    gap: 16px;
   }
 }
 
-.formuls {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 16px;
-
-  height: 64px;
-}
-
-@media screen and (min-width: 768px) {
-  .formuls {
-    flex-direction: row;
-    gap: 24px;
-    height: 24px;
-  }
-}
-
-.formula {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: row;
-  gap: 4px;
-
-  width: 226px;
-  height: 24px;
-
+.waterText {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.25;
   color: #2f2f2f;
+  margin: 0;
 }
 
-.spanFormula {
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 1.33333;
-  color: #407bff;
-}
-
-.formula2 {
+.buttonDiv {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: row;
-  gap: 4px;
+  gap: 7px;
 
-  width: 236px;
-  height: 24px;
-
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.25;
-  color: #2f2f2f;
+  width: 194px;
+  height: 44px;
 }
 
-.infoParagraph {
-  border: 1px solid #d7e3ff;
-  border-radius: 10px;
+.amountBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
+
+  border: 1px solid #9ebbff;
+  border-radius: 30px;
   padding: 10px;
-  height: 100px;
+  width: 44px;
+  height: 44px;
 
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 1.33333;
-  color: #8f8f8f;
+  box-shadow: 0 2px 4px 0 rgba(64, 123, 255, 0.2);
+  background: #fff;
+
+  cursor: pointer;
 }
 
-.infoParagraphSpan {
+.answerText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+
+  border-radius: 40px;
+  padding: 6px 10px;
+  width: 92px;
+  height: 36px;
+
+  background: #d7e3ff;
+
+  margin: 0;
+
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.33333;
+  text-align: center;
   color: #407bff;
 }
 
-@media screen and (min-width: 768px) {
-  .infoParagraph {
-    height: 52px;
-  }
+.amountBtn:hover {
+  box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
 }
 
-@media screen and (min-width: 1440px) {
-  .infoParagraph {
-    height: 68px;
-  }
-}
-
-.calculateDiv {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 16px;
-
-  height: 328px;
-}
-
-@media screen and (min-width: 768px) {
-  .calculateDiv {
-    height: 292px;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  .calculateDiv {
-    height: 292px;
-  }
-}
-
-.calculateHeader {
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 1.11111;
-  color: #2f2f2f;
-}
-
-.calculateForm {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 16px;
-
-  height: 292px;
-}
-
-@media screen and (min-width: 768px) {
-  .calculateForm {
-    height: 256px;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  .calculateForm {
-    height: 256px;
-  }
-}
-
-.checkBoxDiv {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: row;
-  gap: 24px;
-
-  width: 206px;
-  height: 20px;
-}
-
-@media screen and (min-width: 768px) {
-  .checkBoxDiv {
-    width: 206px;
-    height: 20px;
-  }
+.icon {
+  fill: #407bff;
+  stroke: #407bff;
+  height: 22.4px;
 }
 
 .label {
   display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.radio {
-  display: flex;
-  margin-top: 2px;
-  cursor: pointer;
-}
-
-.radio1 {
-  gap: 8px;
-
-  width: 102px;
-  height: 20px;
-}
-
-.radio2 {
-  gap: 6px;
-
-  width: 80px;
-  height: 20px;
-}
-
-.weightField {
-  display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 
-  height: 72px;
+  width: 182px;
+  height: 76px;
+}
 
+@media screen and (min-width: 768px) {
+  .label {
+    width: 656px;
+    height: 76px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .label {
+    width: 544px;
+    height: 76px;
+  }
+}
+
+.firstText {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.25;
   color: #2f2f2f;
-}
-
-@media screen and (min-width: 768px) {
-  .weightField {
-    height: 72px;
-  }
+  margin: 0;
 }
 
 .Input {
@@ -342,8 +270,8 @@
   border: 1px solid #d7e3ff;
   border-radius: 6px;
   padding: 12px 10px;
+  width: 120px;
   height: 44px;
-  width: 256px;
 
   font-weight: 400;
   font-size: 16px;
@@ -377,92 +305,80 @@ input[type='number']::-webkit-outer-spin-button {
 
 @media screen and (min-width: 768px) {
   .Input {
-    height: 44px;
     width: 656px;
+    height: 44px;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .Input {
     width: 544px;
+    height: 44px;
   }
 }
 
-.timeField {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  gap: 8px;
-
-  height: 112px;
-
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.25;
-  color: #2f2f2f;
-}
-
-@media screen and (min-width: 768px) {
-  .timeField {
-    height: 92px;
-  }
-}
-
-.answer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: row;
-  gap: 6px;
-
-  height: 40px;
-}
-
-.text {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.25;
-  color: #2f2f2f;
-  width: 190px;
-}
-
-@media screen and (min-width: 768px) {
-  .answer {
-    height: 24px;
-  }
-
-  .text {
-    width: 328px;
-  }
-}
-
-.answerSpan {
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 1.33333;
-  color: #407bff;
-}
-
-.waterField {
+.label2 {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
   gap: 16px;
 
+  width: 240px;
   height: 100px;
+}
 
+@media screen and (min-width: 768px) {
+  .label2 {
+    width: 656px;
+    height: 80px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .label2 {
+    width: 544px;
+    height: 80px;
+  }
+}
+
+.secondText {
   font-weight: 500;
   font-size: 18px;
   line-height: 1.11111;
   color: #2f2f2f;
+  margin: 0;
+}
+
+.submitDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+
+  width: 256px;
+  height: 76px;
 }
 
 @media screen and (min-width: 768px) {
-  .waterField {
-    height: 80px;
+  .submitDiv {
+    flex-direction: row;
+    gap: 24px;
+    width: 256px;
+    height: 44px;
   }
+}
+
+.answer {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.33333;
+  text-align: center;
+  color: #407bff;
+
+  width: 72px;
+  margin: 0;
 }
 
 .submitBtn {
@@ -473,29 +389,27 @@ input[type='number']::-webkit-outer-spin-button {
   gap: 10px;
 
   border-radius: 10px;
-  padding: 10px 30px;
+  padding: 8px 30px;
   width: 256px;
   height: 36px;
 
+  cursor: pointer;
+
   box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
   background: #407bff;
-  border: none;
 
   font-weight: 500;
-  font-size: 16px;
-  line-height: 1.25;
+  font-size: 18px;
+  line-height: 1.33333;
   text-align: center;
   color: #fff;
-
-  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {
   .submitBtn {
+    padding: 10px 30px;
     width: 160px;
     height: 44px;
-    font-size: 18px;
-    line-height: 1.33333;
   }
 }
 

@@ -9,25 +9,62 @@
   justify-content: center;
   align-items: center;
 }
-.inputMl {
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 133%;
-  color: #407bff;
-}
-
-.modaInput {
-  border: none;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 133%;
+.modalInput {
   text-align: center;
-  color: #407bff;
-  background: #d7e3ff;
   border-radius: 40px;
   padding: 6px 10px;
   width: 92px;
   height: 36px;
+  background: #d7e3ff;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 133%;
+  color: #407bff;
+  border: none;
+}
+.updateInput {
+    text-align: center;
+  border-radius: 40px;
+  padding: 6px 10px;
+  width: 92px;
+  height: 36px;
+  background: #d7e3ff;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 133%;
+  color: #407bff;
+  border: none;
+}
+.plusAndMinus {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+}
+
+.formFeald {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.select {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+  color: #407bff;
+  appearance: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  border: 1px solid #d7e3ff;
+  border-radius: 6px;
+  padding: 12px 10px;
+  width: 256px;
+  height: 44px;
 }
 .plusButton {
   border: 1px solid #9ebbff;
@@ -39,19 +76,31 @@
   background: #fff;
   color: #407bff;
   font-size: 24px;
-   display: flex; /* Додаємо	display: flex; */
-  justify-content: center; /* Вирівнюємо контент по центру за горизонталлю */
-  align-items: center; /* Вирівнюємо контент по центру за вертикаллю */
-}
-
-.pusAndMinus {
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: row;
-  gap: 10px;
+  align-items: center;
 }
 
+.label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+  color: #2f2f2f;
+}
+.labelSecond {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 111%;
+  color: #2f2f2f;
+}
 .currentTime {
   font-weight: 400;
   font-size: 12px;
@@ -59,6 +108,7 @@
   color: #2f2f2f;
 }
 .modalWwindow {
+  position: relative;
   background-color: #fff;
   padding: 24px 12px;
   border-radius: 10px;
@@ -92,27 +142,30 @@
 }
 
 .modalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  margin: 0;
+  padding-right: 30px;
 }
 
 .closeBtn {
+  border: none;
+  cursor: pointer;
   position: absolute;
   color: #407bff;
   background-color: transparent;
-  border: none;
-  cursor: pointer;
-  top: 65px;
-  right: 1px;
+  top: 24px;
+  right: 12px;
   font-size: 24px;
+  padding: 0;
 }
 /* .deleteBtn, .cancelBtn {
     width: 100%; 
   } */
-
+.inputMl {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 133%;
+  text-align: center;
+  color: #407bff;
+}
 .modalContent {
   display: flex;
   align-items: center;
@@ -140,6 +193,31 @@
   flex-direction: column;
   gap: 24px;
 }
+.valueWater {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #d7e3ff;
+  border-radius: 6px;
+  padding: 12px 10px;
+  width: 256px;
+  height: 44px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+  color: #407bff;
+}
+
+.finalWater {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 133%;
+  text-align: center;
+  color: #407bff;
+  margin-bottom: 16px;
+}
 
 .saveBtn {
   display: flex;
@@ -152,11 +230,72 @@
   line-height: 125%;
   text-align: center;
   border-radius: 10px;
-  width: 232px;
-  background: #d7e3ff;
-  color: #407bff;
+  width: 256px;
+  height: 36px;
+  color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+  background: #407bff;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .modalWwindow {
+    width: 704px;
+    padding: 32px 24px 32px 24px;
+  }
+  .modalHeader {
+    display: flex;
+  }
+
+  .modalContent {
+    width: 254px;
+  }
+  .inputMl {
+    font-weight: 400;
+  }
+  .lastWaterTime {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 200%;
+    color: #2f2f2f;
+  }
+  
+  .updateInput {
+     font-weight: 700;
+  }
+  .plusAndMinus {
+    margin-bottom: 24px;
+  }
+  .select {
+    width: 544px;
+  }
+  .valueWater {
+    width: 544px;
+  }
+  .footerModal {
+    display: flex;
+    justify-content: flex-end;
+    gap: 24px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: baseline;
+  }
+  .saveBtn {
+    width: 160px;
+  }
+  .closeBtn {
+    top: 32px;
+    right: 24px;
+  }
+}
+
+
+@media (min-width: 1440px) {
+  .modalWwindow {
+    width: 592px;
+    padding: 32px 24px 32px 24px;
+  }
 }

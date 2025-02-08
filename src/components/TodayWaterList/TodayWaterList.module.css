@@ -1,0 +1,193 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.todayWaterBox {
+  border-radius: 10px;
+  width: 264px;
+  height: 258px;
+}
+
+.todayWaterTitle {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.25;
+  color: #2f2f2f;
+  margin-bottom: 16px;
+}
+
+.todayWaterList {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.todayWaterValue {
+  display: flex;
+  align-items: center;
+}
+
+.todayWaterItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.glassIcon {
+  width: 26px;
+  height: 26px;
+  margin-right: 12px;
+}
+
+.glass {
+  width: 100%;
+  height: 100%;
+  fill: #407bff;
+}
+
+.todayAmount {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.33333;
+  color: #407bff;
+  padding-right: 12px;
+}
+
+.todayTime {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 2;
+  color: #2f2f2f;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editWaterBtn {
+  background-color: transparent;
+  border: none;
+}
+
+.editIcon {
+  width: 18px;
+  height: 18px;
+  margin-right: 18px;
+}
+
+.edit {
+  margin-right: 18px;
+  width: 100%;
+  height: 100%;
+  stroke-width: 1px;
+  stroke: #9ebbff;
+  fill: none;
+}
+
+.deleteWaterBtn {
+  background-color: transparent;
+  border: none;
+}
+
+.trashIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.trash {
+  width: 100%;
+  height: 100%;
+  stroke-width: 1px;
+  stroke: #ef5050;
+  fill: none;
+}
+
+.addWaterBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 97px;
+  height: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #407bff;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.plusIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.plus {
+  width: 100%;
+  height: 100%;
+  stroke-width: 1px;
+  stroke: #407bff;
+  fill: none;
+}
+
+@media screen and (min-width: 321px) {
+  .todayWaterBox {
+    width: 656px;
+  }
+
+  .todayWaterTitle {
+    font-size: 26px;
+  }
+
+  .glassIcon {
+    width: 36px;
+    height: 36px;
+    margin-right: 12px;
+  }
+
+  .todayAmount {
+    margin-right: 16px;
+  }
+
+  .addWaterBtn {
+    font-size: 18px;
+    width: 114px;
+    height: 24px;
+  }
+
+  .plusIcon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .todayWaterBox {
+    width: 544px;
+  }
+
+  .todayAmount {
+    font-size: 18px;
+  }
+}
