@@ -1,0 +1,313 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+.butttonEye {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+  top: 55%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 1;
+  background-color: #fff;
+
+  border: none;
+}
+
+.photoLink {
+  display: none;
+}
+
+.uploadPhoto {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #407BFF;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+}
+
+.inputPasswordContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.uploadSvg {
+  stroke-width: 1px;
+  stroke: #407BFF;
+  fill: none;
+}
+
+.uploadImgSvg {
+  stroke-width: 1px;
+  stroke: #407BFF;
+  fill: none;
+  margin-right: 8px;
+}
+
+.uploadSvgUser {
+  stroke-width: 1px;
+  stroke: #2F2F2F;
+  fill: none;
+  margin-right: 8px;
+}
+
+@media (min-width: 320px) {
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: opacity 0.3s ease;
+  }
+
+  .modalContainer {
+    width: 280px;
+    margin: 0 auto;
+    padding: 32px 12px;
+    max-height: 80%;
+
+    border-radius: 10px;
+    background-color: #ffff;
+
+    overflow-y: auto;
+    scrollbar-width: none
+  }
+
+  .modalOverlay.isOpen {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .closeBtn {
+    display: flex;
+    background: none;
+    justify-content: center;
+    border: none;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    row-gap: 24px;
+  }
+
+  .formPassword {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    row-gap: 12px;
+  }
+
+  .formMargin {
+    margin-bottom: 24px;
+  }
+
+  .headerModalContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .titleModal {
+    color:#2F2F2F;
+
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 123%;
+
+    margin-bottom: 24px;
+  }
+
+  .title {
+    color: #2F2F2F;
+
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 111%;
+
+    margin-bottom: 8px;
+  }
+
+  .titlePassword {
+    color: #2F2F2F;
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 125%;
+  }
+
+  .titleFormPassword {
+    color: #2F2F2F;
+
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 111%;
+  }
+
+  .userPhoto {
+    margin-right: 8px;
+  }
+
+  .uploadPhotoContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .labelTitle {
+    color: #2F2F2F;
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 125%;
+  }
+
+  .radioContainer {
+    display: flex;
+    column-gap: 24px;
+
+    margin-bottom: 24px;
+  }
+
+  .radioButton {
+    margin-right: 8px;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid #407BFF;
+    position: relative;
+    background-color: #fff;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .radioButton:checked::before {
+    content: "";
+    position: absolute;
+
+    top: 25%;
+    left: 25%;
+
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #407BFF;
+  }
+
+  .inputMargin {
+    margin-bottom: 24px;
+  }
+
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .input {
+    color: #407bff;
+
+    border: 1px solid #D7E3FF;
+    border-radius: 6px;
+    padding: 12px 10px;
+    outline: none;
+
+    margin-top: 8px;
+
+    width: 100%;
+  }
+
+  .input::placeholder {
+    color: #9EBBFF;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 125%;
+  }
+
+  .input:focus {
+    color: #407bff;
+  }
+
+  .inputError {
+    color: #EF5050;
+    border-color: #EF5050;
+  }
+
+  .errorContainer {
+    position: relative;
+  }
+
+  .errorMsg {
+    position: absolute;
+
+    top: 100%;
+    left: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 129%;
+
+    color: #EF5050;
+  }
+
+
+
+  .saveButton {
+    width: 100%;
+
+    border-radius: 10px;
+    padding: 8px 30px;
+
+    background-color: #407BFF;
+    color: #ffff;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 125%;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+    border: none;
+    margin-top: 24px;
+    transition: all 0.3s ease;
+  }
+
+  .saveButton:hover {
+    box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
