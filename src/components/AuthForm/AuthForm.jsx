@@ -21,9 +21,7 @@ const AuthForm = ({
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, actions) => {
-        onSubmit(values, actions);
-      }}
+      onSubmit={onSubmit}
     >
       <div className={css.container}>
         <Form className={css.form}>
