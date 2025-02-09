@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 
-import { deleteWater, getAllTodayWater } from './operations';
+import { addTodayWater, deleteWater, getAllTodayWater } from './operations';
 
 const INITIAL_STATE = {
   todayWaterData: [],
@@ -21,9 +21,25 @@ const todayWaterSlice = createSlice({
       .addCase(getAllTodayWater.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = null;
-        state.todayWaterData = action.payload.data;
+        state.todayWaterData = action.payload;
       })
       .addCase(getAllTodayWater.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = action.payload;
+      })
+
+      .addCase(addTodayWater.pending, state => {
+        state.isLoading = true;
+        state.isError = null;
+      })
+      .addCase(addTodayWater.fulfilled, (state, action) => {
+        console.log('Water added:', action.payload);
+        state.isLoading = false;
+        state.isError = null;
+        state.todayWaterData.push(action.payload);
+      })
+      .addCase(addTodayWater.rejected, (state, action) => {
+        console.log('Error:', action.payload);
         state.isLoading = false;
         state.isError = action.payload;
       })

@@ -5,9 +5,13 @@ import { format } from 'date-fns';
 
 import { selectTodayWater } from '../../redux/todayWater/selectors';
 
-import { getAllTodayWater } from '../../redux/todayWater/operations';
+import {
+  addTodayWater,
+  getAllTodayWater,
+} from '../../redux/todayWater/operations';
 
 import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModal';
+import AddWaterModal from '../../components/AddWaterModal/AddWaterModal';
 
 import styles from './TodayWaterList.module.css';
 
@@ -15,17 +19,26 @@ const TodayWaterList = () => {
   const dispatch = useDispatch();
   const water = useSelector(selectTodayWater);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectedWaterId, setSelectedWaterId] = useState(null);
 
   useEffect(() => {
     const today = format(new Date(), 'yyyy-MM-dd');
+    console.log(today);
     dispatch(getAllTodayWater(today));
   }, [dispatch]);
 
+  const handleAddWater = amountWater => {
+    const waterData = {
+      drinkedWater: amountWater,
+    };
+    dispatch(addTodayWater(waterData));
+  };
+
   const handleDeleteClick = id => {
     setSelectedWaterId(id);
-    setIsModalOpen(true);
+    setIsDeleteModalOpen(true);
   };
 
   return (
@@ -83,12 +96,20 @@ const TodayWaterList = () => {
       )}
 
       <DeleteConfirmationModal
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
+        isOpen={isDeleteModalOpen}
+        setIsOpen={setIsDeleteModalOpen}
         id={selectedWaterId}
       />
 
-      <button className={styles.addWaterBtn} type="button">
+      {isAddModalOpen && (
+        <AddWaterModal setIsOpen={setIsAddModalOpen} onClick={handleAddWater} />
+      )}
+
+      <button
+        className={styles.addWaterBtn}
+        type="button"
+        onClick={() => setIsAddModalOpen(true)}
+      >
         <svg className={styles.plusIcon}>
           <use
             className={styles.plus}

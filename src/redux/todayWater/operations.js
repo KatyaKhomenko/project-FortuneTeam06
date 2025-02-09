@@ -13,11 +13,23 @@ export const getAllTodayWater = createAsyncThunk(
   }
 );
 
+export const addTodayWater = createAsyncThunk(
+  'todayWater/addTodayWater',
+  async (water, thunkApi) => {
+    try {
+      const { data } = await authInstance.post('/water', water);
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const deleteWater = createAsyncThunk(
   'todayWater/deleteWater',
   async (waterId, thunkApi) => {
     try {
-      await authInstance.delete(`water/${waterId}`);
+      await authInstance.delete(`/water/${waterId}`);
       return waterId;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

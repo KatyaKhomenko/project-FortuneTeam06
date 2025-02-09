@@ -1,12 +1,21 @@
-import { useState } from 'react';
+/* import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import DailyNormaModal from '../../components/DailyNormaModal/DailyNormaModal';
+
+import {
+  getDailyNorma,
+  updateWaterNorm,
+} from '../../redux/dailyNorma/operations';
+
+import { selectDailyNorma } from '../../redux/dailyNorma/selectors';
 
 import styles from './DailyNorma.module.css';
 
 const DailyNorma = () => {
+  const dispatch = useDispatch();
+  const waterNorm = useSelector(selectDailyNorma);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [waterNorm, setWaterNorm] = useState(2.0);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -16,8 +25,12 @@ const DailyNorma = () => {
     setIsModalOpen(false);
   };
 
-  const handleWaterNormChange = newWaterNorm => {
-    setWaterNorm(newWaterNorm);
+  useEffect(() => {
+    dispatch(getDailyNorma());
+  }, [dispatch]);
+
+  const handleWaterNormChange = newNorm => {
+    dispatch(updateWaterNorm(newNorm));
   };
 
   return (
@@ -34,11 +47,17 @@ const DailyNorma = () => {
       {isModalOpen && (
         <DailyNormaModal
           onClose={closeModal}
-          onWaterNormChange={setWaterNorm}
+          onWaterNormChange={handleWaterNormChange}
         />
       )}
     </div>
   );
+};
+
+export default DailyNorma; */
+
+const DailyNorma = () => {
+  return <div>DailyNorma</div>;
 };
 
 export default DailyNorma;
