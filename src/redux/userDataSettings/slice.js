@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUserInfo, updateUser } from "./operations";
-
+import { getUserInfo, updateUser, updateUserPassword } from "./operations";
 
 const INITIAL_STATE = {
   user: null,
@@ -34,6 +33,19 @@ const userSlice = createSlice ({
         state.user = { ...state.user, ...action.payload };
     })
     .addCase(updateUser.rejected, ( state, action ) => {
+        state.isLoading = false;
+        state.error = action.payload;
+    })
+
+    .addCase(updateUserPassword.pending, ( state ) => {
+        state.isLoading = true;
+        state.error = null;
+    })
+    .addCase(updateUserPassword.fulfilled, ( state, action ) => {
+        state.isLoading = false;
+        state.user = { ...state.user, ...action.payload };
+    })
+    .addCase(updateUserPassword.rejected, ( state, action ) => {
         state.isLoading = false;
         state.error = action.payload;
     })

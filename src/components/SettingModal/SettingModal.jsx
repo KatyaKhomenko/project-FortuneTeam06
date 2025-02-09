@@ -6,7 +6,7 @@ import { ErrorMessage, Field, Formik, Form } from "formik";
 import { useEffect, useState } from 'react';
 
 import { profileUserDataSchema } from '../../utils/schema.js'
-import { getUserInfo, updateUser } from '../../redux/userDataSettings/operations';
+import { getUserInfo, updateUser, updateUserPassword } from '../../redux/userDataSettings/operations';
 import { selectUser } from '../../redux/userDataSettings/selectors';
 
 
@@ -14,13 +14,15 @@ const SettingModal = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
+  const [userImg, setUserImg] = useState(null);
+
   const [initialValues, setInitialValues] = useState({
     gender: '',
     name: '',
     email: '',
     photo: '',
-    passwordOutdated: '',
-    passwordNew: '',
+    oldPassword: '',
+    newPassword: '',
     newPasswordRepeat: ''
   });
 
@@ -31,9 +33,9 @@ const SettingModal = () => {
         gender: user.data.gender || '',
         name: user.data.name || '',
         email: user.data.email,
-        photo: user.data.photo || '',
-        passwordOutdated: '',
-        passwordNew: '',
+        photo: '',
+        oldPassword: '',
+        newPassword: '',
         newPasswordRepeat: ''
       })
     }
@@ -57,6 +59,30 @@ const SettingModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const handleFileChange = (event) => {
+    const photo = event.target.files[0];
+
+    if (!photo) return;
+
+    if (photo) {
+      const formPhoto = new FormData();
+      formPhoto.append("photo", photo);
+
+      try {
+        dispatch(updateUser(formPhoto));
+        actions.resetForm();
+      } catch (error) {
+        toast.error('User not found');
+      }
+
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setUserImg(reader.result);
+      };
+    };
+  }
+
   const handleSubmit = (values, actions) => {
     const getChangedFields = (initial, current) => {
         return Object.keys(current).reduce((changedFields, key) => {
@@ -68,18 +94,50 @@ const SettingModal = () => {
     };
 
     const changedValues = getChangedFields(initialValues, values);
-
     console.log("Змінені дані:", changedValues);
 
-    if (Object.keys(changedValues).length > 0) {
+    if (Object.keys(changedValues).includes('oldPassword') && Object.keys(changedValues).includes('newPassword')) {
+      const passwordData = {
+        oldPassword: changedValues.oldPassword,
+        newPassword: changedValues.newPassword,
+      };
+
+      console.log('request: ', passwordData);
+
       try {
-        dispatch(updateUser(changedValues));
+        dispatch(updateUserPassword(passwordData));
+        actions.resetForm();
+      } catch (error) {
+        toast.error('User not found');
+      }
+    }
+
+    if (Object.keys(changedValues).length > 0) {
+      const hasPasswords = Object.keys(changedValues).includes('oldPassword') && Object.keys(changedValues).includes('newPassword');
+
+      const createRequestData = (changedValues) => {
+        const filteredData = Object.fromEntries(
+          Object.entries(changedValues).filter(([key]) => key !== 'oldPassword' && key !== 'newPassword' && key !== 'newPasswordRepeat')
+        );
+        return filteredData;
+      };
+
+      const requestData = hasPasswords ? createRequestData(changedValues) : changedValues;
+
+      try {
+        dispatch(updateUser(requestData));
         actions.resetForm();
       } catch (error) {
         toast.error('User not found');
       }
     }
   }
+
+  useEffect(() => {
+    if (user?.data?.avatarUrl) {
+      setUserImg(user.data.avatarUrl);
+    }
+  }, [user?.data?.avatarUrl]);
 
   useEffect(() => {
     if (isModalOpen) {
@@ -94,7 +152,7 @@ const SettingModal = () => {
           <h3 className={styles.titleModal}>Settings</h3>
           <button onClick={toggleModal} className={styles.closeBtn}>
             <svg className={styles.uploadSvg} width="24" height="24">
-              <use href="/src/assets/icons/sprite.svg#icon-arrow-left"></use>
+              <use href="/src/assets/icons/sprite.svg#icon-outline"></use>
             </svg>
           </button>
         </div>
@@ -105,9 +163,11 @@ const SettingModal = () => {
                 <label htmlFor="photo">
                   <h4 className={styles.title}>Your photo</h4>
                   <div className={styles.uploadPhotoContainer}>
-                    <svg className={styles.uploadSvgUser} width="80" height="80">
-                      <use href="/src/assets/icons/sprite.svg#icon-user"></use>
-                    </svg>
+                    {userImg ? <img src={userImg} className={styles.uploadPhoto} alt="User image" width="80" height="80" /> :
+                      <svg className={styles.uploadSvgUser} width="80" height="80">
+                        <use href="/src/assets/icons/sprite.svg#icon-user"></use>
+                      </svg>
+                    }
                     <span className={styles.uploadPhoto}>
                       <svg className={styles.uploadImgSvg} width="16" height="16">
                         <use href="/src/assets/icons/sprite.svg#icon-upload"></use>
@@ -121,6 +181,7 @@ const SettingModal = () => {
                     className={styles.photoLink}
                     name="photo"
                     accept="image/*"
+                    onChange={handleFileChange}
                   />
                   <ErrorMessage name="photo" component="span" />
                 </label>
@@ -133,7 +194,7 @@ const SettingModal = () => {
                         Woman
                       </label>
                       <label className={styles.labelTitle}>
-                        <Field className={styles.radioButton} type='radio' name='gender' value='man'/>
+                        <Field className={styles.radioButton} type='radio' name='gender' value='male'/>
                         Man
                       </label>
                     </div>
@@ -178,7 +239,7 @@ const SettingModal = () => {
                     <label>
                       <span className={styles.titlePassword}>Outdated password:</span>
                       <div className={styles.inputPasswordContainer}>
-                        <Field className={styles.input}  name='passwordOutdated'>
+                        <Field className={styles.input}  name='oldPassword'>
                           {({ field, meta }) => (
                             <input
                               {...field}
@@ -201,13 +262,13 @@ const SettingModal = () => {
                             }
                           </svg>
                         </button>
-                        <ErrorMessage className={styles.errorMsg} name='passwordOutdated' component='span' />
+                        <ErrorMessage className={styles.errorMsg} name='oldPassword' component='span' />
                       </div>
                     </label>
                     <label>
                       <span className={styles.titlePassword}>New Password:</span>
                       <div className={styles.inputPasswordContainer}>
-                        <Field className={styles.input} name='passwordNew'>
+                        <Field className={styles.input} name='newPassword'>
                           {({ field, meta }) => (
                             <input
                               {...field}
@@ -230,7 +291,7 @@ const SettingModal = () => {
                             }
                           </svg>
                         </button>
-                        <ErrorMessage className={styles.errorMsg} name='passwordNew' component='span' />
+                        <ErrorMessage className={styles.errorMsg} name='newPassword' component='span' />
                       </div>
                     </label>
                     <label>
