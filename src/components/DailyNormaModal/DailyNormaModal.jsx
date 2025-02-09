@@ -36,7 +36,7 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         onWaterNormChange(waterAmount);
-        dispatch(updateUser({ dailyNorm: Number(waterAmount) * 1000 }));
+        dispatch(updateUser({ dailyNorm: Number(amountWaterDrunk) * 1000 }));
         onClose();
     }
 
@@ -93,8 +93,8 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
                                     min="0"
                                     name="weight"
                                     type="number"
-                                    value={weight}
                                     onChange={(e) => setWeight(Number(e.target.value))}
+                                    placeholder='0'
                                 />
                             </label>
                             <label className={module.timeField}>
@@ -104,8 +104,8 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
                                     min="0"
                                     name="time"
                                     type="number"
-                                    value={time}
                                     onChange={(e) => setTime(Number(e.target.value))}
+                                    placeholder='0'
                                 />
                             </label>
                             <div className={module.answer}>
@@ -121,8 +121,8 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
                             className={module.Input}
                             name="water"
                             type="number"
-                            value={amountWaterDrunk}
                             onChange={(e) => setAmountWaterDrunk(Number(e.target.value))}
+                            placeholder='0'
                         />
                     </label>
                 </div>

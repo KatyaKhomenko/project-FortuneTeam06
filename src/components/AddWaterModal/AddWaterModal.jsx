@@ -46,6 +46,7 @@ const AddWaterModal = () => {
                             min="0"
                             name="weight"
                             type="text"
+                            placeholder='0'
                         // onChange={(e) => setWeight(Number(e.target.value))}
                         />
                     </div>
@@ -56,6 +57,7 @@ const AddWaterModal = () => {
                             min="0"
                             name="weight"
                             type="number"
+                            placeholder='0'
                         // onChange={(e) => setWeight(Number(e.target.value))}
                         />
                     </div>
