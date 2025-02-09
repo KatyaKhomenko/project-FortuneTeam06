@@ -1,5 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useId, useState } from 'react';
+import sprite from '../../assets/icons/sprite.svg';
 
 import css from './AuthForm.module.css';
 
@@ -62,14 +63,14 @@ const AuthForm = ({
                   <svg className={css.eyeIcon}>
                     <use
                       className={css.eyeIcon}
-                      href="/src/assets/icons/sprite.svg#icon-eye"
+                      href={`${sprite}#icon-eye`}
                     ></use>
                   </svg>
                 ) : (
                   <svg className={css.eyeIcon}>
                     <use
                       className={css.eyeIcon}
-                      href="/src/assets/icons/sprite.svg#icon-eye-slash"
+                      href={`${sprite}#icon-eye-slash`}
                     ></use>
                   </svg>
                 )}
