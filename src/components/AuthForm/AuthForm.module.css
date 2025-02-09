@@ -1,12 +1,3 @@
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0;
-}
 p {
   margin-bottom: 8px;
 }
@@ -16,20 +7,6 @@ p {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-
-  background-image: image-set(
-      url('../../assets/img/signin/bubbles_signin_mobile_1x.png') 1x,
-      url('../../assets/img/signin/bubbles_signin_mobile_2x.png') 2x
-    ),
-    image-set(
-      url('../../assets/img/signin/bottle_signin_mobile_1x.png') 1x,
-      url('../../assets/img/signin/bottle_signin_mobile_2x.png') 2x
-    );
-
-  background-repeat: no-repeat, no-repeat;
-  background-size: cover, contain;
-  background-position: center 108px, center bottom;
-  background-attachment: fixed;
 }
 
 .form {
@@ -38,7 +15,7 @@ p {
   flex-direction: column;
   max-width: 280px;
   gap: 16px;
-  margin: auto;
+  margin: 0 20px;
 }
 
 .title {
@@ -91,6 +68,7 @@ p {
   width: 100%;
   max-width: 280px;
   max-height: 44px;
+  background-color: rgba(255, 255, 255);
 }
 
 .input::placeholder {
@@ -150,22 +128,6 @@ p {
 }
 
 @media (min-width: 768px) {
-  .container {
-    background-image: image-set(
-        url('../../assets/img/signin/bubbles_signin_tablet_1x.png') 1x,
-        url('../../assets/img/signin/bubbles_signin_tablet_2x.png') 2x
-      ),
-      image-set(
-        url('../../assets/img/signin/bottle_signin_tablet_1x.png') 1x,
-        url('../../assets/img/signin/bottle_signin_tablet_2x.png') 2x
-      );
-
-    background-repeat: no-repeat, no-repeat;
-    background-size: cover, 736px 548px;
-    background-position: center, 122px 116px;
-    background-attachment: fixed;
-  }
-
   .form {
     justify-content: start;
     max-width: 336px;
@@ -195,22 +157,6 @@ p {
 }
 
 @media (min-width: 1440px) {
-  .container {
-    background-image: image-set(
-        url('../../assets/bubbles_desktop_any_1x.png') 1x,
-        url('../../assets/bubbles_desktop_any_2x.png') 2x
-      ),
-      image-set(
-        url('../../assets/img/signin/bottle_signin_desktop_1x.png') 1x,
-        url('../../assets/img/signin/bottle_signin_desktop_2x.png') 2x
-      );
-
-    background-repeat: no-repeat, no-repeat;
-    background-size: cover, 916px 680px;
-    background-position: center, -51px 80px;
-    background-attachment: fixed;
-  }
-
   .form {
     max-width: 384px;
     justify-content: safe center;

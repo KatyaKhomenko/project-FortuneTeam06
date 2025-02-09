@@ -15,15 +15,17 @@ import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth/slice';
 import { todayWaterReducer } from './todayWater/slice';
 import { monthWaterReducer } from './monthWater/slice';
+import { userReduser } from './userDataSettings/slice';
 
 const authConfig = {
   key: 'auth',
   storage,
-  // whitelist: ['token'],
+  whitelist: ['accessToken'],
 };
 
 export const store = configureStore({
   reducer: {
+    userData: userReduser,
     auth: persistReducer(authConfig, authReducer),
     todayWater: todayWaterReducer,
     monthWater: monthWaterReducer,

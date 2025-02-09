@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../UserLogoutModal/UserLogoutModal.module.css';
 import { useDispatch } from 'react-redux';
-import { logout } from 'redux/auth/operations';
+import { logout } from '../../redux/auth/operations';
 import toast from 'react-hot-toast';
 
 const UserLogoutModal = ({ isOpen, setIsOpen }) => {
