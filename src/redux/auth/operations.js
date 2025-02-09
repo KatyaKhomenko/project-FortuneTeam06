@@ -31,10 +31,22 @@ export const login = createAsyncThunk(
   async (formData, thunkApi) => {
     try {
       const { data } = await authInstance.post('/auth/login', formData);
-      setToken(data.token);
-      return data;
+      console.log(data.data.accessToken);
+
+      setToken(data.data.accessToken);
+      return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
   }
 );
+
+export const logout = createAsyncThunk('auth/logout', async (_, thunkApi) => {
+  try {
+    await authInstance.post('/auth/logout');
+
+    clearToken();
+  } catch (error) {
+    return thunkApi.rejectWithValue(error.message);
+  }
+});
