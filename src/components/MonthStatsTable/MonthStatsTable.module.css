@@ -103,3 +103,31 @@
 .incomplete {
   border: 1px solid #ff9d43;
 }
+
+@media (min-width: 768px) {
+  .header {
+    max-width: 656px;
+  }
+
+  .monthWaterTitle {
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.23077;
+    color: #2f2f2f;
+  }
+
+  .daysList {
+    row-gap: 20px;
+    column-gap: 34px;
+    max-width: 646px;
+  }
+
+  .day {
+    height: 58px;
+  }
+
+  .dayCircle {
+    width: 34px;
+    height: 34px;
+  }
+}

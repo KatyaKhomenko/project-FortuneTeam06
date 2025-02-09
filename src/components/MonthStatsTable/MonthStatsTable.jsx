@@ -28,7 +28,6 @@ const MonthStatsTable = () => {
   const isCurrentMonth = useSelector(selectIsCurrentMonth);
   const daysInMonth = useSelector(selectDaysInMonth);
   const selectedDay = useSelector(selectSelectedDay);
-  console.log('Selected day:', selectedDay);
   const isModalOpen = useSelector(selectIsModalOpen);
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
@@ -47,7 +46,6 @@ const MonthStatsTable = () => {
   };
 
   const handleDayClick = (day, e) => {
-    console.log('Clicked day:', day);
     const rect = e.target.getBoundingClientRect();
     const monthName = new Date(selectedMonth + '-01').toLocaleString('en-US', {
       month: 'long',
