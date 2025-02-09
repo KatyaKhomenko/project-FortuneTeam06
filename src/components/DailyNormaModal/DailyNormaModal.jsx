@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import module from './DailyNormaModal.module.css'
+import { updateUser } from '../../redux/userDataSettings/operations';
+import { selectUser } from '../../redux/userDataSettings/selectors'
 
 const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
+    const dispatch = useDispatch();
+    const user = useSelector(selectUser);
     const [selectedOption, setSelectedOption] = useState("option1");
     const [weight, setWeight] = useState(0);
     const [time, setTime] = useState(0);
@@ -31,6 +36,8 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         onWaterNormChange(waterAmount);
+        dispatch(updateUser({ dailyNorm: Number(waterAmount) * 1000 }));
+        onClose();
     }
 
     useEffect(() => {
