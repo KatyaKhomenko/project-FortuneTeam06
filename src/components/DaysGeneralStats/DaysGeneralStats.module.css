@@ -12,14 +12,39 @@
 }
 
 .modal {
+  position: absolute;
+  transform: translateY(-100%);
   width: 280px;
-  padding: 20px;
+  padding: 24px 13px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
+  z-index: 1001;
 }
 
-p {
-  margin: 5px 0;
+.dayGenTitle {
+  margin-bottom: 16px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #407bff;
+}
+
+.dayGenUl {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #2f2f2f;
+}
+
+.dayGenValue {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.33333;
+  color: #407bff;
 }
