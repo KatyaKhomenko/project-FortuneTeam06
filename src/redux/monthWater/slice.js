@@ -25,9 +25,12 @@ const monthWaterSlice = createSlice({
       state.dailyNorma = action.payload;
     },
     changeMonth(state, action) {
-      const newMonth = new Date(state.selectedMonth + '-01');
-      newMonth.setMonth(newMonth.getMonth() + action.payload);
-      const updatedMonth = newMonth.toISOString().slice(0, 7);
+      const [year, month] = state.selectedMonth.split('-').map(Number);
+      const newDate = new Date(year, month - 1 + action.payload, 1);
+
+      const updatedMonth = `${newDate.getFullYear()}-${String(
+        newDate.getMonth() + 1
+      ).padStart(2, '0')}`;
 
       state.selectedMonth = updatedMonth;
       state.isCurrentMonth = updatedMonth === currentMonth;
