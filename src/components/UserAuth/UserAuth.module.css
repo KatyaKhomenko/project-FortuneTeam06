@@ -1,10 +1,11 @@
 .signup {
-  display: flex;
   padding-right: 8px;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 18px;
   color: #407bff;
+  display: flex;
+  align-items: center; /* Вирівнює текст по центру */
 }
 
 .signup:hover {
@@ -13,11 +14,14 @@
 
 .link {
   display: flex;
-  align-items: center;
-  text-decoration: none;
+  align-items: center; /* Вирівнює текст і іконку по центру */
+  gap: 5px;
 }
 
 .icon {
   fill: none;
   stroke: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -3,7 +3,7 @@ import { HiCog6Tooth } from "react-icons/hi2";
 import { HiOutlineLogout } from "react-icons/hi";
 import css from "./UserLogoModal.module.css";
 import UserLogoutModal from "../UserLogoutModal/UserLogoutModal";
-// import SettingModal from "../SettingModal/SettingModal";
+import SettingModal from "../SettingModal/SettingModal";
 import { useDispatch } from "react-redux";
 import { logOutModal, settingModal } from "../../redux/modal/slice";
 
