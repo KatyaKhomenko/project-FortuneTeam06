@@ -9,7 +9,6 @@ import { profileUserDataSchema } from '../../utils/schema.js'
 import { getUserInfo, updateUser, updateUserPassword } from '../../redux/userDataSettings/operations';
 import { selectUser } from '../../redux/userDataSettings/selectors';
 
-
 const SettingModal = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
@@ -83,7 +82,7 @@ const SettingModal = () => {
     };
   }
 
-  const handleSubmit = (values, actions) => {
+  const handleSubmit = async (values, actions) => {
     const getChangedFields = (initial, current) => {
         return Object.keys(current).reduce((changedFields, key) => {
             if (initial[key] !== current[key]) {
@@ -94,7 +93,6 @@ const SettingModal = () => {
     };
 
     const changedValues = getChangedFields(initialValues, values);
-    console.log("Змінені дані:", changedValues);
 
     if (Object.keys(changedValues).includes('oldPassword') && Object.keys(changedValues).includes('newPassword')) {
       const passwordData = {
@@ -102,10 +100,8 @@ const SettingModal = () => {
         newPassword: changedValues.newPassword,
       };
 
-      console.log('request: ', passwordData);
-
       try {
-        dispatch(updateUserPassword(passwordData));
+        await dispatch(updateUserPassword(passwordData));
         actions.resetForm();
       } catch (error) {
         toast.error('User not found');
@@ -133,6 +129,12 @@ const SettingModal = () => {
     }
   }
 
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      setIsModalOpen(false);
+    }
+  };
+
   useEffect(() => {
     if (user?.data?.avatarUrl) {
       setUserImg(user.data.avatarUrl);
@@ -145,8 +147,22 @@ const SettingModal = () => {
     }
   }, [isModalOpen]);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsModalOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
-    <div className={`${styles.modalOverlay} ${isModalOpen ? styles.isOpen : ''}`}>
+    <div className={`${styles.modalOverlay} ${isModalOpen ? styles.isOpen : ''}`} onClick={handleBackdropClick}>
       <div className={styles.modalContainer}>
         <div className={styles.headerModalContainer}>
           <h3 className={styles.titleModal}>Settings</h3>
@@ -157,11 +173,11 @@ const SettingModal = () => {
           </button>
         </div>
         <div>
-          <div>
+          <div className={styles.formButton}>
             <Formik initialValues={initialValues} enableReinitialize={true} validationSchema={profileUserDataSchema} onSubmit={handleSubmit}>
               <Form>
                 <label htmlFor="photo">
-                  <h4 className={styles.title}>Your photo</h4>
+                  <h4 className={styles.titlePhoto}>Your photo</h4>
                   <div className={styles.uploadPhotoContainer}>
                     {userImg ? <img src={userImg} className={styles.uploadPhoto} alt="User image" width="80" height="80" /> :
                       <svg className={styles.uploadSvgUser} width="80" height="80">
@@ -185,9 +201,9 @@ const SettingModal = () => {
                   />
                   <ErrorMessage name="photo" component="span" />
                 </label>
-                <div>
+                <div className={styles.formContainer}>
                   <div className={styles.formMargin}>
-                    <h4 className={styles.title}>Your gender identity</h4>
+                    <h4 className={styles.titleGender}>Your gender identity</h4>
                     <div className={styles.radioContainer}>
                       <label className={styles.labelTitle}>
                         <Field className={styles.radioButton} type='radio' name='gender' value='female'/>
@@ -325,7 +341,9 @@ const SettingModal = () => {
                     </label>
                   </div>
                 </div>
-                <button className={styles.saveButton} type='submit'>Save</button>
+                <div className={styles.buttonContainer}>
+                  <button className={styles.saveButton} type='submit'>Save</button>
+                </div>
               </Form>
             </Formik>
           </div>
