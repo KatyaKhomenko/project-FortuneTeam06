@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
 import AuthForm from '../AuthForm/AuthForm';
-import {  register } from '../../redux/auth/operations';
+import { register } from '../../redux/auth/operations';
 import { validationRegisterSchema } from '../../utils/schema';
 import { useEffect, useState } from 'react';
 import { selectError } from '../../redux/auth/selectors.js';
@@ -41,7 +41,7 @@ const SignUpAuthForm = () => {
       validationSchema={validationRegisterSchema}
       onSubmit={handleSubmit}
       submitText="Sign Up"
-      extraNav={<button onClick={() => navigate('/signin')}>Sign In</button>}
+      extraNav={<Link to={'/signin'}>Sign In</Link>}
     />
   );
 };

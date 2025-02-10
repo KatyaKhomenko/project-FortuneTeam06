@@ -14,6 +14,64 @@
   margin-bottom: 8px;
 }
 
+.waterRatioPanelBox {
+  text-align: center;
+}
+
+.progressBar {
+  width: 100%;
+  margin: 20px 0;
+  position: relative;
+}
+
+.scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33333;
+  text-align: center;
+  color: #407bff;
+
+  margin-bottom: 16px;
+}
+
+.filledTrack {
+  position: absolute;
+  height: 100%;
+  width: 8px;
+  border-radius: 10px;
+  background: #9ebbff;
+  z-index: 1;
+  transition: width 0.3s ease-in-out;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background-color: #ecf2ff;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.indicator {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background-color: #ffffff;
+  outline: 1px solid #407bff;
+  z-index: 2;
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  transition: left 0.3s ease-in-out;
+}
+
 .addWaterBtn {
   display: flex;
   align-items: center;
@@ -45,13 +103,36 @@
 
 @media (min-width: 768px) {
   .waterRatioPanelBox {
-    max-width: 704px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
     height: 90px;
+    max-width: 704px;
+  }
+
+  .progressBar {
+    width: 356px;
+  }
+
+  .addWaterBtn {
+    padding: 10px 104px;
+    width: 336px;
+    height: 44px;
+    font-size: 18px;
   }
 }
 
 @media (min-width: 1440px) {
   .waterRatioPanelBox {
     min-width: 592px;
+    gap: 23px;
+    height: 90px;
+  }
+
+  .addWaterBtn {
+    padding: 10px 30px;
+    width: 178px;
+    height: 44px;
   }
 }

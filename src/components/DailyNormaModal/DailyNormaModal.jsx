@@ -33,12 +33,18 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
     }, [weight, time, selectedOption]);
 
     const handleSubmit = (event) => {
-        setDailyNorm(amountWaterDrunk * 1000)
         event.preventDefault();
-        onWaterNormChange(waterAmount);
-        dispatch(updateUser(dailyNorm));
+
+        const waterMl = amountWaterDrunk > 0 ? amountWaterDrunk * 1000 : waterAmount * 1000;
+        const waterL = waterMl / 1000;
+
+        onWaterNormChange(waterL);
+        setDailyNorm(waterMl);
+
+        dispatch(updateUser({ dailyNorm: waterMl }));
         onClose();
-    }
+    };
+
 
     useEffect(() => {
         document.addEventListener('keydown', handleEscape);
@@ -121,7 +127,7 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
                             className={module.Input}
                             name="water"
                             type="number"
-                            onChange={(e) => setAmountWaterDrunk(e.target.value)}
+                            onChange={(e) => setAmountWaterDrunk(Number(e.target.value))}
                             placeholder='0'
                         />
                     </label>

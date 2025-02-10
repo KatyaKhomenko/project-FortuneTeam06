@@ -19,6 +19,7 @@
   justify-content: center;
   align-items: center;
   animation: fadeInScale 0.3s ease-out forwards;
+  z-index: 999;
 }
 
 .modalWwindow {

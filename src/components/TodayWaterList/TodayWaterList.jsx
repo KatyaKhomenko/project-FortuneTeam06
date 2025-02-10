@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 
 import { format } from 'date-fns';
 
+import sprite from '../../assets/icons/sprite.svg';
+
 import { selectTodayWater } from '../../redux/todayWater/selectors';
 
 import { addWater, getAllTodayWater } from '../../redux/todayWater/operations';
@@ -48,6 +50,18 @@ const TodayWaterList = () => {
     setModalType(null);
   };
 
+  useEffect(() => {
+    if (modalType) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [modalType]);
+
   return (
     <div className={styles.todayWaterBox}>
       <h3 className={styles.todayWaterTitle}>Today</h3>
@@ -59,7 +73,7 @@ const TodayWaterList = () => {
                 <svg className={styles.glassIcon}>
                   <use
                     className={styles.glass}
-                    href="/src/assets/icons/sprite.svg#icon-glass"
+                    href={`${sprite}#icon-glass`}
                   ></use>
                 </svg>
                 <span className={styles.todayAmount}>
@@ -79,7 +93,7 @@ const TodayWaterList = () => {
                   <svg className={styles.editIcon}>
                     <use
                       className={styles.edit}
-                      href="/src/assets/icons/sprite.svg#icon-edit"
+                      href={`${sprite}#icon-edit`}
                     ></use>
                   </svg>
                 </button>
@@ -92,7 +106,7 @@ const TodayWaterList = () => {
                   <svg className={styles.trashIcon}>
                     <use
                       className={styles.trash}
-                      href="/src/assets/icons/sprite.svg#icon-trash"
+                      href={`${sprite}#icon-trash`}
                     ></use>
                   </svg>
                 </button>
@@ -114,10 +128,7 @@ const TodayWaterList = () => {
         onClick={handleAddWater}
       >
         <svg className={styles.plusIcon}>
-          <use
-            className={styles.plus}
-            href="/src/assets/icons/sprite.svg#icon-plus-small"
-          ></use>
+          <use className={styles.plus} href={`${sprite}#icon-plus-small`}></use>
         </svg>
         Add water
       </button>

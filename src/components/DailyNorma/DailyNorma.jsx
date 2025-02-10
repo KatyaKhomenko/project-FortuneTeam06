@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import DailyNormaModal from '../../components/DailyNormaModal/DailyNormaModal';
 
@@ -19,6 +19,18 @@ const DailyNorma = () => {
   const handleWaterNormChange = newWaterNorm => {
     setWaterNorm(newWaterNorm);
   };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isModalOpen]);
 
   return (
     <div className={styles.dailyNormaBox}>
