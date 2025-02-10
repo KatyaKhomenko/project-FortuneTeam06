@@ -49,10 +49,7 @@ export const refresh = createAsyncThunk('auth/refresh', async (_, thunkApi) => {
 
   try {
     setToken(token);
-    const response = await authInstance.get('/auth/refresh');
-
-    console.log(response);
-
+    const response = {email: 'ostap@gmail.com', password: '12345678'}
     return response;
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);
