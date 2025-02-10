@@ -4,22 +4,9 @@
   box-sizing: border-box;
 }
 
-ul,
-ol {
-  list-style: none;
-}
-
-button {
-  border: none;
-  background: none;
-  font: inherit;
-  cursor: pointer;
-}
-
 .todayWaterBox {
-  border-radius: 10px;
   width: 264px;
-  height: 258px;
+  margin-bottom: 24px;
 }
 
 .todayWaterTitle {
@@ -32,28 +19,48 @@ button {
 }
 
 .todayWaterList {
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-bottom: 24px;
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.todayWaterList::-webkit-scrollbar {
+  width: 4px;
+}
+
+.todayWaterList::-webkit-scrollbar-track {
+  border-radius: 8px;
+  width: 2px;
+  height: 170px;
+  background: #d7e3ff;
+}
+
+.todayWaterList::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  width: 4px;
+  height: 100px;
+  background: #9ebbff;
 }
 
 .todayWaterValue {
   display: flex;
   align-items: center;
+  gap: 12px;
 }
 
 .todayWaterItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #d7e3ff;
+  height: auto;
+  width: 100%;
 }
 
 .glassIcon {
   width: 26px;
   height: 26px;
-  margin-right: 12px;
 }
 
 .glass {
@@ -67,7 +74,7 @@ button {
   font-size: 18px;
   line-height: 1.33333;
   color: #407bff;
-  padding-right: 12px;
+  width: 60px;
 }
 
 .todayTime {
@@ -75,6 +82,7 @@ button {
   font-size: 12px;
   line-height: 2;
   color: #2f2f2f;
+  width: 40px;
 }
 
 .button {
@@ -136,6 +144,7 @@ button {
   padding: 0;
   border: none;
   background-color: transparent;
+  margin-top: 12px;
 }
 
 .plusIcon {
