@@ -1,8 +1,31 @@
 import { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { addWater } from '../../redux/todayWater/operations';
 import module from "./AddWaterModal.module.css";
 
 const AddWaterModal = () => {
+    const dispatch = useDispatch();
     const [amountWater, setAmountWater] = useState(0);
+    const [drinkTime, setDrinkTime] = useState('');
+
+    const handleSubmit = () => {
+        if (!amountWater || !drinkTime) {
+            return;
+        }
+        dispatch(addWater({ drinkedWater: amountWater, drinkTime }));
+    };
+
+    const generateTimeOptions = () => {
+        const options = [];
+        for (let h = 0; h < 24; h++) {
+            for (let m = 0; m < 60; m += 5) {
+                const hour = h.toString().padStart(2, '0');
+                const minute = m.toString().padStart(2, '0');
+                options.push(`${hour}:${minute}`);
+            }
+        }
+        return options;
+    };
 
     return (
         <div className={module.modal}>
@@ -41,30 +64,27 @@ const AddWaterModal = () => {
                     </div>
                     <div className={module.label}>
                         <p className={module.firstText}>Recording time:</p>
-                        <input
-                            className={module.Input}
-                            min="0"
-                            name="weight"
-                            type="text"
-                            placeholder='0'
-                        // onChange={(e) => setWeight(Number(e.target.value))}
-                        />
+                        <select className={module.Input} value={drinkTime} onChange={e => setDrinkTime(e.target.value)}>
+                            {generateTimeOptions().map(time => (
+                                <option key={time} value={time}>{time}</option>
+                            ))}
+                        </select>
                     </div>
                     <div className={module.label2}>
                         <p className={module.secondText}>Enter the value of the water used:</p>
                         <input
                             className={module.Input}
                             min="0"
-                            name="weight"
+                            name="amountWater"
                             type="number"
-                            placeholder='0'
+                            value={amountWater}
                         // onChange={(e) => setWeight(Number(e.target.value))}
                         />
                     </div>
                 </div>
                 <div className={module.submitDiv}>
                     <p className={module.answer}>{amountWater}<span>ml</span></p>
-                    <button className={module.submitBtn}>Save</button>
+                    <button className={module.submitBtn} onClick={handleSubmit}>Save</button>
                 </div>
             </div>
         </div>

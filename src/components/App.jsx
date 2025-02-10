@@ -1,13 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { SharedLayout } from "../components/SharedLayout/SharedLayout.jsx";
 import { PrivateRoute } from "../components/PrivateRoute/PrivateRoute.jsx";
 import { RestrictedRoute } from "../components/RestrictedRoute/RestrictedRoute.jsx";
 import Loader from "../components/Loader/Loader.jsx";
 
-
 import css from "./App.module.css";
-
+import { useDispatch } from "react-redux";
+import { refresh } from "../redux/auth/operations.js";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage.jsx"));
 const SignUpPage = lazy(() => import("../pages/SignupPage/SignupPage.jsx"));
@@ -17,7 +17,10 @@ const WelcomePage = lazy(() => import("../pages/WelcomePage/WelcomePage.jsx"));
 const NotFoundPage = lazy(() =>import("../pages/NotFoundPage/NotFoundPage.jsx"));
 
 export default function App() {
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refresh());
+  }, [dispatch]);
 
   return (
     <div className={css.app}>
