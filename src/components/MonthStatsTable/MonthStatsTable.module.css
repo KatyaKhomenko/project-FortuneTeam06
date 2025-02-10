@@ -130,6 +130,10 @@
     width: 34px;
     height: 34px;
   }
+  .dayDrinked {
+    font-size: 13px;
+    line-height: 1.53846;
+  }
 }
 
 @media (min-width: 1440px) {
@@ -144,5 +148,8 @@
 
   .day {
     height: 56px;
+  }
+  .dayDrinked {
+    line-height: 1.5;
   }
 }
