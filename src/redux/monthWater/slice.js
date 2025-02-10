@@ -109,22 +109,24 @@ const monthWaterSlice = createSlice({
       })
       .addCase(fetchDayWater.fulfilled, (state, action) => {
         state.isLoading = false;
-        const dayData = action.payload.data;
+        const dayData = action.payload.data || []; // Якщо даних немає, встановлюємо порожній масив
 
         const totalDrinkedWater = dayData.reduce(
           (sum, entry) => sum + entry.drinkedWater,
           0
         );
-        const servings = dayData.length;
+        const servings = dayData.length || 0; // Якщо записів немає, буде 0
         const fulfillment = Math.min(
           100,
-          Math.round((totalDrinkedWater / state.dailyNorma) * 100)
+          dayData.length > 0
+            ? Math.round((totalDrinkedWater / state.dailyNorma) * 100)
+            : 0 // Якщо немає даних, показуємо 0%
         );
 
         state.selectedDayData = {
           'Daily norma': `${state.dailyNorma / 1000} L`,
-          'Fulfillment of the daily norm': fulfillment,
-          'How many servings of water': servings,
+          'Fulfillment of the daily norm': `${fulfillment}%`,
+          'How many servings of water': `${servings}`,
         };
       })
       .addCase(fetchDayWater.rejected, (state, action) => {
