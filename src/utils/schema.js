@@ -32,34 +32,34 @@ export const profileUserDataSchema = Yup.object().shape({
     .max(32, 'Name must be than 32 characters'),
   email: Yup.string()
     .email('Incorrect mail format'),
-  passwordOutdated: Yup.string().when(['passwordNew', 'newPasswordRepeat'], {
-    is: (passwordNew, newPasswordRepeat) => {
-      return (passwordNew && passwordNew.length > 0) || (newPasswordRepeat && newPasswordRepeat.length > 0);
+  oldPassword: Yup.string().when(['newPassword', 'newPasswordRepeat'], {
+    is: (newPassword, newPasswordRepeat) => {
+      return (newPassword && newPassword.length > 0) || (newPasswordRepeat && newPasswordRepeat.length > 0);
     },
     then: (schema) => schema
       .required('Old password is required'),
   }),
-  passwordNew: Yup.string().when(['passwordOutdated', 'newPasswordRepeat'], {
-    is: (passwordOutdated, newPasswordRepeat) => {
-      return (passwordOutdated && passwordOutdated.length > 0) || (newPasswordRepeat && newPasswordRepeat.length > 0);
+  newPassword: Yup.string().when(['oldPassword', 'newPasswordRepeat'], {
+    is: (oldPassword, newPasswordRepeat) => {
+      return (oldPassword && oldPassword.length > 0) || (newPasswordRepeat && newPasswordRepeat.length > 0);
     },
     then: (schema) => schema
       .required('New password is required')
       .min(8, 'Password must min 8 characters')
-      .max(64, 'Password must min 8 characters'),
+      .max(64, 'Password must max 64 characters'),
   }),
-  newPasswordRepeat: Yup.string().when(['passwordNew', 'passwordOutdated'], {
-    is: (passwordOutdated, passwordNew) => {
-      return (passwordOutdated && passwordOutdated.length > 0) || (passwordNew && passwordNew.length > 0);
+  newPasswordRepeat: Yup.string().when(['newPassword', 'oldPassword'], {
+    is: (oldPassword, newPassword) => {
+      return (oldPassword && oldPassword.length > 0) || (newPassword && newPassword.length > 0);
     },
     then: (schema) => schema
       .required('Old password is required')
-      .oneOf([Yup.ref('passwordNew'), null], 'Passwords must match'),
+      .oneOf([Yup.ref('newPassword'), null], 'Passwords must match'),
   }),
   gender: Yup.string()
-    .oneOf(['female', 'man'], 'Gender must be either'),
+    .oneOf(['female', 'male'], 'Gender must be either'),
 }, [
-  ['passwordOutdated', 'passwordNew'],
-  ['passwordOutdated', 'newPasswordRepeat'],
-  ['newPasswordRepeat', 'passwordNew'],
+  ['oldPassword', 'newPassword'],
+  ['oldPassword', 'newPasswordRepeat'],
+  ['newPasswordRepeat', 'newPassword'],
 ])
