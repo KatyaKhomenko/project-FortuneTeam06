@@ -6,12 +6,15 @@ import {
   selectLoading,
   selectError,
 } from '../../redux/monthWater/selectors';
+import { selectUser } from '../../redux/userDataSettings/selectors';
 import styles from './DaysGeneralStats.module.css';
 
 const DaysGeneralStats = () => {
   const dispatch = useDispatch();
   const selectedDay = useSelector(selectSelectedDay);
   const selectedDayData = useSelector(selectSelectedDayData);
+  const userData = useSelector(selectUser);
+  console.log(userData);
   const isLoading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
