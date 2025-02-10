@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export const authInstance = axios.create({
   baseURL: 'https://water-tracker-x26o.onrender.com/',
+  withCredentials: true
 });
 
 export const setToken = token => {
