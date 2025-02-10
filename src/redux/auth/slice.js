@@ -6,7 +6,7 @@ const INITIAL_STATE = {
     name: null,
     email: null,
   },
-  isLoading: false, //?
+  isLoading: false,
   error: null,
   accessToken: null,
   isLoggedIn: false,
@@ -62,4 +62,5 @@ export const authSlice = createSlice({
       })
       .addCase(logout.rejected, handleRejected),
 });
+
 export const authReducer = authSlice.reducer;
