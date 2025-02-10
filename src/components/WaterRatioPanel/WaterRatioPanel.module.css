@@ -3,3 +3,16 @@
   height: 134px;
   border: 1px solid #ecf2ff;
 }
+
+@media (min-width: 768px) {
+  .waterRatioPanelBox {
+    max-width: 704px;
+    height: 90px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .waterRatioPanelBox {
+    min-width: 592px;
+  }
+}

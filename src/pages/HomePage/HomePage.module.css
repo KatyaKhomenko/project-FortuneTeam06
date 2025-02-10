@@ -8,19 +8,19 @@
 }
 
 .dailyNormPanel {
+  padding-left: 20px;
+  padding-right: 20px;
   padding-top: 24px;
   padding-bottom: 20px;
 }
 
 .dailyNorma {
-  padding-bottom: 116px;
-}
-
-.waterRatioPanel {
-  padding-top: 116px;
+  margin-bottom: 232px;
 }
 
 .statistics {
+  padding-left: 20px;
+  padding-right: 20px;
   padding-top: 20px;
   padding-bottom: 48px;
 }
@@ -32,4 +32,64 @@
   height: 836px;
   box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
   background: #ecf2ff;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    margin-top: 64px;
+  }
+
+  .dailyNormPanel {
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: 40px;
+    padding-bottom: 20px;
+  }
+
+  .statistics {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .dailyNorma {
+    margin-bottom: 326px;
+  }
+
+  .statisticsContainer {
+    border-radius: 10px;
+    padding: 32px 24px;
+    max-width: 704px;
+    height: 688px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    max-width: 1440px;
+    margin-top: 60px;
+  }
+
+  .dailyNormPanel {
+    padding-top: 32px;
+    padding-bottom: 56px;
+  }
+
+  .dailyNorma {
+    margin-bottom: 466px;
+  }
+
+  .statistics {
+    padding-top: 20px;
+    padding-bottom: 40px;
+  }
+
+  .statisticsContainer {
+    max-width: 592px;
+    height: 680px;
+  }
 }
