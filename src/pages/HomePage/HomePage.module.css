@@ -1,19 +1,31 @@
-.pageContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+.container {
+  max-width: 320px;
   width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 56px;
   background-color: #ffffff;
 }
 
-.statiscsContainer {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 24px;
+.dailyNormPanel {
+  padding-top: 24px;
+  padding-bottom: 20px;
+}
 
+.dailyNorma {
+  padding-bottom: 116px;
+}
+
+.waterRatioPanel {
+  padding-top: 116px;
+}
+
+.statistics {
+  padding-top: 20px;
+  padding-bottom: 48px;
+}
+
+.statisticsContainer {
   border-radius: 10px;
   padding: 24px 8px;
   max-width: 280px;

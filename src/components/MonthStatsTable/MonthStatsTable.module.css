@@ -1,6 +1,7 @@
-.container {
+.monthWaterBox {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .header {
@@ -10,17 +11,51 @@
   margin-bottom: 16px;
 }
 
-.paginator {
-  display: flex;
-  align-items: center;
+.monthWaterTitle {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.25;
+  color: #2f2f2f;
 }
 
-.arrow {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  margin: 0 8px;
+.paginator {
+  width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.paginatorDate {
+  padding-left: 6px;
+  padding-right: 6px;
+  font-size: 16px;
+  line-height: 1.25;
+  text-align: center;
+  color: #407bff;
+}
+
+.visuallyHidden {
+  visibility: hidden;
+}
+
+.chevronLeft {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  rotate: 90deg;
+  width: 14px;
+  height: 14px;
+  fill: #407bff;
+}
+
+.chevronRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  rotate: -90deg;
+  width: 14px;
+  height: 14px;
+  fill: #407bff;
 }
 
 .daysList {
@@ -45,6 +80,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.selectedDay {
+  box-shadow: 0 2px 4px 0 rgba(64, 123, 255, 0.3);
 }
 
 .dayDrinked {

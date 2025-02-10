@@ -12,14 +12,13 @@ const SignInAuthForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (values, actions) => {
+  const handleSubmit = async(values, actions) => {
     try {
-      await dispatch(login({ ...values, email: values.email.trim() })).unwrap();
-      navigate('/');
+      await dispatch(login(values));
+      navigate('/home');
     } catch (err) {
       toast.error('Invalid email or password');
     }
-    actions.resetForm();
   };
 
   return (
@@ -29,11 +28,6 @@ const SignInAuthForm = () => {
       validationSchema={validationLoginSchema}
       onSubmit={handleSubmit}
       submitText="Sign In"
-      // extraButton={
-      //   <button onClick={() => navigate('/forgot-password')}>
-      //     Forgot password?
-      //   </button>
-      // }
       extraNav={<button onClick={() => navigate('/signup')}>Sign Up</button>}
     />
   );
