@@ -48,6 +48,7 @@ export const refresh = createAsyncThunk('auth/refresh', async (_, thunkApi) => {
 
   try {
     setToken(token);
+
     const response = await authInstance.get('/auth/refresh');
     return response.data; // Зберегти тільки дані відповіді
   } catch (error) {
