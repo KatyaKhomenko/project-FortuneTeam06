@@ -1,10 +1,60 @@
+import { useDispatch, useSelector } from 'react-redux';
+
+import { selectTodayWater } from '../../redux/todayWater/selectors';
+
 import styles from './WaterRatioPanel.module.css';
+import AddWaterModal from '../../components/AddWaterModal/AddWaterModal';
+import { useState } from 'react';
+import { addWater } from '../../redux/todayWater/operations';
 
 const WaterRatioPanel = () => {
+  const dispatch = useDispatch();
+  const todayWater = useSelector(selectTodayWater);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const saveWaterData = data => {
+    dispatch(addWater(data));
+    setIsModalOpen(false);
+  };
+
+  const toggleModal = () => {
+    setIsModalOpen(prev => !prev);
+  };
+
+  const norma = 2000;
+  const totalWater = todayWater.reduce(
+    (sum, item) => sum + item.drinkedWater,
+    0
+  );
+
+  const ratio = Math.min(totalWater / norma, 1) * 100;
+
   return (
     <div className={styles.waterRatioPanelBox}>
-      <h3 className={styles.addWaterTitle}>Today</h3>
-      <button className={styles.addWaterBtn} type="button">
+      <div className="scale">
+        <h3 className={styles.addWaterTitle}>Today</h3>
+
+        <div className={styles.progressBar}>
+          <div
+            className={styles.filledTrack}
+            style={{ width: `${ratio}%` }}
+          ></div>
+          <div className={styles.track}></div>
+          <div className={styles.indicator} style={{ left: `${ratio}%` }}></div>
+        </div>
+
+        <div className={styles.scale}>
+          <span>0%</span>
+          <span>50%</span>
+          <span>100%</span>
+        </div>
+      </div>
+
+      <button
+        className={styles.addWaterBtn}
+        type="button"
+        onClick={toggleModal}
+      >
         <svg className={styles.addIcon} width="24" height="24">
           <use
             className={styles.add}
@@ -13,6 +63,13 @@ const WaterRatioPanel = () => {
         </svg>
         Add Water
       </button>
+
+      {isModalOpen && (
+        <AddWaterModal
+          setIsModalOpen={setIsModalOpen}
+          saveWaterData={saveWaterData}
+        />
+      )}
     </div>
   );
 };
