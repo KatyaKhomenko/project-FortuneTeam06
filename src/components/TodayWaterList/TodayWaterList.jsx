@@ -5,9 +5,11 @@ import { format } from 'date-fns';
 
 import { selectTodayWater } from '../../redux/todayWater/selectors';
 
-import { getAllTodayWater } from '../../redux/todayWater/operations';
+import { addWater, getAllTodayWater } from '../../redux/todayWater/operations';
 
 import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModal';
+import AddWaterModal from '../../components/AddWaterModal/AddWaterModal';
+import TodayWaterListModal from '../../components/TodayWaterListModal/TodayWaterListModal';
 
 import styles from './TodayWaterList.module.css';
 
@@ -15,17 +17,35 @@ const TodayWaterList = () => {
   const dispatch = useDispatch();
   const water = useSelector(selectTodayWater);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState(null);
   const [selectedWaterId, setSelectedWaterId] = useState(null);
+  const [selectedWaterEntry, setSelectedWaterEntry] = useState(null);
 
   useEffect(() => {
     const today = format(new Date(), 'yyyy-MM-dd');
     dispatch(getAllTodayWater(today));
   }, [dispatch]);
 
+  const handleAddWater = () => {
+    setModalType('addWater');
+  };
+
+  const handleEditWater = entry => {
+    setSelectedWaterEntry(entry);
+    setModalType('editWater');
+  };
+
   const handleDeleteClick = id => {
     setSelectedWaterId(id);
-    setIsModalOpen(true);
+    setModalType('deleteConfirm');
+  };
+
+  const saveWaterData = data => {
+    dispatch(addWater(data));
+  };
+
+  const closeModal = () => {
+    setModalType(null);
   };
 
   return (
@@ -54,7 +74,7 @@ const TodayWaterList = () => {
                 <button
                   className={styles.editWaterBtn}
                   type="button"
-                  onClick={() => handleEditWater(entry._id)}
+                  onClick={() => handleEditWater(entry)}
                 >
                   <svg className={styles.editIcon}>
                     <use
@@ -83,12 +103,16 @@ const TodayWaterList = () => {
       )}
 
       <DeleteConfirmationModal
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
+        isOpen={modalType === 'deleteConfirm'}
+        setIsOpen={closeModal}
         id={selectedWaterId}
       />
 
-      <button className={styles.addWaterBtn} type="button">
+      <button
+        className={styles.addWaterBtn}
+        type="button"
+        onClick={handleAddWater}
+      >
         <svg className={styles.plusIcon}>
           <use
             className={styles.plus}
@@ -97,6 +121,22 @@ const TodayWaterList = () => {
         </svg>
         Add water
       </button>
+
+      {modalType === 'addWater' && (
+        <AddWaterModal
+          setIsModalOpen={closeModal}
+          saveWaterData={saveWaterData}
+        />
+      )}
+
+      {modalType === 'editWater' && (
+        <TodayWaterListModal
+          isOpen={true}
+          setIsOpen={closeModal}
+          initialData={selectedWaterEntry}
+          onSave={saveWaterData}
+        />
+      )}
     </div>
   );
 };

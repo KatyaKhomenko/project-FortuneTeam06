@@ -8,7 +8,7 @@ import {
 } from '../../redux/monthWater/selectors';
 import styles from './DaysGeneralStats.module.css';
 
-const DaysGeneralStats = ({ dayRefs }) => {
+const DaysGeneralStats = () => {
   const dispatch = useDispatch();
   const selectedDay = useSelector(selectSelectedDay);
   const selectedDayData = useSelector(selectSelectedDayData);
@@ -25,15 +25,13 @@ const DaysGeneralStats = ({ dayRefs }) => {
     e.stopPropagation();
   };
 
-  const { top, left } = dayRefs.current || {};
-
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
       <div
-        className={styles.modal}
+        className={`${styles.modal} ${styles[selectedDay.positionClass] || ''}`}
         style={{
-          top: top - 3,
-          // left: left
+          top: selectedDay.top,
+          left: selectedDay.left,
         }}
         onClick={handleModalClick}
       >
@@ -42,7 +40,7 @@ const DaysGeneralStats = ({ dayRefs }) => {
         </h3>
         <ul className={styles.dayGenUl}>
           <li>
-            <p>
+            <p className={styles.dayGenDscr}>
               Daily norm:{' '}
               <span className={styles.dayGenValue}>
                 {selectedDayData?.['Daily norma'] || ''}
@@ -50,15 +48,15 @@ const DaysGeneralStats = ({ dayRefs }) => {
             </p>
           </li>
           <li>
-            <p>
+            <p className={styles.dayGenDscr}>
               Fulfillment of the daily norm:{' '}
               <span className={styles.dayGenValue}>
-                {selectedDayData?.['Fulfillment of the daily norm'] || ''}%
+                {selectedDayData?.['Fulfillment of the daily norm'] || ''}
               </span>
             </p>
           </li>
           <li>
-            <p>
+            <p className={styles.dayGenDscr}>
               How many servings of water:{' '}
               <span className={styles.dayGenValue}>
                 {selectedDayData?.['How many servings of water'] || ''}
@@ -67,13 +65,13 @@ const DaysGeneralStats = ({ dayRefs }) => {
           </li>
         </ul>
 
-        {isLoading ? (
+        {/* {isLoading ? (
           <p>Loading...</p>
         ) : error ? (
           <p className={styles.error}>Error</p>
         ) : (
           <p>No data available.</p>
-        )}
+        )} */}
       </div>
     </div>
   );

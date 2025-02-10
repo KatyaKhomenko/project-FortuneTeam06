@@ -1,3 +1,13 @@
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -8,6 +18,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeInScale 0.3s ease-out forwards;
 }
 
 .modalWindow {
@@ -25,7 +36,7 @@
   color: #2f2f2f;
 }
 .textModal {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 500;
   font-size: 18px;
   line-height: 111%;
@@ -41,14 +52,29 @@
 }
 
 .closeBtn {
+  position: absolute;
   color: #407bff;
+  top: 0;
+  right: 0;
   background-color: transparent;
   border: none;
   cursor: pointer;
+  font-size: 24px;
   padding: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
+   transition: transform 0.2s ease, color 0.3s ease;
+}
+
+
+.closeBtn:hover {
+  transform: scale(1.2);
+  color: #305bbf;
+}
+
+.closeBtn:focus {
+  outline: none;
+  color: #305bbf;
+  transform: scale(1.2);
+  box-shadow: 0 0 8px rgba(64, 123, 255, 0.5);
 }
 
 .modalContent {
@@ -79,6 +105,16 @@
   box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
   background: #ef5050;
   width: 232px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.deleteBtn:hover {
+  background: #d33a3a;
+  transform: scale(1.05);
+}
+
+.deleteBtn:focus {
+  outline: 3px solid #ff9999;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
 
 .cancelBtn {
@@ -99,10 +135,20 @@
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.cancelBtn:hover {
+  background: #b5caff; 
+  transform: scale(1.05);
+}
+
+.cancelBtn:focus {
+  outline: 3px solid #85aaff;
+  box-shadow: 0 0 10px rgba(64, 123, 255, 0.5);
 }
 
 @media (min-width: 768px) {
-  .modalWwindow {
+  .modalWindow {
     width: 592px;
     padding: 32px 24px 32px 24px;
   }

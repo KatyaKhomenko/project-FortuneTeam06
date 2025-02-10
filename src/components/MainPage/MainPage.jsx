@@ -1,7 +1,9 @@
 import css from './MainPage.module.css';
 import sprite from '../../assets/icons/sprite.svg';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
+  const navigate = useNavigate();
   return (
     <div className={css['container']}>
       <main className={css['main']}>
@@ -31,7 +33,9 @@ const MainPage = () => {
                 Personal rate setting
               </li>
             </ul>
-            <button className={css['btn']}>Try tracker</button>
+            <button onClick={() => navigate('/signup')} className={css['btn']}>
+              Try tracker
+            </button>
           </div>
         </div>
         <section className={css['info']}>

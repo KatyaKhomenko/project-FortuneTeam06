@@ -1,25 +1,35 @@
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
 import AuthForm from '../AuthForm/AuthForm';
 import { login } from '../../redux/auth/operations';
 import { validationLoginSchema } from '../../utils/schema';
+import { useEffect, useState } from 'react';
+import { selectError } from '../../redux/auth/selectors';
 
 const INITIAL_VALUES = { email: '', password: '' };
 
 const SignInAuthForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [sendForm, setSendForm] = useState(false);
+  const error = useSelector(selectError);
 
-  const handleSubmit = async(values, actions) => {
-    try {
-      await dispatch(login(values));
-      navigate('/home');
-    } catch (err) {
-      toast.error('Invalid email or password');
-    }
+  const handleSubmit = async (values, actions) => {
+    await dispatch(login(values));
+    setSendForm(true);
+    actions.resetForm();
   };
+  useEffect(() => {
+    if (sendForm && error) {
+      setSendForm(false);
+      toast.error('Invalid email or password');
+    } else if (sendForm && !error) {
+      navigate('/home');
+    }
+    setSendForm(false);
+  }, [sendForm, error, navigate]);
 
   return (
     <AuthForm

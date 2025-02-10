@@ -1,5 +1,57 @@
 .waterRatioPanelBox {
   max-width: 280px;
   height: 134px;
-  border: 1px solid #ecf2ff;
+}
+
+.addWaterTitle {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.33333;
+  text-align: center;
+  color: #407bff;
+  text-align: start;
+  margin-bottom: 8px;
+}
+
+.addWaterBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 6px 76px;
+  width: 280px;
+  height: 36px;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+  background: #407bff;
+}
+
+.addIcon {
+  stroke-width: 2px;
+  stroke: #fff;
+  fill: none;
+}
+
+.addIcon use {
+  stroke-width: 4;
+  stroke: white;
+}
+
+@media (min-width: 768px) {
+  .waterRatioPanelBox {
+    max-width: 704px;
+    height: 90px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .waterRatioPanelBox {
+    min-width: 592px;
+  }
 }

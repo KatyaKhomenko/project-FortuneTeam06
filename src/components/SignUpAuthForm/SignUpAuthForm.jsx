@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
 import AuthForm from '../AuthForm/AuthForm';
-import { login, register } from '../../redux/auth/operations';
+import {  register } from '../../redux/auth/operations';
 import { validationRegisterSchema } from '../../utils/schema';
 import { useEffect, useState } from 'react';
 import { selectError } from '../../redux/auth/selectors.js';
@@ -27,8 +27,7 @@ const SignUpAuthForm = () => {
   useEffect(() => {
     if (sendForm && error) {
       setSendForm(false);
-      // toast.error('This email is already in use');
-      alert('This email is already in use');
+      toast.error('This email is already in use');
     } else if (sendForm && !error) {
       navigate('/signin');
     }

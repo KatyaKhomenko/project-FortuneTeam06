@@ -1,3 +1,13 @@
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -8,7 +18,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeInScale 0.3s ease-out forwards;
 }
+
+.modalWwindow {
+  position: relative;
+  background-color: #fff;
+  padding: 24px 12px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 280px;
+}
+
 .modalInput {
   text-align: center;
   border-radius: 40px;
@@ -22,8 +43,18 @@
   color: #407bff;
   border: none;
 }
+.iconGlass {
+  width: 36px;
+  height: 36px;
+  fill: #407bff;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: #407bff;
+}
 .updateInput {
-    text-align: center;
+  text-align: center;
   border-radius: 40px;
   padding: 6px 10px;
   width: 92px;
@@ -101,20 +132,16 @@
   line-height: 111%;
   color: #2f2f2f;
 }
+.secondlabelText {
+  text-align: start;
+}
 .currentTime {
   font-weight: 400;
   font-size: 12px;
   line-height: 200%;
   color: #2f2f2f;
 }
-.modalWwindow {
-  position: relative;
-  background-color: #fff;
-  padding: 24px 12px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 280px;
-}
+
 .titleModal {
   font-family: "Roboto", sans-serif;
   font-weight: 500;
@@ -155,10 +182,21 @@
   right: 12px;
   font-size: 24px;
   padding: 0;
+  transition: transform 0.2s ease, color 0.3s ease;
 }
-/* .deleteBtn, .cancelBtn {
-    width: 100%; 
-  } */
+
+.closeBtn:hover {
+  transform: scale(1.2);
+  color: #305bbf;
+}
+
+.closeBtn:focus {
+  outline: none;
+  color: #305bbf;
+  transform: scale(1.2);
+  box-shadow: 0 0 8px rgba(64, 123, 255, 0.5);
+}
+
 .inputMl {
   font-weight: 700;
   font-size: 18px;
@@ -239,6 +277,21 @@
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.saveBtn:hover {
+  transform: scale(1.05);
+  background: #305bbf;
+  box-shadow: 0 6px 12px rgba(48, 91, 191, 0.4);
+}
+
+.saveBtn:focus {
+  outline: none;
+  transform: scale(1.05);
+  background: #305bbf;
+  box-shadow: 0 0 12px rgba(64, 123, 255, 0.6);
 }
 
 @media (min-width: 768px) {
@@ -262,9 +315,9 @@
     line-height: 200%;
     color: #2f2f2f;
   }
-  
+
   .updateInput {
-     font-weight: 700;
+    font-weight: 700;
   }
   .plusAndMinus {
     margin-bottom: 24px;
@@ -291,7 +344,6 @@
     right: 24px;
   }
 }
-
 
 @media (min-width: 1440px) {
   .modalWwindow {

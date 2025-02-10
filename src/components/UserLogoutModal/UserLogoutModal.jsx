@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../UserLogoutModal/UserLogoutModal.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/auth/operations';
 import toast from 'react-hot-toast';
+import { selectLoading } from '../../redux/auth/selectors';
+
 
 const UserLogoutModal = ({ isOpen, setIsOpen }) => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectLoading)
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -50,7 +53,7 @@ const UserLogoutModal = ({ isOpen, setIsOpen }) => {
       {isOpen && (
         <div className={styles.modalOverlay} onClick={handleCloseModal}>
           <div
-            className={styles.modalWwindow}
+            className={styles.modalWindow}
             onClick={e => e.stopPropagation()}
           >
             <div className={styles.modalHeader}>
@@ -63,7 +66,11 @@ const UserLogoutModal = ({ isOpen, setIsOpen }) => {
               <p className={styles.textModal}>Do you really want to leave?</p>
             </div>
             <div className={styles.modalActions}>
-              <button className={styles.deleteBtn} onClick={handleLogout}>
+              <button
+                className={styles.deleteBtn}
+                onClick={handleLogout}
+                disabled={isLoading}
+              >
                 Log out
               </button>
               <button className={styles.cancelBtn} onClick={handleCancel}>

@@ -8,62 +8,68 @@ p {
   margin: 0;
 }
 
-.butttonEye {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  right: 10px;
-  top: 55%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  z-index: 1;
-  background-color: #fff;
-
-  border: none;
-}
-
-.photoLink {
-  display: none;
-}
-
-.uploadPhoto {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  color: #407BFF;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 129%;
-}
-
-.inputPasswordContainer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.uploadSvg {
-  stroke-width: 1px;
-  stroke: #407BFF;
-  fill: none;
-}
-
-.uploadImgSvg {
-  stroke-width: 1px;
-  stroke: #407BFF;
-  fill: none;
-  margin-right: 8px;
-}
-
-.uploadSvgUser {
-  stroke-width: 1px;
-  stroke: #2F2F2F;
-  fill: none;
-  margin-right: 8px;
-}
-
 @media (min-width: 320px) {
+  .butttonEye {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 10px;
+    top: 55%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 1;
+    background-color: #fff;
+    padding-left: 10px;
+
+    border: none;
+  }
+
+  .photoLink {
+    display: none;
+  }
+
+  .uploadPhoto {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #407BFF;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 129%;
+  }
+
+  .inputPasswordContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .uploadSvg {
+    stroke-width: 1px;
+    stroke: #407BFF;
+    fill: none;
+  }
+
+  .uploadImgSvg {
+    stroke-width: 1px;
+    stroke: #407BFF;
+    fill: none;
+    margin-right: 8px;
+  }
+
+  .uploadSvgUser {
+    stroke-width: 1px;
+    stroke: #2F2F2F;
+    fill: none;
+    margin-right: 8px;
+  }
+
+  .uploadPhoto {
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
   .modalOverlay {
     position: fixed;
     top: 0;
@@ -147,8 +153,16 @@ p {
     font-weight: 500;
     font-size: 18px;
     line-height: 111%;
+  }
 
-    margin-bottom: 8px;
+  .titleGender {
+    color: #2F2F2F;
+
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 111%;
+
+    margin-bottom: 12px;
   }
 
   .titlePassword {
@@ -165,6 +179,16 @@ p {
     font-weight: 500;
     font-size: 18px;
     line-height: 111%;
+  }
+
+  .titlePhoto {
+    color: #2F2F2F;
+
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 111%;
+
+    margin-bottom: 8px;
   }
 
   .userPhoto {
@@ -276,8 +300,6 @@ p {
     color: #EF5050;
   }
 
-
-
   .saveButton {
     width: 100%;
 
@@ -298,6 +320,73 @@ p {
 
   .saveButton:hover {
     box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
+  }
+}
+
+@media (min-width: 768px) {
+  .formContainer {
+    width: 392px;
+  }
+
+  .modalContainer {
+    width: 704px;
+    padding: 32px 24px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .saveButton {
+    width: 160px;
+    padding: 10px 30px;
+
+    background-color: #407BFF;
+    font-size: 18px;
+    line-height: 133%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .formContainer {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .radioContainer {
+    margin-bottom: 52px;
+  }
+
+  .formPassword {
+    justify-content: start;
+    width: 392px;
+
+    row-gap: 12px;
+  }
+
+  .formMargin {
+    width: 392px;
+  }
+
+  .modalContainer {
+    width: 1008px;
+    padding: 32px 24px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .saveButton {
+    width: 160px;
+    padding: 10px 30px;
+
+    background-color: #407BFF;
+    font-size: 18px;
+    line-height: 133%;
   }
 }
 
