@@ -8,10 +8,11 @@ import {
 } from '../../redux/monthWater/selectors';
 import styles from './DaysGeneralStats.module.css';
 
-const DaysGeneralStats = ({ dayRefs }) => {
+const DaysGeneralStats = () => {
   const dispatch = useDispatch();
   const selectedDay = useSelector(selectSelectedDay);
   const selectedDayData = useSelector(selectSelectedDayData);
+  console.log(selectedDay);
   const isLoading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
@@ -25,15 +26,13 @@ const DaysGeneralStats = ({ dayRefs }) => {
     e.stopPropagation();
   };
 
-  const { top, left } = dayRefs.current || {};
-
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
       <div
-        className={styles.modal}
+        className={`${styles.modal} ${styles[selectedDay.positionClass] || ''}`}
         style={{
-          top: top - 3,
-          // left: left
+          top: selectedDay.top,
+          left: selectedDay.left,
         }}
         onClick={handleModalClick}
       >

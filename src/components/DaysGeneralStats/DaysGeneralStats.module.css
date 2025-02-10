@@ -48,3 +48,11 @@
   line-height: 1.33333;
   color: #407bff;
 }
+
+.leftPositionModal {
+  transform: translate(-246px, -100%);
+}
+
+.rightPositionModal {
+  transform: translate(35px, -100%);
+}
