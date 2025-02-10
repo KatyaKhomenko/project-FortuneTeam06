@@ -12,7 +12,6 @@ const DaysGeneralStats = () => {
   const dispatch = useDispatch();
   const selectedDay = useSelector(selectSelectedDay);
   const selectedDayData = useSelector(selectSelectedDayData);
-  console.log(selectedDay);
   const isLoading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
@@ -52,7 +51,7 @@ const DaysGeneralStats = () => {
             <p className={styles.dayGenDscr}>
               Fulfillment of the daily norm:{' '}
               <span className={styles.dayGenValue}>
-                {selectedDayData?.['Fulfillment of the daily norm'] || ''}%
+                {selectedDayData?.['Fulfillment of the daily norm'] || ''}
               </span>
             </p>
           </li>
