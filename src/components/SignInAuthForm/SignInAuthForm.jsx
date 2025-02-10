@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
@@ -38,7 +38,7 @@ const SignInAuthForm = () => {
       validationSchema={validationLoginSchema}
       onSubmit={handleSubmit}
       submitText="Sign In"
-      extraNav={<button onClick={() => navigate('/signup')}>Sign Up</button>}
+      extraNav={<Link to={'/signup'}>Sign Up</Link>}
     />
   );
 };

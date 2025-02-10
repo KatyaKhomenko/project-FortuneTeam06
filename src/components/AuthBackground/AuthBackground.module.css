@@ -17,6 +17,9 @@ html {
   background-size: auto, contain;
   background-position: left 50% top 34px, center bottom;
   background-attachment: fixed;
+
+  position: fixed;
+  overflow: hidden;
 }
 
 @media screen and (min-width: 768px) {
