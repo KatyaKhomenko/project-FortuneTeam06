@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import module from './DailyNormaModal.module.css'
+import module from './DailyNormaModal.module.css';
 import { updateUser } from '../../redux/userDataSettings/operations';
-import { selectUser } from '../../redux/userDataSettings/selectors'
 
 const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
     const dispatch = useDispatch();
-    const user = useSelector(selectUser);
     const [selectedOption, setSelectedOption] = useState("option1");
     const [weight, setWeight] = useState(0);
     const [time, setTime] = useState(0);
     const [waterAmount, setWaterAmount] = useState(0);
     const [amountWaterDrunk, setAmountWaterDrunk] = useState(0);
+    const [dailyNorm, setDailyNorm] = useState(0);
 
     const handleEscape = event => {
         if (event.key === 'Escape') {
@@ -34,9 +33,10 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
     }, [weight, time, selectedOption]);
 
     const handleSubmit = (event) => {
+        setDailyNorm(amountWaterDrunk * 1000)
         event.preventDefault();
         onWaterNormChange(waterAmount);
-        dispatch(updateUser({ dailyNorm: Number(amountWaterDrunk) * 1000 }));
+        dispatch(updateUser(dailyNorm));
         onClose();
     }
 
@@ -121,7 +121,7 @@ const DailyNormaModal = ({ onClose, onWaterNormChange }) => {
                             className={module.Input}
                             name="water"
                             type="number"
-                            onChange={(e) => setAmountWaterDrunk(Number(e.target.value))}
+                            onChange={(e) => setAmountWaterDrunk(e.target.value)}
                             placeholder='0'
                         />
                     </label>
