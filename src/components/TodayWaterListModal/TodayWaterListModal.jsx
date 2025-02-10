@@ -1,55 +1,69 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { format, parseISO, isToday } from 'date-fns';
 import styles from './TodayWaterListModal.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTodayWater } from '../../redux/todayWater/selectors';
+import { getAllTodayWater } from '../../redux/todayWater/operations';
 
-const TodayWaterListModal = ({ isOpen, setIsOpen }) => {
-  const [waterAmount, setWaterAmount] = useState(250);
+const TodayWaterListModal = ({ isOpen = false, setIsOpen }) => {
+  const dispatch = useDispatch();
+  const todayWaterData = useSelector(selectTodayWater);
+
+  const [serwerWaterAmount, setServerWaterAmount] = useState(0);
+  const [serverLastWaterTime, setServerLastWaterTime] = useState('');
+  const [waterAmount, setWaterAmount] = useState(0);
   const [inputWaterAmount, setInputWaterAmount] = useState('');
-  const [recordingTime, setRecordingTime] = useState('');
+  const [recordingTime, setRecordingTime] = useState(
+    format(new Date(), 'HH:mm')
+  );
   const [lastWaterTime, setLastWaterTime] = useState('');
+
+  useEffect(() => {
+    const today = format(new Date(), 'yyyy-MM-dd');
+    dispatch(getAllTodayWater(today));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (todayWaterData.length > 0) {
+      const lastWater = todayWaterData[todayWaterData.length - 1];
+
+      if (lastWater.drinTime) {
+        const parsedTime = new Date(lastWater.drinTime.replace(' ', 'T'));
+        setServerLastWaterTime(format(parsedTime, 'HH:mm'));
+      } else {
+        setServerLastWaterTime(format(new Date(), 'HH:mm'));
+      }
+
+      setServerWaterAmount(lastWater.drinkedWater);
+
+      setWaterAmount(lastWater.drinkedWater);
+      setInputWaterAmount(lastWater.drinkedWater.toString());
+    } else {
+      setServerWaterAmount(0);
+      setServerLastWaterTime(format(new Date(), 'HH:mm'));
+      setWaterAmount(0);
+      setInputWaterAmount('0');
+    }
+  }, [todayWaterData]);
+
+  useEffect(() => {
+    const now = format(new Date(), 'HH:mm');
+    setRecordingTime(now);
+  }, []);
 
   const handleCloseModal = () => {
     setIsOpen(false);
   };
 
-  const handleKeyDown = e => {
-    if (e.key === 'Escape' && isOpen) {
-      handleCloseModal();
-    }
-  };
-
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    setRecordingTime(`${hours}:${minutes}`);
-
-    const fetchLastWaterIntakeTime = async () => {
-      try {
-        const response = await axios.get('/api/water-intake/last');
-        const data = response.data;
-
-        if (data && data.time) {
-          const todayDate = new Date().toISOString().split('T')[0];
-          const intakeDate = new Date(data.time).toISOString().split('T')[0];
-
-          if (todayDate === intakeDate) {
-            setLastWaterTime(new Date(data.time).toLocaleTimeString());
-          } else {
-            setLastWaterTime(`${hours}:${minutes}`);
-          }
-        } else {
-          setLastWaterTime(`${hours}:${minutes}`);
-        }
-      } catch (error) {
-        console.error('Error fetching last water intake time:', error);
-        setLastWaterTime(`${hours}:${minutes}`);
+    const handleKeyDown = e => {
+      if (e.key === 'Escape' && isOpen) {
+        handleCloseModal();
       }
     };
 
-    fetchLastWaterIntakeTime();
-
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
@@ -58,19 +72,13 @@ const TodayWaterListModal = ({ isOpen, setIsOpen }) => {
   const increaseWaterAmount = () => {
     const newAmount = waterAmount + 50;
     setWaterAmount(newAmount);
-    setInputWaterAmount(newAmount);
+    setInputWaterAmount(newAmount.toString());
   };
 
   const decreaseWaterAmount = () => {
     const newAmount = Math.max(waterAmount - 50, 0);
     setWaterAmount(newAmount);
-    setInputWaterAmount(newAmount);
-  };
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-    console.log('Saving data:', { amount: waterAmount, time: recordingTime });
-    setLastWaterTime(recordingTime);
+    setInputWaterAmount(newAmount.toString());
   };
 
   const handleBlurInput = () => {
@@ -79,25 +87,27 @@ const TodayWaterListModal = ({ isOpen, setIsOpen }) => {
       setWaterAmount(value);
     } else {
       setWaterAmount(0);
+      setInputWaterAmount('0');
     }
   };
 
   const handleChangeInput = e => {
     const value = e.target.value;
     setInputWaterAmount(value);
-
-    const numericValue = parseInt(value, 10);
-    if (!isNaN(numericValue) && numericValue >= 0) {
-      setWaterAmount(numericValue);
-    }
   };
 
-  const timeOptions = [];
-  for (let i = 0; i < 24 * 60; i += 5) {
-    const hours = String(Math.floor(i / 60)).padStart(2, '0');
-    const minutes = String(i % 60).padStart(2, '0');
-    timeOptions.push(`${hours}:${minutes}`);
-  }
+  const handleSubmit = async e => {
+    e.preventDefault();
+    console.log('Saving data:', { amount: waterAmount, time: recordingTime });
+    setLastWaterTime(recordingTime);
+  };
+
+  const timeOptions = Array.from({ length: 288 }, (_, i) => {
+    const hours = String(Math.floor(i / 12)).padStart(2, '0');
+    const minutes = String((i % 12) * 5).padStart(2, '0');
+    return `${hours}:${minutes}`;
+  });
+
   return (
     <div onClick={e => isOpen && e.stopPropagation()}>
       {isOpen && (
@@ -115,8 +125,11 @@ const TodayWaterListModal = ({ isOpen, setIsOpen }) => {
               </button>
             </div>
             <div className={styles.modalContent}>
-              🥛 <span className={styles.inputMl}>{waterAmount} ml</span>
-              <div className={styles.lastWaterTime}>{lastWaterTime}</div>
+              <svg className={styles.iconGlass} aria-hidden="true">
+                <use href="/src/assets/icons/sprite.svg#icon-glass" />
+              </svg>
+              <span className={styles.inputMl}>{serwerWaterAmount} ml</span>
+              <div className={styles.lastWaterTime}>{serverLastWaterTime}</div>
             </div>
             <div className={styles.twoTitle}>
               <h3 className={styles.textModal}>Correct entered data:</h3>
@@ -129,7 +142,9 @@ const TodayWaterListModal = ({ isOpen, setIsOpen }) => {
                 type="button"
                 onClick={decreaseWaterAmount}
               >
-                -
+                <svg className={styles.icon} aria-hidden="true">
+                  <use href="/src/assets/icons/sprite.svg#icon-minus-small" />
+                </svg>
               </button>
               <input
                 className={styles.updateInput}
@@ -143,7 +158,9 @@ const TodayWaterListModal = ({ isOpen, setIsOpen }) => {
                 type="button"
                 onClick={increaseWaterAmount}
               >
-                +
+                <svg className={styles.icon} aria-hidden="true">
+                  <use href="/src/assets/icons/sprite.svg#icon-plus-small" />
+                </svg>
               </button>
             </div>
             <form onSubmit={handleSubmit}>
@@ -163,13 +180,23 @@ const TodayWaterListModal = ({ isOpen, setIsOpen }) => {
                   </select>
                 </label>
                 <label className={styles.labelSecond}>
-                  Enter the value of the water used:
+                  <span className={styles.secondlabelText}>
+                    {' '}
+                    Enter the value of the water used:
+                  </span>
                   <input
                     className={styles.valueWater}
                     type="text"
                     value={inputWaterAmount}
                     onChange={handleChangeInput}
                     onBlur={handleBlurInput}
+                    onKeyPress={e => {
+                      if (!/[0-9]/.test(e.key) && e.key !== 'Backspace') {
+                        e.preventDefault();
+                      }
+                    }}
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                   />
                 </label>
               </div>

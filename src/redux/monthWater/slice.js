@@ -57,8 +57,8 @@ const monthWaterSlice = createSlice({
     },
     setSelectedDay: (state, action) => {
       if (action.payload) {
-        const { day, month } = action.payload;
-        state.selectedDay = { day, month };
+        const { day, month, top, left, positionClass } = action.payload;
+        state.selectedDay = { day, month, top, left, positionClass };
       } else {
         state.selectedDay = null;
       }
