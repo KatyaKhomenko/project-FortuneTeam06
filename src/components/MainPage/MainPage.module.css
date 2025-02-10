@@ -1,13 +1,22 @@
 .container {
-  width: 320px;
-  height: 958px;
+  box-sizing: border-box;
+  /* width: calc(98vw + 14px); */
+  width: 100vw;
+  height: calc(100vh - 19px);
   background-image: url('../../assets//img/welcome/BkgMobile.png');
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-color: #ffffff;
+  margin: auto;
+  overflow-x: hidden;
 }
 
 .main {
   width: 280px;
   height: 840px;
-  margin: 24px 20px;
+  margin: 24px auto;
+  box-sizing: border-box;
 }
 
 .main-benefits {
@@ -166,22 +175,13 @@
 
 @media screen and (min-width: 768px) {
   .container {
-    width: 704px;
-    height: 646px;
-    margin: auto;
     background-image: url('../../assets//img/welcome/BkgTablet.png');
-    /* background-color: #ecf2ff; */
-    min-height: 100vh;
-    padding: 0;
-    margin: 0;
-    background-size: cover;
-    background-position: bottom;
-    background-repeat: no-repeat;
   }
 
   .main {
     width: 704px;
     height: 254px;
+    margin: 40px auto;
   }
 
   .main-benefits {
@@ -285,18 +285,8 @@
 
 @media screen and (min-width: 1158px) {
   .container {
-    width: 1404px;
-    height: 582px;
-    gap: 0px;
-    margin: auto;
     background-image: url('../../assets//img/welcome/BkgWeb.png');
-    /* background-color: #ecf2ff; */
-    min-height: 100vh;
-    padding: 0;
-    margin: 0;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-size: 1650px;
   }
 
   .main {
