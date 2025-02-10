@@ -41,7 +41,7 @@ const DaysGeneralStats = () => {
         </h3>
         <ul className={styles.dayGenUl}>
           <li>
-            <p>
+            <p className={styles.dayGenDscr}>
               Daily norm:{' '}
               <span className={styles.dayGenValue}>
                 {selectedDayData?.['Daily norma'] || ''}
@@ -49,7 +49,7 @@ const DaysGeneralStats = () => {
             </p>
           </li>
           <li>
-            <p>
+            <p className={styles.dayGenDscr}>
               Fulfillment of the daily norm:{' '}
               <span className={styles.dayGenValue}>
                 {selectedDayData?.['Fulfillment of the daily norm'] || ''}%
@@ -57,7 +57,7 @@ const DaysGeneralStats = () => {
             </p>
           </li>
           <li>
-            <p>
+            <p className={styles.dayGenDscr}>
               How many servings of water:{' '}
               <span className={styles.dayGenValue}>
                 {selectedDayData?.['How many servings of water'] || ''}
@@ -66,13 +66,13 @@ const DaysGeneralStats = () => {
           </li>
         </ul>
 
-        {isLoading ? (
+        {/* {isLoading ? (
           <p>Loading...</p>
         ) : error ? (
           <p className={styles.error}>Error</p>
         ) : (
           <p>No data available.</p>
-        )}
+        )} */}
       </div>
     </div>
   );

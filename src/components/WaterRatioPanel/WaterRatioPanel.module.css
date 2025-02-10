@@ -10,3 +10,9 @@
     height: 90px;
   }
 }
+
+@media (min-width: 1440px) {
+  .waterRatioPanelBox {
+    min-width: 592px;
+  }
+}

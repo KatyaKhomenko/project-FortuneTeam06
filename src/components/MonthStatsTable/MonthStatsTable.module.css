@@ -131,3 +131,18 @@
     height: 34px;
   }
 }
+
+@media (min-width: 1440px) {
+  .header {
+    max-width: 544px;
+  }
+
+  .daysList {
+    column-gap: 22px;
+    max-width: 646px;
+  }
+
+  .day {
+    height: 56px;
+  }
+}
