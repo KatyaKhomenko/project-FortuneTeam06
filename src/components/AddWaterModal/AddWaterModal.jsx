@@ -1,18 +1,23 @@
 import { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { addWater } from '../../redux/todayWater/operations';
 import module from "./AddWaterModal.module.css";
 
-const AddWaterModal = () => {
-    const dispatch = useDispatch();
+const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
     const [amountWater, setAmountWater] = useState(0);
-    const [drinkTime, setDrinkTime] = useState('');
+    const drinkTime = new Date().toLocaleString('sv-SE').slice(0, 16);
+
+    const handleEscape = event => {
+        if (event.key === 'Escape') {
+            onClose();
+        }
+    };
 
     const handleSubmit = () => {
-        if (!amountWater || !drinkTime) {
-            return;
-        }
-        dispatch(addWater({ drinkedWater: amountWater, drinkTime }));
+        const dataToSave = {
+            drinkedWater: amountWater,
+            drinkTime: drinkTime,
+        };
+        saveWaterData(dataToSave);
+        setIsModalOpen(false);
     };
 
     const generateTimeOptions = () => {
@@ -27,12 +32,19 @@ const AddWaterModal = () => {
         return options;
     };
 
+    useEffect(() => {
+        document.addEventListener('keydown', handleEscape);
+        return () => {
+            document.removeEventListener('keydown', handleEscape);
+        };
+    }, []);
+
     return (
-        <div className={module.modal}>
-            <div className={module.container}>
+        <div className={module.modal} onClick={() => setIsModalOpen(false)}>
+            <div className={module.container} onClick={(e) => e.stopPropagation()}>
                 <div className={module.headerDiv}>
                     <h1 className={module.header}>Add water</h1>
-                    <button className={module.closeButton}>
+                    <button className={module.closeButton} onClick={() => setIsModalOpen(false)}>
                         <svg className={module.iconCloseButton}>
                             <use href="/src/assets/icons/sprite.svg#icon-outline"></use>
                         </svg>
@@ -78,7 +90,6 @@ const AddWaterModal = () => {
                             name="amountWater"
                             type="number"
                             value={amountWater}
-                        // onChange={(e) => setWeight(Number(e.target.value))}
                         />
                     </div>
                 </div>

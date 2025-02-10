@@ -24,18 +24,3 @@ export const deleteWater = createAsyncThunk(
     }
   }
 );
-
-export const addWater = createAsyncThunk(
-  'todayWater/addWater',
-  async ({ drinkedWater, drinkTime }, thunkApi) => {
-    try {
-      const { data } = await authInstance.post('/water', {
-        drinkedWater,
-        drinkTime,
-      });
-      return data;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
-    }
-  }
-);
