@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeMonth,
@@ -28,12 +28,9 @@ const MonthStatsTable = () => {
   const isCurrentMonth = useSelector(selectIsCurrentMonth);
   const daysInMonth = useSelector(selectDaysInMonth);
   const selectedDay = useSelector(selectSelectedDay);
-  console.log('Selected day:', selectedDay);
   const isModalOpen = useSelector(selectIsModalOpen);
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
-
-  const dayRefs = useRef({});
 
   useEffect(() => {
     dispatch(generateDaysInMonth());
@@ -46,16 +43,32 @@ const MonthStatsTable = () => {
     dispatch(changeMonth(offset));
   };
 
-  const handleDayClick = (day, e) => {
-    console.log('Clicked day:', day);
+  const handleDayClick = (day, index, e) => {
     const rect = e.target.getBoundingClientRect();
+    const screenWidth = window.innerWidth;
+    let positionClass = '';
+    let left = rect.left;
+    let top = rect.top;
+
+    if (screenWidth < 768) {
+      left = 'auto';
+      top = rect.top - 3;
+    } else if (screenWidth >= 768 && screenWidth < 1440) {
+      const columnIndex = index % 10;
+      positionClass =
+        columnIndex < 5 ? 'rightPositionMoadal' : 'leftPositionModal';
+    } else {
+      positionClass = 'leftPositionModal';
+    }
+
     const monthName = new Date(selectedMonth + '-01').toLocaleString('en-US', {
       month: 'long',
     });
     const formattedDate = `${selectedMonth}-${String(day).padStart(2, '0')}`;
-    dispatch(setSelectedDay({ day, month: monthName }));
+    dispatch(
+      setSelectedDay({ day, month: monthName, top, left, positionClass })
+    );
     dispatch(fetchDayWater(formattedDate));
-    dayRefs.current = { top: rect.top, left: rect.left };
   };
 
   return (
@@ -89,11 +102,11 @@ const MonthStatsTable = () => {
       </div>
 
       <ul className={styles.daysList}>
-        {daysInMonth.map(({ day, dailyNorma, isFuture }) => (
+        {daysInMonth.map(({ day, dailyNorma, isFuture }, index) => (
           <li
             key={day}
             className={`${styles.day} ${isFuture ? styles.disabled : ''}`}
-            onClick={e => handleDayClick(day, e)}
+            onClick={e => handleDayClick(day, index, e)}
           >
             <div
               className={`${styles.dayCircle} ${
@@ -108,7 +121,7 @@ const MonthStatsTable = () => {
           </li>
         ))}
       </ul>
-      {isModalOpen && selectedDay && <DaysGeneralStats dayRefs={dayRefs} />}
+      {isModalOpen && selectedDay && <DaysGeneralStats />}
 
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
