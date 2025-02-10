@@ -60,10 +60,7 @@
       url('../../assets/img/home/bubbles_home_tablet_1x.png') 1x,
       url('../../assets/img/home/bubbles_home_tablet_2x.png') 2x
     );
-    background-repeat: no-repeat;
-    background-size: auto;
     background-position: center top 88px;
-    background-attachment: fixed;
   }
 
   .dailyNormPanel {
@@ -75,8 +72,7 @@
       url('../../assets/img/home/bottle_home_tablet_1x.png') 1x,
       url('../../assets/img/home/bottle_home_tablet_2x.png') 2x
     );
-    background-repeat: no-repeat;
-    background-size: auto;
+
     background-position: center top 36px;
   }
 
@@ -109,22 +105,19 @@
       url('../../assets/bubbles_desktop_any_1x.png') 1x,
       url('../../assets/bubbles_desktop_any_2x.png') 2x
     );
-    background-repeat: no-repeat;
-    background-size: auto;
     background-position: center top 88px;
-    background-attachment: fixed;
   }
 
   .dailyNormPanel {
+    padding-left: 0;
+    padding-right: 0;
     padding-top: 32px;
     padding-bottom: 56px;
     background-image: image-set(
       url('../../assets/img/home/bottle_home_desktop_1x.png') 1x,
       url('../../assets/img/home/bottle_home_desktop_2x.png') 2x
     );
-    background-repeat: no-repeat;
-    background-size: auto;
-    background-position: center top 36px;
+    background-position: center top 22px;
   }
 
   .dailyNorma {
@@ -132,6 +125,8 @@
   }
 
   .statistics {
+    padding-left: 0;
+    padding-right: 0;
     padding-top: 20px;
     padding-bottom: 40px;
   }

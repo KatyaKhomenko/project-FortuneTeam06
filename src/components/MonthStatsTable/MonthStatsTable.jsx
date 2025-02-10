@@ -123,8 +123,8 @@ const MonthStatsTable = () => {
       </ul>
       {isModalOpen && selectedDay && <DaysGeneralStats />}
 
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
+      {/* {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>} */}
     </div>
   );
 };
