@@ -1,5 +1,6 @@
 import styles from './SettingModal.module.css';
 import toast from 'react-hot-toast';
+import sprite from '../../assets/icons/sprite.svg';
 
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorMessage, Field, Formik, Form } from "formik";
@@ -27,7 +28,6 @@ const SettingModal = () => {
 
   useEffect(() => {
     if (user && user.data) {
-      console.log('user: ', user.data);
       setInitialValues({
         gender: user.data.gender || '',
         name: user.data.name || '',
@@ -168,7 +168,7 @@ const SettingModal = () => {
           <h3 className={styles.titleModal}>Settings</h3>
           <button onClick={toggleModal} className={styles.closeBtn}>
             <svg className={styles.uploadSvg} width="24" height="24">
-              <use href="/src/assets/icons/sprite.svg#icon-outline"></use>
+              <use href={`${sprite}#icon-outline`}></use>
             </svg>
           </button>
         </div>
@@ -181,12 +181,12 @@ const SettingModal = () => {
                   <div className={styles.uploadPhotoContainer}>
                     {userImg ? <img src={userImg} className={styles.uploadPhoto} alt="User image" width="80" height="80" /> :
                       <svg className={styles.uploadSvgUser} width="80" height="80">
-                        <use href="/src/assets/icons/sprite.svg#icon-user"></use>
+                        <use href={`${sprite}#icon-user`}></use>
                       </svg>
                     }
                     <span className={styles.uploadPhoto}>
                       <svg className={styles.uploadImgSvg} width="16" height="16">
-                        <use href="/src/assets/icons/sprite.svg#icon-upload"></use>
+                        <use href={`${sprite}#icon-upload`}></use>
                       </svg>
                       Upload a photo
                     </span>
@@ -272,9 +272,9 @@ const SettingModal = () => {
                         >
                           <svg className={styles.uploadSvg} width="16" height="16">
                             {showPassword.outdated ?
-                              <use href="/src/assets/icons/sprite.svg#icon-eye"></use>
+                              <use href={`${sprite}#icon-eye`}></use>
                               :
-                              <use href="/src/assets/icons/sprite.svg#icon-eye-slash"></use>
+                              <use href={`${sprite}#icon-eye-slash`}></use>
                             }
                           </svg>
                         </button>
@@ -301,9 +301,9 @@ const SettingModal = () => {
                         >
                           <svg className={styles.uploadSvg} width="16" height="16">
                             {showPassword.new ?
-                              <use href="/src/assets/icons/sprite.svg#icon-eye"></use>
+                              <use href={`${sprite}#icon-eye`}></use>
                               :
-                              <use href="/src/assets/icons/sprite.svg#icon-eye-slash"></use>
+                              <use href={`${sprite}#icon-eye-slash`}></use>
                             }
                           </svg>
                         </button>
@@ -330,9 +330,9 @@ const SettingModal = () => {
                         >
                           <svg className={styles.uploadSvg} width="16" height="16">
                             {showPassword.repeat ?
-                              <use href="/src/assets/icons/sprite.svg#icon-eye"></use>
+                              <use href={`${sprite}#icon-eye`}></use>
                               :
-                              <use href="/src/assets/icons/sprite.svg#icon-eye-slash"></use>
+                              <use href={`${sprite}#icon-eye-slash`}></use>
                             }
                           </svg>
                         </button>

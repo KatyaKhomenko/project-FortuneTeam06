@@ -3,7 +3,9 @@ import module from "./AddWaterModal.module.css";
 
 const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
     const [amountWater, setAmountWater] = useState(0);
+    const [drinkTimes, setDrinkTimes] = useState(null);
     const drinkTime = new Date().toLocaleString('sv-SE').slice(0, 16);
+    const date = new Date().toISOString().slice(0, 10);
 
     const handleEscape = event => {
         if (event.key === 'Escape') {
@@ -11,15 +13,22 @@ const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
         }
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        let rightTime = drinkTimes ? `${date} ${drinkTimes}` : drinkTime;
+
         const dataToSave = {
             drinkedWater: amountWater,
-            drinkTime: drinkTime,
+            drinkTime: rightTime,
         };
+
+        console.log(dataToSave);
+
         saveWaterData(dataToSave);
-        console.log("Data to send:", dataToSave);
         setIsModalOpen(false);
     };
+
 
 
     const generateTimeOptions = () => {
@@ -78,7 +87,11 @@ const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
                     </div>
                     <div className={module.label}>
                         <p className={module.firstText}>Recording time:</p>
-                        <select className={module.Input} value={drinkTime} onChange={e => setDrinkTime(e.target.value)}>
+                        <select
+                            className={module.Input}
+                            value={drinkTimes || drinkTime}
+                            onChange={e => setDrinkTimes(e.target.value)}
+                        >
                             {generateTimeOptions().map(time => (
                                 <option key={time} value={time}>{time}</option>
                             ))}
@@ -91,8 +104,8 @@ const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
                             min="0"
                             name="amountWater"
                             type="number"
-                            value={amountWater}
-                            readOnly
+                            placeholder="0"
+                            onChange={(e) => setAmountWater(Number(e.target.value))}
                         />
                     </div>
                 </div>

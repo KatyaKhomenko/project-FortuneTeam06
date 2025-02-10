@@ -126,7 +126,7 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen }) => {
             </div>
             <div className={styles.modalContent}>
               <svg className={styles.iconGlass} aria-hidden="true">
-                <use href="/src/assets/icons/sprite.svg#icon-glass" />
+                <use href="../../assets/icons/sprite.svg#icon-glass" />
               </svg>
               <span className={styles.inputMl}>{serwerWaterAmount} ml</span>
               <div className={styles.lastWaterTime}>{serverLastWaterTime}</div>
@@ -143,7 +143,7 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen }) => {
                 onClick={decreaseWaterAmount}
               >
                 <svg className={styles.icon} aria-hidden="true">
-                  <use href="/src/assets/icons/sprite.svg#icon-minus-small" />
+                  <use href="../../assets/icons/sprite.svg#icon-minus-small" />
                 </svg>
               </button>
               <input
@@ -159,7 +159,7 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen }) => {
                 onClick={increaseWaterAmount}
               >
                 <svg className={styles.icon} aria-hidden="true">
-                  <use href="/src/assets/icons/sprite.svg#icon-plus-small" />
+                  <use href="../../assets/icons/sprite.svg#icon-plus-small" />
                 </svg>
               </button>
             </div>
