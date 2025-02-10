@@ -5,7 +5,7 @@
   font-size: 18px;
   color: #407bff;
   display: flex;
-  align-items: center; /* Вирівнює текст по центру */
+  align-items: center;
 }
 
 .signup:hover {
@@ -14,7 +14,7 @@
 
 .link {
   display: flex;
-  align-items: center; /* Вирівнює текст і іконку по центру */
+  align-items: center;
   gap: 5px;
 }
 
