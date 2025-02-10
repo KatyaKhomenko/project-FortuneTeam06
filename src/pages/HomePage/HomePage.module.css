@@ -5,6 +5,14 @@
   margin-right: auto;
   margin-top: 56px;
   background-color: #ffffff;
+  background-image: image-set(
+    url('../../assets/img/home/bubbles_home_mobile_1x.png') 1x,
+    url('../../assets/img/home/bubbles_home_mobile_2x.png') 2x
+  );
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: center top 108px;
+  background-attachment: fixed;
 }
 
 .dailyNormPanel {
@@ -12,6 +20,13 @@
   padding-right: 20px;
   padding-top: 24px;
   padding-bottom: 20px;
+  background-image: image-set(
+    url('../../assets/img/home/bottle_home_mobile_1x.png') 1x,
+    url('../../assets/img/home/bottle_home_mobile_2x.png') 2x
+  );
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: center top 106px;
 }
 
 .dailyNorma {
@@ -26,6 +41,9 @@
 }
 
 .statisticsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   border-radius: 10px;
   padding: 24px 8px;
   max-width: 280px;
@@ -38,6 +56,11 @@
   .container {
     max-width: 768px;
     margin-top: 64px;
+    background-image: image-set(
+      url('../../assets/img/home/bubbles_home_tablet_1x.png') 1x,
+      url('../../assets/img/home/bubbles_home_tablet_2x.png') 2x
+    );
+    background-position: center top 88px;
   }
 
   .dailyNormPanel {
@@ -45,6 +68,12 @@
     padding-right: 32px;
     padding-top: 40px;
     padding-bottom: 20px;
+    background-image: image-set(
+      url('../../assets/img/home/bottle_home_tablet_1x.png') 1x,
+      url('../../assets/img/home/bottle_home_tablet_2x.png') 2x
+    );
+
+    background-position: center top 36px;
   }
 
   .statistics {
@@ -72,11 +101,23 @@
     gap: 32px;
     max-width: 1440px;
     margin-top: 60px;
+    background-image: image-set(
+      url('../../assets/bubbles_desktop_any_1x.png') 1x,
+      url('../../assets/bubbles_desktop_any_2x.png') 2x
+    );
+    background-position: center top 88px;
   }
 
   .dailyNormPanel {
+    padding-left: 0;
+    padding-right: 0;
     padding-top: 32px;
     padding-bottom: 56px;
+    background-image: image-set(
+      url('../../assets/img/home/bottle_home_desktop_1x.png') 1x,
+      url('../../assets/img/home/bottle_home_desktop_2x.png') 2x
+    );
+    background-position: center top 22px;
   }
 
   .dailyNorma {
@@ -84,6 +125,8 @@
   }
 
   .statistics {
+    padding-left: 0;
+    padding-right: 0;
     padding-top: 20px;
     padding-bottom: 40px;
   }

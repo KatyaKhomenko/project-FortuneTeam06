@@ -49,6 +49,7 @@
 }
 
 .dayGenValue {
+  height: 24px;
   padding-left: 5px;
   font-weight: 500;
   font-size: 18px;
@@ -57,7 +58,7 @@
 }
 
 .leftPositionModal {
-  transform: translate(-246px, -100%);
+  transform: translate(-258px, -100%);
 }
 
 .rightPositionModal {

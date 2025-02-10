@@ -185,6 +185,7 @@ button {
 @media screen and (min-width: 769px) {
   .todayWaterBox {
     width: 544px;
+    height: 260px;
   }
 
   .todayAmount {
