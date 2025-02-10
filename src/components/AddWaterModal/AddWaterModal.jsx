@@ -1,15 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import module from "./AddWaterModal.module.css";
 
-const AddWaterModal = () => {
+const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
     const [amountWater, setAmountWater] = useState(0);
+    const [drinkTime, setDrinkTime] = useState(() => {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = Math.floor(now.getMinutes() / 5) * 5;
+        const roundedMinutes = minutes.toString().padStart(2, '0');
+        return `${hours}:${roundedMinutes}`;
+    });
+
+    const handleEscape = event => {
+        if (event.key === 'Escape') {
+            setIsModalOpen(false);
+        }
+    };
+
+    const handleSubmit = () => {
+        const dataToSave = {
+            drinkedWater: amountWater,
+            drinkTime: drinkTime,
+        };
+        saveWaterData(dataToSave);
+        setIsModalOpen(false);
+    };
+
+    const generateTimeOptions = () => {
+        const options = [];
+        for (let h = 0; h < 24; h++) {
+            for (let m = 0; m < 60; m += 5) {
+                const hour = h.toString().padStart(2, '0');
+                const minute = m.toString().padStart(2, '0');
+                options.push(`${hour}:${minute}`);
+            }
+        }
+        return options;
+    };
+
+    // useEffect(() => {
+    //     document.addEventListener('keydown', handleEscape);
+    //     return () => {
+    //         document.removeEventListener('keydown', handleEscape);
+    //     };
+    // }, []);
 
     return (
-        <div className={module.modal}>
-            <div className={module.container}>
+        <div className={module.modal} onClick={() => setIsModalOpen(false)}>
+            <div className={module.container} onClick={(e) => e.stopPropagation()}>
                 <div className={module.headerDiv}>
                     <h1 className={module.header}>Add water</h1>
-                    <button className={module.closeButton}>
+                    <button className={module.closeButton} onClick={() => setIsModalOpen(false)}>
                         <svg className={module.iconCloseButton}>
                             <use href="/src/assets/icons/sprite.svg#icon-outline"></use>
                         </svg>
@@ -41,28 +82,27 @@ const AddWaterModal = () => {
                     </div>
                     <div className={module.label}>
                         <p className={module.firstText}>Recording time:</p>
-                        <input
-                            className={module.Input}
-                            min="0"
-                            name="weight"
-                            type="text"
-                        // onChange={(e) => setWeight(Number(e.target.value))}
-                        />
+                        <select className={module.Input} value={drinkTime} onChange={e => setDrinkTime(e.target.value)}>
+                            {generateTimeOptions().map(time => (
+                                <option key={time} value={time}>{time}</option>
+                            ))}
+                        </select>
                     </div>
                     <div className={module.label2}>
                         <p className={module.secondText}>Enter the value of the water used:</p>
                         <input
                             className={module.Input}
                             min="0"
-                            name="weight"
+                            name="amountWater"
                             type="number"
-                        // onChange={(e) => setWeight(Number(e.target.value))}
+                            value={amountWater}
+                            readOnly
                         />
                     </div>
                 </div>
                 <div className={module.submitDiv}>
                     <p className={module.answer}>{amountWater}<span>ml</span></p>
-                    <button className={module.submitBtn}>Save</button>
+                    <button className={module.submitBtn} onClick={handleSubmit}>Save</button>
                 </div>
             </div>
         </div>

@@ -303,6 +303,10 @@ input[type='number']::-webkit-outer-spin-button {
   margin: 0;
 }
 
+input::placeholder {
+  color: #407bff;
+}
+
 @media screen and (min-width: 768px) {
   .Input {
     width: 656px;
