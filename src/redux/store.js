@@ -20,7 +20,7 @@ import { userReduser } from './userDataSettings/slice';
 const authConfig = {
   key: 'auth',
   storage,
-  whitelist: ['accessToken'],
+  whitelist: ['accessToken', 'isLoggedIn'],
 };
 
 export const store = configureStore({
