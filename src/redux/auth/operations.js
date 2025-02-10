@@ -38,29 +38,10 @@ export const login = createAsyncThunk(
   }
 );
 
-
-export const refresh = createAsyncThunk('auth/refresh', async (_, thunkApi) => {
-  const state = thunkApi.getState();
-  const token = state.auth.accessToken;
-  if (!token) {
-    return thunkApi.rejectWithValue('No valid token');
-  }
-
-  try {
-    setToken(token);
-
-    const response = await authInstance.get('/auth/refresh');
-    return response.data; // Зберегти тільки дані відповіді
-  } catch (error) {
-    return thunkApi.rejectWithValue(error.message);
-  }
-});
-
 export const logout = createAsyncThunk('auth/logout', async (_, thunkApi) => {
   try {
     await authInstance.post('/auth/logout');
     clearToken();
-    return; // Не потрібно повертати нічого
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);
   }
