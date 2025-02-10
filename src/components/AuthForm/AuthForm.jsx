@@ -103,19 +103,15 @@ const AuthForm = ({
                     {showPassword ? (
                       <svg className={css.eyeIcon}>
                         <use
-                          width="16px"
-                          height="16px"
                           className={css.eyeIcon}
-                          href="/src/assets/icons/sprite.svg#icon-eye"
+                          href={`${sprite}#icon-eye`}
                         ></use>
                       </svg>
                     ) : (
                       <svg className={css.eyeIcon}>
                         <use
-                          width="16px"
-                          height="16px"
                           className={css.eyeIcon}
-                          href="/src/assets/icons/sprite.svg#icon-eye-slash"
+                          href={`${sprite}#icon-eye-slash`}
                         ></use>
                       </svg>
                     )}
