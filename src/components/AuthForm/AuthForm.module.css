@@ -6,6 +6,7 @@ p {
   position: relative;
   height: 100vh;
   width: 100vw;
+  max-height: 100vh;
   overflow: hidden;
 }
 
@@ -15,7 +16,7 @@ p {
   flex-direction: column;
   max-width: 280px;
   gap: 16px;
-  margin: 0 20px;
+  margin: 24px auto;
 }
 
 .title {
@@ -112,7 +113,7 @@ p {
   box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
 }
 
-.extrabtn button {
+.extrabtn {
   background-color: transparent;
   color: #407bff;
   border: none;
@@ -123,7 +124,7 @@ p {
   transition: color 0.3s ease;
 }
 
-.extrabtn button:hover {
+.extrabtn:hover {
   color: #ff9d43;
 }
 
@@ -131,7 +132,7 @@ p {
   .form {
     justify-content: start;
     max-width: 336px;
-    margin: 104px 24px;
+    margin: 40px 32px;
   }
 
   .input {
@@ -162,7 +163,7 @@ p {
     justify-content: safe center;
     margin: 133px 0;
     position: 840px 222px;
-    margin: 222px 216px 0 auto;
+    margin: 162px 216px 0 auto;
   }
 
   .input {

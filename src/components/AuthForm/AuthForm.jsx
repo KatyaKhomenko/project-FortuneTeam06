@@ -10,7 +10,6 @@ const AuthForm = ({
   validationSchema,
   onSubmit,
   submitText,
-  extraButton,
   extraNav,
 }) => {
   const emailFieldId = useId();
@@ -130,7 +129,6 @@ const AuthForm = ({
             {submitText}
           </button>
 
-          {extraButton && <div className={css.extrabtn}>{extraButton}</div>}
           {extraNav && <div className={css.extrabtn}>{extraNav}</div>}
         </Form>
       </div>
