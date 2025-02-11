@@ -6,6 +6,7 @@ import styles from './DailyNorma.module.css';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../redux/userDataSettings/selectors';
 import Loader from '../../components/Loader/Loader';
+import Skeleton from 'react-loading-skeleton';
 
 const DailyNorma = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,7 +53,12 @@ const DailyNorma = () => {
 
       {isLoading ? (
         <div className={styles.loader}>
-          <Loader />
+          <Skeleton
+            width={35}
+            height={4}
+            borderRadius={4}
+            baseColor={'#9ebbff'}
+          />
         </div>
       ) : (
         <>
