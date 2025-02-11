@@ -3,17 +3,18 @@ import { closeModal } from '../../redux/monthWater/slice';
 import {
   selectSelectedDay,
   selectSelectedDayData,
-  selectLoading,
+  selectLoadingDay,
   selectError,
 } from '../../redux/monthWater/selectors';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import styles from './DaysGeneralStats.module.css';
 
 const DaysGeneralStats = () => {
   const dispatch = useDispatch();
   const selectedDay = useSelector(selectSelectedDay);
   const selectedDayData = useSelector(selectSelectedDayData);
-  const isLoading = useSelector(selectLoading);
-  const error = useSelector(selectError);
+  const isLoading = useSelector(selectLoadingDay);
 
   if (!selectedDay) return null;
 
@@ -43,7 +44,16 @@ const DaysGeneralStats = () => {
             <p className={styles.dayGenDscr}>
               Daily norm:{' '}
               <span className={styles.dayGenValue}>
-                {selectedDayData?.['Daily norma'] || ''}
+                {isLoading ? (
+                  <Skeleton
+                    width={35}
+                    height={4}
+                    borderRadius={4}
+                    baseColor={'#9ebbff'}
+                  />
+                ) : (
+                  `${selectedDayData?.['Daily norma'] || ''}`
+                )}
               </span>
             </p>
           </li>
@@ -51,7 +61,16 @@ const DaysGeneralStats = () => {
             <p className={styles.dayGenDscr}>
               Fulfillment of the daily norm:{' '}
               <span className={styles.dayGenValue}>
-                {selectedDayData?.['Fulfillment of the daily norm'] || ''}
+                {isLoading ? (
+                  <Skeleton
+                    width={35}
+                    height={4}
+                    borderRadius={4}
+                    baseColor={'#9ebbff'}
+                  />
+                ) : (
+                  `${selectedDayData?.['Fulfillment of the daily norm'] || ''}`
+                )}
               </span>
             </p>
           </li>
@@ -59,19 +78,20 @@ const DaysGeneralStats = () => {
             <p className={styles.dayGenDscr}>
               How many servings of water:{' '}
               <span className={styles.dayGenValue}>
-                {selectedDayData?.['How many servings of water'] || ''}
+                {isLoading ? (
+                  <Skeleton
+                    width={18}
+                    height={4}
+                    borderRadius={4}
+                    baseColor={'#9ebbff'}
+                  />
+                ) : (
+                  `${selectedDayData?.['How many servings of water'] || ''}`
+                )}
               </span>
             </p>
           </li>
         </ul>
-
-        {/* {isLoading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p className={styles.error}>Error</p>
-        ) : (
-          <p>No data available.</p>
-        )} */}
       </div>
     </div>
   );

@@ -13,7 +13,8 @@ const initialState = {
   selectedDay: null,
   selectedDayData: null,
   isModalOpen: false,
-  isLoading: false,
+  isLoadingMonth: false,
+  isLoadingDay: false,
   error: null,
 };
 
@@ -74,11 +75,11 @@ const monthWaterSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(fetchMonthWater.pending, state => {
-        state.isLoading = true;
+        state.isLoadingMonth = true;
         state.error = null;
       })
       .addCase(fetchMonthWater.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingMonth = false;
         const waterMonthData = action.payload.data;
 
         const groupedWaterData = waterMonthData.reduce((acc, item) => {
@@ -100,15 +101,15 @@ const monthWaterSlice = createSlice({
         });
       })
       .addCase(fetchMonthWater.rejected, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingMonth = false;
         state.error = action.payload;
       })
       .addCase(fetchDayWater.pending, state => {
-        state.isLoading = true;
+        state.isLoadingDay = true;
         state.error = null;
       })
       .addCase(fetchDayWater.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingDay = false;
         const dayData = action.payload.data || [];
 
         const totalDrinkedWater = dayData.reduce(
@@ -130,7 +131,7 @@ const monthWaterSlice = createSlice({
         };
       })
       .addCase(fetchDayWater.rejected, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingDay = false;
         state.error = action.payload;
       });
   },
