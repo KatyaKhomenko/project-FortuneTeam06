@@ -1,11 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+import sprite from '../../assets/icons/sprite.svg';
+
+import AddWaterModal from '../../components/AddWaterModal/AddWaterModal';
+
+import { addWater } from '../../redux/todayWater/operations';
 
 import { selectTodayWater } from '../../redux/todayWater/selectors';
 
 import styles from './WaterRatioPanel.module.css';
-import AddWaterModal from '../../components/AddWaterModal/AddWaterModal';
-import { useState } from 'react';
-import { addWater } from '../../redux/todayWater/operations';
 
 const WaterRatioPanel = () => {
   const dispatch = useDispatch();
@@ -29,24 +33,43 @@ const WaterRatioPanel = () => {
 
   const ratio = Math.min(totalWater / norma, 1) * 100;
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isModalOpen]);
+
   return (
     <div className={styles.waterRatioPanelBox}>
-      <div className="scale">
+      <div className={styles.waterBox}>
         <h3 className={styles.addWaterTitle}>Today</h3>
+        <div className={styles.box}>
+          <div className={styles.progressBar}>
+            <div
+              className={styles.filledTrack}
+              style={{ width: `${ratio}%` }}
+            ></div>
+            <div className={styles.track}></div>
 
-        <div className={styles.progressBar}>
-          <div
-            className={styles.filledTrack}
-            style={{ width: `${ratio}%` }}
-          ></div>
-          <div className={styles.track}></div>
-          <div className={styles.indicator} style={{ left: `${ratio}%` }}></div>
+            <div
+              className={styles.indicator}
+              style={{ left: `${ratio}%` }}
+            ></div>
+          </div>
         </div>
 
         <div className={styles.scale}>
-          <span>0%</span>
-          <span>50%</span>
-          <span>100%</span>
+          <span className={ratio <= 0 ? styles.active : ''}>0%</span>
+          <span className={ratio >= 50 && ratio < 100 ? styles.active : ''}>
+            50%
+          </span>
+          <span className={ratio >= 100 ? styles.active : ''}>100%</span>
         </div>
       </div>
 
@@ -56,10 +79,7 @@ const WaterRatioPanel = () => {
         onClick={toggleModal}
       >
         <svg className={styles.addIcon} width="24" height="24">
-          <use
-            className={styles.add}
-            href="/src/assets/icons/sprite.svg#icon-plus-circle"
-          ></use>
+          <use className={styles.add} href={`${sprite}#icon-plus-circle`}></use>
         </svg>
         Add Water
       </button>

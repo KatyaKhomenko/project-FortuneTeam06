@@ -30,7 +30,7 @@ export const updateUserPassword = createAsyncThunk(
     'auth/change-password',
     async (userPassword, thunkApi) => {
       try {
-          const { data } = await authInstance.post('/auth/change-password', userPassword);
+          const { data } = await authInstance.patch('/auth/change-password', userPassword);
           return data;
       } catch (error) {
           return thunkApi.rejectWithValue(error.message);

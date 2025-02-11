@@ -52,6 +52,10 @@ button {
   color: #8baeff;
 }
 
+.dailyNormaBtn:hover {
+  color: #ff9d43;
+}
+
 @media (min-width: 768px) {
   .dailyNormaValue {
     font-size: 24px;

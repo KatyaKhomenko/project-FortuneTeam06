@@ -6,6 +6,7 @@
 
 .todayWaterBox {
   width: 264px;
+  height: 258px;
   margin-bottom: 24px;
 }
 
@@ -74,7 +75,7 @@
   font-size: 18px;
   line-height: 1.33333;
   color: #407bff;
-  width: 60px;
+  width: 70px;
 }
 
 .todayTime {
@@ -94,6 +95,22 @@
 .editWaterBtn {
   background-color: transparent;
   border: none;
+  position: relative;
+}
+
+.editWaterBtn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #9ebbff;
+  transition: width 0.3s ease;
+}
+
+.editWaterBtn:hover::after {
+  width: 16px;
 }
 
 .editIcon {
@@ -114,6 +131,22 @@
 .deleteWaterBtn {
   background-color: transparent;
   border: none;
+  position: relative;
+}
+
+.deleteWaterBtn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #ef5050;
+  transition: width 0.3s ease;
+}
+
+.deleteWaterBtn:hover::after {
+  width: 16px;
 }
 
 .trashIcon {
@@ -147,6 +180,11 @@
   margin-top: 12px;
 }
 
+.addWaterBtn:hover {
+  color: #ff9d43;
+  pointer-events: auto;
+}
+
 .plusIcon {
   width: 18px;
   height: 18px;
@@ -160,9 +198,14 @@
   fill: none;
 }
 
+.addWaterBtn:hover svg use {
+  stroke: #ff9d43;
+}
+
 @media screen and (min-width: 768px) {
   .todayWaterBox {
     width: 656px;
+    height: 260px;
   }
 
   .todayWaterList {
