@@ -32,10 +32,11 @@ const TodayWaterList = () => {
     setModalType('addWater');
   };
 
-  const handleEditWater = entry => {
+  /*   const handleEditWater = entry => {
     setSelectedWaterEntry(entry);
+    console.log(selectedWaterEntry);
     setModalType('editWater');
-  };
+  }; */
 
   const handleDeleteClick = id => {
     setSelectedWaterId(id);
@@ -116,12 +117,6 @@ const TodayWaterList = () => {
         </ul>
       )}
 
-      <DeleteConfirmationModal
-        isOpen={modalType === 'deleteConfirm'}
-        setIsOpen={closeModal}
-        id={selectedWaterId}
-      />
-
       <button
         className={styles.addWaterBtn}
         type="button"
@@ -140,12 +135,18 @@ const TodayWaterList = () => {
         />
       )}
 
+      <DeleteConfirmationModal
+        isOpen={modalType === 'deleteConfirm'}
+        setIsOpen={closeModal}
+        id={selectedWaterId}
+      />
+
       {modalType === 'editWater' && (
         <TodayWaterListModal
           isOpen={true}
           setIsOpen={closeModal}
-          initialData={selectedWaterEntry}
           onSave={saveWaterData}
+          id={selectedWaterEntry._id}
         />
       )}
     </div>
