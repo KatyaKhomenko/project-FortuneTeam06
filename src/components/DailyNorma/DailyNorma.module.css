@@ -56,6 +56,12 @@ button {
   color: #ff9d43;
 }
 
+.loader {
+  display: flex;
+  width: 20px;
+  height: 20px;
+}
+
 @media (min-width: 768px) {
   .dailyNormaValue {
     font-size: 24px;

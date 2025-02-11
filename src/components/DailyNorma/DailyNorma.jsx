@@ -3,10 +3,24 @@ import { useEffect, useState } from 'react';
 import DailyNormaModal from '../../components/DailyNormaModal/DailyNormaModal';
 
 import styles from './DailyNorma.module.css';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/userDataSettings/selectors';
+import Loader from '../../components/Loader/Loader';
 
 const DailyNorma = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [waterNorm, setWaterNorm] = useState(2.0);
+  const [waterNorm, setWaterNorm] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const userData = useSelector(selectUser);
+  const dailyNorma = userData?.data?.dailyNorm;
+
+  useEffect(() => {
+    if (dailyNorma !== undefined) {
+      setWaterNorm(dailyNorma / 1000);
+      setIsLoading(false);
+    }
+  }, [dailyNorma]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -16,9 +30,9 @@ const DailyNorma = () => {
     setIsModalOpen(false);
   };
 
-  const handleWaterNormChange = newWaterNorm => {
+  /*   const handleWaterNormChange = newWaterNorm => {
     setWaterNorm(newWaterNorm);
-  };
+  }; */
 
   useEffect(() => {
     if (isModalOpen) {
@@ -35,14 +49,24 @@ const DailyNorma = () => {
   return (
     <div className={styles.dailyNormaBox}>
       <h3 className={styles.dailyNormaTitle}>My daily norma</h3>
-      <p className={styles.dailyNormaValue}>{waterNorm} L</p>
-      <button
-        type="button"
-        onClick={openModal}
-        className={styles.dailyNormaBtn}
-      >
-        Edit
-      </button>
+
+      {isLoading ? (
+        <div className={styles.loader}>
+          <Loader />
+        </div>
+      ) : (
+        <>
+          <p className={styles.dailyNormaValue}>{waterNorm} L</p>
+          <button
+            type="button"
+            onClick={openModal}
+            className={styles.dailyNormaBtn}
+          >
+            Edit
+          </button>
+        </>
+      )}
+
       {isModalOpen && (
         <DailyNormaModal
           onClose={closeModal}
