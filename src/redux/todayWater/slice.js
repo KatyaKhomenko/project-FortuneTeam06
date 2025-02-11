@@ -54,12 +54,9 @@ const todayWaterSlice = createSlice({
       .addCase(updateWater.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = null;
-        const index = state.todayWaterData.findIndex(
-          item => item._id === action.payload._id
+        state.todayWaterData = state.todayWaterData.map(item =>
+          item._id === action.payload.data._id ? action.payload.data : item
         );
-        if (index !== -1) {
-          state.todayWaterData[index] = action.payload;
-        }
       })
       .addCase(updateWater.rejected, (state, action) => {
         state.isLoading = false;

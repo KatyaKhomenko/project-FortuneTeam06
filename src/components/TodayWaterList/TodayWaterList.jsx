@@ -29,6 +29,7 @@ const TodayWaterList = () => {
   const [modalType, setModalType] = useState(null);
   const [selectedWaterId, setSelectedWaterId] = useState(null);
   const [selectedWaterEntry, setSelectedWaterEntry] = useState(null);
+
   useEffect(() => {
     const today = format(new Date(), 'yyyy-MM-dd');
     dispatch(getAllTodayWater(today));
@@ -52,9 +53,9 @@ const TodayWaterList = () => {
     dispatch(addWater(data));
   };
 
-  const saveEditedWater = updatedEntry => {
-    dispatch(updateWater(updatedEntry));
-    setModalType(null);
+  const saveEditedWater = async updatedEntry => {
+    await dispatch(updateWater(updatedEntry)); // Цей запит вже має оновлювати Redux-стан
+    setModalType(null); // Закриваємо модалку після збереження
   };
 
   const closeModal = () => {

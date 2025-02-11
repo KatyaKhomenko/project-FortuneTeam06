@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import Skeleton from 'react-loading-skeleton';
 
 import DailyNormaModal from '../../components/DailyNormaModal/DailyNormaModal';
 
-import styles from './DailyNorma.module.css';
-import { useSelector } from 'react-redux';
 import { selectUser } from '../../redux/userDataSettings/selectors';
-import Loader from '../../components/Loader/Loader';
-import Skeleton from 'react-loading-skeleton';
+
+import styles from './DailyNorma.module.css';
 
 const DailyNorma = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
