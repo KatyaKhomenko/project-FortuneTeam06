@@ -5,13 +5,15 @@ import { logout } from '../../redux/auth/operations';
 import toast from 'react-hot-toast';
 import { selectLoading } from '../../redux/auth/selectors';
 
-const UserLogoutModal = ({ isOpen = false, onClose }) => {
+import sprite from '../../assets/icons/sprite.svg';
+
+const UserLogoutModal = ({ isOpen = false, setIsOpen }) => {
    const sessionId = localStorage.getItem('sessionId');
   const dispatch = useDispatch();
   const isLoading = useSelector(selectLoading);
 
   const handleCloseModal = () => {
-    onClose();
+    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -65,7 +67,7 @@ const UserLogoutModal = ({ isOpen = false, onClose }) => {
                 }}
               >
                 <svg className={styles.icon} aria-hidden="true">
-                  <use href="../../assets/icons/sprite.svg#icon-outline" />
+                  <use href={`${sprite}#icon-outline`} />
                 </svg>
               </button>
             </div>

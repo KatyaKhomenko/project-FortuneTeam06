@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { deleteWater } from '../../redux/todayWater/operations';
 
+import sprite from '../../assets/icons/sprite.svg';
+
 const DeleteConfirmationModal = ({ isOpen = false, setIsOpen, id }) => {
   const dispatch = useDispatch();
 
@@ -50,7 +52,7 @@ const DeleteConfirmationModal = ({ isOpen = false, setIsOpen, id }) => {
           <h2 className={styles.titleModal}>Delete entry</h2>
           <button className={styles.closeBtn} onClick={handleCloseModal}>
             <svg className={styles.icon} aria-hidden="true">
-              <use href="/src/assets/icons/sprite.svg#icon-outline" />
+              <use href={`${sprite}#icon-outline`} />
             </svg>
           </button>
         </div>
