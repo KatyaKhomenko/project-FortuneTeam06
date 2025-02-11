@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import css from "./UserLogoModal.module.css";
-import UserLogoutModal from "../UserLogoutModal/UserLogoutModal";
-import SettingModal from "../SettingModal/SettingModal";
-import { useDispatch } from "react-redux";
+import { useEffect, useRef, useState } from 'react';
+import css from './UserLogoModal.module.css';
+import UserLogoutModal from '../UserLogoutModal/UserLogoutModal';
+import SettingModal from '../SettingModal/SettingModal';
+import { useDispatch } from 'react-redux';
 import spriteIcon from '../../assets/icons/sprite.svg';
 
 const UserLogoModal = ({ setIsOpenUserModal }) => {
@@ -12,7 +12,7 @@ const UserLogoModal = ({ setIsOpenUserModal }) => {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = event => {
       if (
         modalRef.current &&
         !modalRef.current.contains(event.target) &&
@@ -36,7 +36,7 @@ const UserLogoModal = ({ setIsOpenUserModal }) => {
         <li>
           <button
             type="button"
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               setIsSettingModalOpen(true);
             }}
@@ -51,7 +51,7 @@ const UserLogoModal = ({ setIsOpenUserModal }) => {
         <li>
           <button
             type="button"
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               setIsLogoutModalOpen(true);
             }}
@@ -67,9 +67,7 @@ const UserLogoModal = ({ setIsOpenUserModal }) => {
       {isLogoutModalOpen && (
         <UserLogoutModal
           isOpen={isLogoutModalOpen}
-          onClose={() => {
-            setIsLogoutModalOpen(false);
-          }}
+          setIsOpen={setIsLogoutModalOpen}
         />
       )}
       {isSettingModalOpen && (

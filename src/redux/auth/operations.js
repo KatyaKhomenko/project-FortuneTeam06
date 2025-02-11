@@ -40,11 +40,16 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk('auth/logout', async (_, thunkApi) => {
-  try {
-    await authInstance.post('/auth/logout');
-    clearToken();
-  } catch (error) {
-    return thunkApi.rejectWithValue(error.message);
+export const logout = createAsyncThunk(
+  'auth/logout',
+  async (sessionId, thunkApi) => {
+    try {
+      await authInstance.post('/auth/logout', { sessionId });
+      localStorage.removeItem('sessionId');
+      clearToken();
+      return {};
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
   }
-});
+);
