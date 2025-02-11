@@ -11,13 +11,11 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen, id }) => {
   const dispatch = useDispatch();
   const todayWaterData = useSelector(selectTodayWater);
 
-
   const [serwerWaterAmount, setServerWaterAmount] = useState(0);
   const [serverLastWaterTime, setServerLastWaterTime] = useState('');
   const [waterAmount, setWaterAmount] = useState(0);
   const [inputWaterAmount, setInputWaterAmount] = useState('');
   const [recordingTime, setRecordingTime] = useState('');
-
 
   useEffect(() => {
     const selectWater = todayWaterData.find(entry => entry._id === id);
@@ -26,18 +24,13 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen, id }) => {
       const { drinkedWater, drinkTime } = selectWater;
       const time = drinkTime.split(' ')[1];
 
+      setRecordingTime(time);
       setServerWaterAmount(drinkedWater);
       setServerLastWaterTime(time);
       setInputWaterAmount(drinkedWater);
       setWaterAmount(drinkedWater);
     }
   }, [todayWaterData, id]);
-
- 
-  useEffect(() => {
-    const now = format(new Date(), 'HH:mm');
-    setRecordingTime(now);
-  }, []);
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -86,7 +79,6 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen, id }) => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-
     const updateData = {
       drinkedWater: Number(inputWaterAmount),
       drinkTime: recordingTime,
@@ -121,9 +113,7 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen, id }) => {
               </h2>
               <button className={styles.closeBtn} onClick={handleCloseModal}>
                 <svg className={styles.icon} aria-hidden="true">
-
                   <use href={`${sprite}#icon-outline`} />
-
                 </svg>
               </button>
             </div>
