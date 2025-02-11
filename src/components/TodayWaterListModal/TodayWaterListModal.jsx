@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { format, parseISO, isToday } from 'date-fns';
+import { format } from 'date-fns';
 import styles from './TodayWaterListModal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTodayWater } from '../../redux/todayWater/selectors';
-import { getAllTodayWater } from '../../redux/todayWater/operations';
+import { updateWater } from '../../redux/todayWater/operations';
+import sprite from '../../assets/icons/sprite.svg';
 
-const TodayWaterListModal = ({ isOpen = false, setIsOpen }) => {
+const TodayWaterListModal = ({ isOpen = false, setIsOpen, id }) => {
   const dispatch = useDispatch();
   const todayWaterData = useSelector(selectTodayWater);
 
@@ -14,38 +14,21 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen }) => {
   const [serverLastWaterTime, setServerLastWaterTime] = useState('');
   const [waterAmount, setWaterAmount] = useState(0);
   const [inputWaterAmount, setInputWaterAmount] = useState('');
-  const [recordingTime, setRecordingTime] = useState(
-    format(new Date(), 'HH:mm')
-  );
-  const [lastWaterTime, setLastWaterTime] = useState('');
+  const [recordingTime, setRecordingTime] = useState('');
 
   useEffect(() => {
-    const today = format(new Date(), 'yyyy-MM-dd');
-    dispatch(getAllTodayWater(today));
-  }, [dispatch]);
+    const selectWater = todayWaterData.find(entry => entry._id === id);
 
-  useEffect(() => {
-    if (todayWaterData.length > 0) {
-      const lastWater = todayWaterData[todayWaterData.length - 1];
+    if (selectWater) {
+      const { drinkedWater, drinkTime } = selectWater;
+      const time = drinkTime.split(' ')[1];
 
-      if (lastWater.drinTime) {
-        const parsedTime = new Date(lastWater.drinTime.replace(' ', 'T'));
-        setServerLastWaterTime(format(parsedTime, 'HH:mm'));
-      } else {
-        setServerLastWaterTime(format(new Date(), 'HH:mm'));
-      }
-
-      setServerWaterAmount(lastWater.drinkedWater);
-
-      setWaterAmount(lastWater.drinkedWater);
-      setInputWaterAmount(lastWater.drinkedWater.toString());
-    } else {
-      setServerWaterAmount(0);
-      setServerLastWaterTime(format(new Date(), 'HH:mm'));
-      setWaterAmount(0);
-      setInputWaterAmount('0');
+      setServerWaterAmount(drinkedWater);
+      setServerLastWaterTime(time);
+      setInputWaterAmount(drinkedWater);
+      setWaterAmount(drinkedWater);
     }
-  }, [todayWaterData]);
+  }, [todayWaterData, id]);
 
   useEffect(() => {
     const now = format(new Date(), 'HH:mm');
@@ -70,13 +53,13 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen }) => {
   }, [isOpen]);
 
   const increaseWaterAmount = () => {
-    const newAmount = waterAmount + 50;
+    const newAmount = waterAmount + 10;
     setWaterAmount(newAmount);
     setInputWaterAmount(newAmount.toString());
   };
 
   const decreaseWaterAmount = () => {
-    const newAmount = Math.max(waterAmount - 50, 0);
+    const newAmount = Math.max(waterAmount - 10, 0);
     setWaterAmount(newAmount);
     setInputWaterAmount(newAmount.toString());
   };
@@ -98,8 +81,19 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log('Saving data:', { amount: waterAmount, time: recordingTime });
-    setLastWaterTime(recordingTime);
+
+    const updateData = {
+      drinkedWater: Number(inputWaterAmount),
+      drinkTime: recordingTime,
+      id,
+    };
+
+    try {
+      await dispatch(updateWater(updateData));
+    } catch (error) {
+      error.message;
+    }
+    setIsOpen(false);
   };
 
   const timeOptions = Array.from({ length: 288 }, (_, i) => {
@@ -121,12 +115,14 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen }) => {
                 Edit the entered amount of water
               </h2>
               <button className={styles.closeBtn} onClick={handleCloseModal}>
-                &times;
+                <svg className={styles.icon} aria-hidden="true">
+                  <use href={`${sprite}#icon-outline`} />
+                </svg>
               </button>
             </div>
             <div className={styles.modalContent}>
               <svg className={styles.iconGlass} aria-hidden="true">
-                <use href="../../assets/icons/sprite.svg#icon-glass" />
+                <use href={`${sprite}#icon-glass`} />
               </svg>
               <span className={styles.inputMl}>{serwerWaterAmount} ml</span>
               <div className={styles.lastWaterTime}>{serverLastWaterTime}</div>
@@ -143,23 +139,22 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen }) => {
                 onClick={decreaseWaterAmount}
               >
                 <svg className={styles.icon} aria-hidden="true">
-                  <use href="../../assets/icons/sprite.svg#icon-minus-small" />
+                  <use href={`${sprite}#icon-minus-small`} />
                 </svg>
               </button>
               <input
                 className={styles.updateInput}
-                type="number"
-                value={waterAmount}
+                type="text"
+                value={`${waterAmount} ml`}
                 readOnly
               />
-              <span className={styles.inputMl}>ml</span>
               <button
                 className={styles.plusButton}
                 type="button"
                 onClick={increaseWaterAmount}
               >
                 <svg className={styles.icon} aria-hidden="true">
-                  <use href="../../assets/icons/sprite.svg#icon-plus-small" />
+                  <use href={`${sprite}#icon-plus-small`} />
                 </svg>
               </button>
             </div>
