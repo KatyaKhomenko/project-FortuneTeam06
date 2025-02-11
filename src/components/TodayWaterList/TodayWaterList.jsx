@@ -7,7 +7,11 @@ import sprite from '../../assets/icons/sprite.svg';
 
 import { selectTodayWater } from '../../redux/todayWater/selectors';
 
-import { addWater, getAllTodayWater } from '../../redux/todayWater/operations';
+import {
+  addWater,
+  getAllTodayWater,
+  updateWater,
+} from '../../redux/todayWater/operations';
 
 import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModal';
 import AddWaterModal from '../../components/AddWaterModal/AddWaterModal';
@@ -32,11 +36,10 @@ const TodayWaterList = () => {
     setModalType('addWater');
   };
 
-  /*   const handleEditWater = entry => {
+  const handleEditWater = entry => {
     setSelectedWaterEntry(entry);
-    console.log(selectedWaterEntry);
     setModalType('editWater');
-  }; */
+  };
 
   const handleDeleteClick = id => {
     setSelectedWaterId(id);
@@ -45,6 +48,11 @@ const TodayWaterList = () => {
 
   const saveWaterData = data => {
     dispatch(addWater(data));
+  };
+
+  const saveEditedWater = updatedEntry => {
+    dispatch(updateWater(updatedEntry));
+    setModalType(null);
   };
 
   const closeModal = () => {
@@ -145,7 +153,7 @@ const TodayWaterList = () => {
         <TodayWaterListModal
           isOpen={true}
           setIsOpen={closeModal}
-          onSave={saveWaterData}
+          onSave={saveEditedWater}
           id={selectedWaterEntry._id}
         />
       )}
