@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { selectLoading } from '../../redux/auth/selectors';
 
 const UserLogoutModal = ({ isOpen = false, onClose }) => {
+   const sessionId = localStorage.getItem('sessionId');
   const dispatch = useDispatch();
   const isLoading = useSelector(selectLoading);
 
@@ -29,7 +30,7 @@ const UserLogoutModal = ({ isOpen = false, onClose }) => {
 
   const handleLogout = async () => {
     try {
-      await dispatch(logout());
+      await dispatch(logout(sessionId));
       toast.success('Successfully logged out!');
       handleCloseModal();
     } catch (error) {
@@ -65,7 +66,7 @@ const UserLogoutModal = ({ isOpen = false, onClose }) => {
                 }}
               >
                 <svg className={styles.icon} aria-hidden="true">
-                  <use href="/src/assets/icons/sprite.svg#icon-outline" />
+                  <use href="../../assets/icons/sprite.svg#icon-outline" />
                 </svg>
               </button>
             </div>
