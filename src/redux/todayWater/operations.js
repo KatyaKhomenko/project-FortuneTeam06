@@ -27,9 +27,12 @@ export const addWater = createAsyncThunk(
 
 export const updateWater = createAsyncThunk(
   'todayWater/updateTodayWater',
-  async ({ id, newWaterData }, thunkApi) => {
+  async ({ id, drinkedWater, drinkTime }, thunkApi) => {
     try {
-      const { data } = await authInstance.patch(`/water/${id}`, newWaterData);
+      const { data } = await authInstance.patch(`/water/${id}`, {
+        drinkedWater,
+        drinkTime,
+      });
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
