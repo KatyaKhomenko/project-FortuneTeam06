@@ -160,9 +160,13 @@
   fill: none;
 }
 
-@media screen and (min-width: 321px) {
+@media screen and (min-width: 768px) {
   .todayWaterBox {
     width: 656px;
+  }
+
+  .todayWaterList {
+    max-height: 160px;
   }
 
   .todayWaterTitle {
@@ -191,10 +195,13 @@
   }
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 1440px) {
   .todayWaterBox {
     width: 544px;
     height: 260px;
+  }
+  .todayWaterList {
+    max-height: 180px;
   }
 
   .todayAmount {

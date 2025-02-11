@@ -1,58 +1,61 @@
-.dropdownMenu {
+.dropDownMenu {
+  position: absolute;
+  left: 100%;
+  margin-top: 12px;
+  transform: translateX(-100%);
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   padding: 16px;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.2);
+  /* z-index: 1000; */
+  width: 118px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background-color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.2);
-  position: absolute;
-  top: 100%;
-  left: 0;
-  transform: translateY(8px);
-  z-index: 2;
+  align-items: center;
 }
 
-.settingsBtn,
-.logoutBtn {
-  padding: 0;
+.icon {
+  stroke: #407bff;
+  fill: none;
+}
+
+.dropDownButton {
+  color: #407bff;
+  width: 86px;
   display: flex;
+  cursor: pointer;
   align-items: center;
   gap: 8px;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.25;
-  color: #407bff;
-  background-color: #ffffff;
+  padding: 0;
+  background-color: transparent;
   border: none;
-  cursor: pointer;
+  transition: color var(--primary-transition);
 }
 
-.settingsIcon {
-  width: 16px;
-  height: 16px;
-  fill: #ffffff;
-  stroke: #407bff;
-  stroke-width: 2;
+.dropDownButton svg {
+  transition: stroke var(--primary-transition);
 }
 
-.logoutIcon {
-  width: 16px;
-  height: 16px;
-  color: #407bff;
+.dropDownButton:hover {
+  color: #ff9d43;
 }
 
-@media screen and (min-width: 768px) {
-  /* .dropdownMenu {
-    right: 32px;
-  } */
+.dropDownButton:hover svg {
+  stroke: #ff9d43;
 }
 
-@media screen and (min-width: 1440px) {
-  /* .dropdownMenu {
-    top: 68px;
-    right: 112px;
-  } */
+@media (min-width: 768px) {
+  .dropDownMenu {
+    top: 60%;
+    left: 100%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .dropDownMenu {
+    top: 90%;
+    left: 100%;
+  }
 }
