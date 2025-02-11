@@ -197,6 +197,7 @@ p {
 
   .uploadPhotoContainer {
     display: flex;
+    width: 980px;
     align-items: center;
     margin-bottom: 24px;
   }

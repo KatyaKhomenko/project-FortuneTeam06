@@ -3,24 +3,37 @@ import toast from 'react-hot-toast';
 import sprite from '../../assets/icons/sprite.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { selectError } from '../../redux/userDataSettings/selectors';
 import { ErrorMessage, Field, Formik, Form } from 'formik';
 import { useEffect, useState } from 'react';
-
 import { profileUserDataSchema } from '../../utils/schema.js';
+
+import Loader from '../Loader/Loader';
+
 import {
   getUserInfo,
   updateUser,
   updateUserPassword,
 } from '../../redux/userDataSettings/operations';
-import { selectUser } from '../../redux/userDataSettings/selectors';
+import { selectUser, selectUserIsLoading } from '../../redux/userDataSettings/selectors';
 
 const SettingModal = () => {
   const sessionId = localStorage.getItem('sessionId');
   const dispatch = useDispatch();
+
   const user = useSelector(selectUser);
+  const error = useSelector(selectError);
+  const loader = useSelector(selectUserIsLoading);
 
   const [userImg, setUserImg] = useState(null);
-
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [sendData, setSendData] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setshowPassword] = useState({
+    outdated: false,
+    new: false,
+    repeat: false,
+  });
   const [initialValues, setInitialValues] = useState({
     gender: '',
     name: '',
@@ -30,6 +43,10 @@ const SettingModal = () => {
     newPassword: '',
     newPasswordRepeat: '',
   });
+
+  useEffect(() => {
+    setLoading(loader);
+  }, [loader])
 
   useEffect(() => {
     if (user && user.data) {
@@ -44,13 +61,6 @@ const SettingModal = () => {
       });
     }
   }, [user]);
-
-  const [showPassword, setshowPassword] = useState({
-    outdated: false,
-    new: false,
-    repeat: false,
-  });
-  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const togglePassword = typeOfPassword => {
     setshowPassword(prevState => ({
@@ -74,9 +84,10 @@ const SettingModal = () => {
 
       try {
         dispatch(updateUser(formPhoto));
+        setSendData(true);
         actions.resetForm();
       } catch (error) {
-        toast.error('User not found');
+        toast.error('Photo not found');
       }
 
       const reader = new FileReader();
@@ -111,9 +122,10 @@ const SettingModal = () => {
 
       try {
         await dispatch(updateUserPassword(passwordData));
+        setSendData(true);
         actions.resetForm();
       } catch (error) {
-        toast.error('User not found');
+        toast.error('Error reset your password');
       }
     }
 
@@ -140,6 +152,7 @@ const SettingModal = () => {
 
       try {
         dispatch(updateUser(requestData));
+        setSendData(true);
         actions.resetForm();
       } catch (error) {
         toast.error('User not found');
@@ -166,6 +179,16 @@ const SettingModal = () => {
   }, [isModalOpen]);
 
   useEffect(() => {
+    if (sendData && error) {
+      setSendData(false);
+      toast.error('Something wrong!');
+    } else if (sendData && !error) {
+      toast.success('Data successfully changed');
+    }
+    setSendData(false);
+  }, [sendData, error]);
+
+  useEffect(() => {
     const handleKeyDown = e => {
       if (e.key === 'Escape') {
         setIsModalOpen(false);
@@ -184,7 +207,8 @@ const SettingModal = () => {
       className={`${styles.modalOverlay} ${isModalOpen ? styles.isOpen : ''}`}
       onClick={handleBackdropClick}
     >
-      <div className={styles.modalContainer} onClick={e => e.stopPropagation()}>
+      {loading?(<Loader loader = { true } />):
+        (<div className={styles.modalContainer} onClick={e => e.stopPropagation()}>
         <div className={styles.headerModalContainer}>
           <h3 className={styles.titleModal}>Settings</h3>
           <button onClick={toggleModal} className={styles.closeBtn}>
@@ -463,7 +487,8 @@ const SettingModal = () => {
             </Formik>
           </div>
         </div>
-      </div>
+      </div>)
+      }
     </div>
   );
 };
