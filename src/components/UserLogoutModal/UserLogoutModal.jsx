@@ -5,10 +5,10 @@ import { logout } from '../../redux/auth/operations';
 import toast from 'react-hot-toast';
 import { selectLoading } from '../../redux/auth/selectors';
 
-
 const UserLogoutModal = ({ isOpen, setIsOpen }) => {
+  const sessionId = localStorage.getItem('sessionId');
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectLoading)
+  const isLoading = useSelector(selectLoading);
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -30,14 +30,13 @@ const UserLogoutModal = ({ isOpen, setIsOpen }) => {
 
   const handleLogout = async () => {
     try {
-      await dispatch(logout());
-      toast.success('Successfully logged out!');
+      await dispatch(logout(sessionId));
       handleCloseModal();
+      toast.success('Successfully logged out!');
     } catch (error) {
       toast.error('Failed to log out. Please try again.');
     }
   };
-
   const handleCancel = () => {
     handleCloseModal();
   };
