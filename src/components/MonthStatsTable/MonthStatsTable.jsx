@@ -69,14 +69,13 @@ const MonthStatsTable = () => {
     let positionClass = '';
     let left = rect.left;
     let top = rect.top;
-
     if (screenWidth < 768) {
       left = 'auto';
       top = rect.top - 3;
     } else if (screenWidth >= 768 && screenWidth < 1440) {
       const columnIndex = index % 10;
       positionClass =
-        columnIndex < 5 ? 'rightPositionMoadal' : 'leftPositionModal';
+        columnIndex < 5 ? 'rightPositionModal' : 'leftPositionModal';
     } else {
       positionClass = 'leftPositionModal';
     }
@@ -144,7 +143,7 @@ const MonthStatsTable = () => {
                   baseColor={'#9ebbff'}
                 />
               ) : (
-                `${dailyNorma > 0 ? `${dailyNorma}%` : ''}`
+                `${dailyNorma}%`
               )}
             </p>{' '}
           </li>
