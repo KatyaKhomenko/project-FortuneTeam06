@@ -2,41 +2,45 @@ import { useState, useEffect } from "react";
 import module from "./AddWaterModal.module.css";
 
 const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
-    const [amountWater, setAmountWater] = useState(0);
-    const [drinkTimes, setDrinkTimes] = useState(null);
-    const drinkTime = new Date().toLocaleString('sv-SE').slice(0, 16);
+    const [amountWater, setAmountWater] = useState(50);
+    const [drinkTimes, setDrinkTimes] = useState("");
+
     const date = new Date().toISOString().slice(0, 10);
 
-    const handleEscape = event => {
-        if (event.key === 'Escape') {
+    const roundToNearest5 = (date) => {
+        const minutes = Math.round(date.getMinutes() / 5) * 5;
+        const hours = date.getHours();
+        return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+    };
+
+    useEffect(() => {
+        const roundedTime = roundToNearest5(new Date());
+        setDrinkTimes(roundedTime);
+    }, []);
+
+    const handleEscape = (event) => {
+        if (event.key === "Escape") {
             setIsModalOpen(false);
         }
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        const rightTime = `${date} ${drinkTimes}`;
 
-        let rightTime = drinkTimes ? `${date} ${drinkTimes}` : drinkTime;
-
-        const dataToSave = {
+        saveWaterData({
             drinkedWater: amountWater,
             drinkTime: rightTime,
-        };
-
-        console.log(dataToSave);
-
-        saveWaterData(dataToSave);
+        });
         setIsModalOpen(false);
     };
-
-
 
     const generateTimeOptions = () => {
         const options = [];
         for (let h = 0; h < 24; h++) {
             for (let m = 0; m < 60; m += 5) {
-                const hour = h.toString().padStart(2, '0');
-                const minute = m.toString().padStart(2, '0');
+                const hour = h.toString().padStart(2, "0");
+                const minute = m.toString().padStart(2, "0");
                 options.push(`${hour}:${minute}`);
             }
         }
@@ -44,9 +48,9 @@ const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
     };
 
     useEffect(() => {
-        document.addEventListener('keydown', handleEscape);
+        document.addEventListener("keydown", handleEscape);
         return () => {
-            document.removeEventListener('keydown', handleEscape);
+            document.removeEventListener("keydown", handleEscape);
         };
     }, []);
 
@@ -57,7 +61,7 @@ const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
                     <h1 className={module.header}>Add water</h1>
                     <button className={module.closeButton} onClick={() => setIsModalOpen(false)}>
                         <svg className={module.iconCloseButton}>
-                            <use href="/src/assets/icons/sprite.svg#icon-outline"></use>
+                            <use href="../../assets/icons/sprite.svg#icon-outline"></use>
                         </svg>
                     </button>
                 </div>
@@ -71,7 +75,7 @@ const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
                                 onClick={() => setAmountWater((prev) => Math.max(prev - 10, 0))}
                             >
                                 <svg className={module.icon}>
-                                    <use href="/src/assets/icons/sprite.svg#icon-minus-small"></use>
+                                    <use href="../../assets/icons/sprite.svg#icon-minus-small"></use>
                                 </svg>
                             </button>
                             <p className={module.answerText}>{amountWater}<span>ml</span></p>
@@ -80,7 +84,7 @@ const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
                                 onClick={() => setAmountWater((prev) => prev + 10)}
                             >
                                 <svg className={module.icon}>
-                                    <use href="/src/assets/icons/sprite.svg#icon-plus-small"></use>
+                                    <use href="../../assets/icons/sprite.svg#icon-plus-small"></use>
                                 </svg>
                             </button>
                         </div>
@@ -89,7 +93,7 @@ const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
                         <p className={module.firstText}>Recording time:</p>
                         <select
                             className={module.Input}
-                            value={drinkTimes || drinkTime}
+                            value={drinkTimes}
                             onChange={e => setDrinkTimes(e.target.value)}
                         >
                             {generateTimeOptions().map(time => (
@@ -101,6 +105,7 @@ const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
                         <p className={module.secondText}>Enter the value of the water used:</p>
                         <input
                             className={module.Input}
+                            value={amountWater}
                             min="0"
                             name="amountWater"
                             type="number"
