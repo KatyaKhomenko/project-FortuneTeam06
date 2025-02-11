@@ -1,8 +1,6 @@
 .container {
   box-sizing: border-box;
-  /* width: calc(98vw + 14px); */
-  width: 100vw;
-  height: calc(100vh - 19px);
+  height: calc(100vh - 68px);
   background-image: url('../../assets//img/welcome/BkgMobile.png');
   background-size: cover;
   background-position: bottom;
