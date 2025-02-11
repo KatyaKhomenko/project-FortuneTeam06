@@ -21,6 +21,11 @@
   animation: fadeInScale 0.3s ease-out forwards;
   z-index: 999;
 }
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: #407bff;
+}
 
 .modalWindow {
   background-color: #fff;

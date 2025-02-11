@@ -49,7 +49,9 @@ const DeleteConfirmationModal = ({ isOpen = false, setIsOpen, id }) => {
         <div className={styles.modalHeader}>
           <h2 className={styles.titleModal}>Delete entry</h2>
           <button className={styles.closeBtn} onClick={handleCloseModal}>
-            &times;
+            <svg className={styles.icon} aria-hidden="true">
+              <use href="/src/assets/icons/sprite.svg#icon-outline" />
+            </svg>
           </button>
         </div>
         <div className={styles.modalContent}>
