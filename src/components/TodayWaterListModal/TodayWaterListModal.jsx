@@ -4,17 +4,21 @@ import styles from './TodayWaterListModal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTodayWater } from '../../redux/todayWater/selectors';
 import { updateWater } from '../../redux/todayWater/operations';
+
 import sprite from '../../assets/icons/sprite.svg';
 
 const TodayWaterListModal = ({ isOpen = false, setIsOpen, id }) => {
   const dispatch = useDispatch();
   const todayWaterData = useSelector(selectTodayWater);
+  console.log('Water: ', todayWaterData);
+  console.log('ID: ', id);
 
   const [serwerWaterAmount, setServerWaterAmount] = useState(0);
   const [serverLastWaterTime, setServerLastWaterTime] = useState('');
   const [waterAmount, setWaterAmount] = useState(0);
   const [inputWaterAmount, setInputWaterAmount] = useState('');
   const [recordingTime, setRecordingTime] = useState('');
+
 
   useEffect(() => {
     const selectWater = todayWaterData.find(entry => entry._id === id);
@@ -30,6 +34,7 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen, id }) => {
     }
   }, [todayWaterData, id]);
 
+ 
   useEffect(() => {
     const now = format(new Date(), 'HH:mm');
     setRecordingTime(now);
@@ -82,6 +87,7 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen, id }) => {
   const handleSubmit = async e => {
     e.preventDefault();
 
+
     const updateData = {
       drinkedWater: Number(inputWaterAmount),
       drinkTime: recordingTime,
@@ -116,7 +122,9 @@ const TodayWaterListModal = ({ isOpen = false, setIsOpen, id }) => {
               </h2>
               <button className={styles.closeBtn} onClick={handleCloseModal}>
                 <svg className={styles.icon} aria-hidden="true">
+
                   <use href={`${sprite}#icon-outline`} />
+
                 </svg>
               </button>
             </div>

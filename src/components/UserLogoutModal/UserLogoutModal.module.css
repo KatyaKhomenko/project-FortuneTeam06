@@ -29,6 +29,11 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   width: 280px;
 }
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: #407bff;
+}
 .mainTitle {
   margin: 0;
   font-weight: 500;
