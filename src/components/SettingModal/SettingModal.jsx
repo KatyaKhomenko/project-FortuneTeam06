@@ -2,15 +2,20 @@ import styles from './SettingModal.module.css';
 import toast from 'react-hot-toast';
 import sprite from '../../assets/icons/sprite.svg';
 
-import { useDispatch, useSelector } from "react-redux";
-import { ErrorMessage, Field, Formik, Form } from "formik";
+import { useDispatch, useSelector } from 'react-redux';
+import { ErrorMessage, Field, Formik, Form } from 'formik';
 import { useEffect, useState } from 'react';
 
-import { profileUserDataSchema } from '../../utils/schema.js'
-import { getUserInfo, updateUser, updateUserPassword } from '../../redux/userDataSettings/operations';
+import { profileUserDataSchema } from '../../utils/schema.js';
+import {
+  getUserInfo,
+  updateUser,
+  updateUserPassword,
+} from '../../redux/userDataSettings/operations';
 import { selectUser } from '../../redux/userDataSettings/selectors';
 
 const SettingModal = () => {
+  const sessionId = localStorage.getItem('sessionId');
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
@@ -23,7 +28,7 @@ const SettingModal = () => {
     photo: '',
     oldPassword: '',
     newPassword: '',
-    newPasswordRepeat: ''
+    newPasswordRepeat: '',
   });
 
   useEffect(() => {
@@ -35,37 +40,37 @@ const SettingModal = () => {
         photo: '',
         oldPassword: '',
         newPassword: '',
-        newPasswordRepeat: ''
-      })
+        newPasswordRepeat: '',
+      });
     }
   }, [user]);
 
   const [showPassword, setshowPassword] = useState({
     outdated: false,
     new: false,
-    repeat: false
+    repeat: false,
   });
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const togglePassword = (typeOfPassword) => {
+  const togglePassword = typeOfPassword => {
     setshowPassword(prevState => ({
       ...prevState,
-      [typeOfPassword]: !prevState[typeOfPassword]
-    }))
+      [typeOfPassword]: !prevState[typeOfPassword],
+    }));
   };
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = event => {
     const photo = event.target.files[0];
 
     if (!photo) return;
 
     if (photo) {
       const formPhoto = new FormData();
-      formPhoto.append("photo", photo);
+      formPhoto.append('photo', photo);
 
       try {
         dispatch(updateUser(formPhoto));
@@ -79,25 +84,29 @@ const SettingModal = () => {
       reader.onloadend = () => {
         setUserImg(reader.result);
       };
-    };
-  }
+    }
+  };
 
   const handleSubmit = async (values, actions) => {
     const getChangedFields = (initial, current) => {
-        return Object.keys(current).reduce((changedFields, key) => {
-            if (initial[key] !== current[key]) {
-              changedFields[key] = current[key];
-            }
-            return changedFields;
-        }, {});
+      return Object.keys(current).reduce((changedFields, key) => {
+        if (initial[key] !== current[key]) {
+          changedFields[key] = current[key];
+        }
+        return changedFields;
+      }, {});
     };
 
     const changedValues = getChangedFields(initialValues, values);
 
-    if (Object.keys(changedValues).includes('oldPassword') && Object.keys(changedValues).includes('newPassword')) {
+    if (
+      Object.keys(changedValues).includes('oldPassword') &&
+      Object.keys(changedValues).includes('newPassword')
+    ) {
       const passwordData = {
         oldPassword: changedValues.oldPassword,
         newPassword: changedValues.newPassword,
+        sessionId,
       };
 
       try {
@@ -109,16 +118,25 @@ const SettingModal = () => {
     }
 
     if (Object.keys(changedValues).length > 0) {
-      const hasPasswords = Object.keys(changedValues).includes('oldPassword') && Object.keys(changedValues).includes('newPassword');
+      const hasPasswords =
+        Object.keys(changedValues).includes('oldPassword') &&
+        Object.keys(changedValues).includes('newPassword');
 
-      const createRequestData = (changedValues) => {
+      const createRequestData = changedValues => {
         const filteredData = Object.fromEntries(
-          Object.entries(changedValues).filter(([key]) => key !== 'oldPassword' && key !== 'newPassword' && key !== 'newPasswordRepeat')
+          Object.entries(changedValues).filter(
+            ([key]) =>
+              key !== 'oldPassword' &&
+              key !== 'newPassword' &&
+              key !== 'newPasswordRepeat'
+          )
         );
         return filteredData;
       };
 
-      const requestData = hasPasswords ? createRequestData(changedValues) : changedValues;
+      const requestData = hasPasswords
+        ? createRequestData(changedValues)
+        : changedValues;
 
       try {
         dispatch(updateUser(requestData));
@@ -127,9 +145,9 @@ const SettingModal = () => {
         toast.error('User not found');
       }
     }
-  }
+  };
 
-  const handleBackdropClick = (e) => {
+  const handleBackdropClick = e => {
     if (e.target === e.currentTarget) {
       setIsModalOpen(false);
     }
@@ -148,22 +166,25 @@ const SettingModal = () => {
   }, [isModalOpen]);
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
+    const handleKeyDown = e => {
+      if (e.key === 'Escape') {
         setIsModalOpen(false);
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
   return (
-    <div className={`${styles.modalOverlay} ${isModalOpen ? styles.isOpen : ''}`} onClick={handleBackdropClick}>
-      <div className={styles.modalContainer}>
+    <div
+      className={`${styles.modalOverlay} ${isModalOpen ? styles.isOpen : ''}`}
+      onClick={handleBackdropClick}
+    >
+      <div className={styles.modalContainer} onClick={e => e.stopPropagation()}>
         <div className={styles.headerModalContainer}>
           <h3 className={styles.titleModal}>Settings</h3>
           <button onClick={toggleModal} className={styles.closeBtn}>
@@ -174,18 +195,39 @@ const SettingModal = () => {
         </div>
         <div>
           <div className={styles.formButton}>
-            <Formik initialValues={initialValues} enableReinitialize={true} validationSchema={profileUserDataSchema} onSubmit={handleSubmit}>
+            <Formik
+              initialValues={initialValues}
+              enableReinitialize={true}
+              validationSchema={profileUserDataSchema}
+              onSubmit={handleSubmit}
+            >
               <Form>
                 <label htmlFor="photo">
                   <h4 className={styles.titlePhoto}>Your photo</h4>
                   <div className={styles.uploadPhotoContainer}>
-                    {userImg ? <img src={userImg} className={styles.uploadPhoto} alt="User image" width="80" height="80" /> :
-                      <svg className={styles.uploadSvgUser} width="80" height="80">
+                    {userImg ? (
+                      <img
+                        src={userImg}
+                        className={styles.uploadPhoto}
+                        alt="User image"
+                        width="80"
+                        height="80"
+                      />
+                    ) : (
+                      <svg
+                        className={styles.uploadSvgUser}
+                        width="80"
+                        height="80"
+                      >
                         <use href={`${sprite}#icon-user`}></use>
                       </svg>
-                    }
+                    )}
                     <span className={styles.uploadPhoto}>
-                      <svg className={styles.uploadImgSvg} width="16" height="16">
+                      <svg
+                        className={styles.uploadImgSvg}
+                        width="16"
+                        height="16"
+                      >
                         <use href={`${sprite}#icon-upload`}></use>
                       </svg>
                       Upload a photo
@@ -206,11 +248,21 @@ const SettingModal = () => {
                     <h4 className={styles.titleGender}>Your gender identity</h4>
                     <div className={styles.radioContainer}>
                       <label className={styles.labelTitle}>
-                        <Field className={styles.radioButton} type='radio' name='gender' value='female'/>
+                        <Field
+                          className={styles.radioButton}
+                          type="radio"
+                          name="gender"
+                          value="female"
+                        />
                         Woman
                       </label>
                       <label className={styles.labelTitle}>
-                        <Field className={styles.radioButton} type='radio' name='gender' value='male'/>
+                        <Field
+                          className={styles.radioButton}
+                          type="radio"
+                          name="gender"
+                          value="male"
+                        />
                         Man
                       </label>
                     </div>
@@ -219,33 +271,49 @@ const SettingModal = () => {
                       <label className={styles.inputContainer}>
                         <span className={styles.title}>Your name</span>
                         <div className={styles.errorContainer}>
-                          <Field name='name'>
+                          <Field name="name">
                             {({ field, meta }) => (
                               <input
                                 {...field}
                                 type="text"
-                                placeholder='David'
-                                className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ''}`}
+                                placeholder="David"
+                                className={`${styles.input} ${
+                                  meta.touched && meta.error
+                                    ? styles.inputError
+                                    : ''
+                                }`}
                               />
                             )}
                           </Field>
-                          <ErrorMessage className={styles.errorMsg} name='name' component='span' />
+                          <ErrorMessage
+                            className={styles.errorMsg}
+                            name="name"
+                            component="span"
+                          />
                         </div>
                       </label>
                       <label className={styles.inputContainer}>
                         <span className={styles.title}>Email</span>
                         <div className={styles.errorContainer}>
-                          <Field className={styles.input} name='email'>
+                          <Field className={styles.input} name="email">
                             {({ field, meta }) => (
                               <input
                                 {...field}
                                 type="text"
-                                placeholder='david01@gmail.com'
-                                className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ''}`}
+                                placeholder="david01@gmail.com"
+                                className={`${styles.input} ${
+                                  meta.touched && meta.error
+                                    ? styles.inputError
+                                    : ''
+                                }`}
                               />
                             )}
                           </Field>
-                          <ErrorMessage className={styles.errorMsg} name='email' component='span' />
+                          <ErrorMessage
+                            className={styles.errorMsg}
+                            name="email"
+                            component="span"
+                          />
                         </div>
                       </label>
                     </div>
@@ -253,96 +321,143 @@ const SettingModal = () => {
                   <div className={styles.formPassword}>
                     <h4 className={styles.titleFormPassword}>Password</h4>
                     <label>
-                      <span className={styles.titlePassword}>Outdated password:</span>
+                      <span className={styles.titlePassword}>
+                        Outdated password:
+                      </span>
                       <div className={styles.inputPasswordContainer}>
-                        <Field className={styles.input}  name='oldPassword'>
+                        <Field className={styles.input} name="oldPassword">
                           {({ field, meta }) => (
                             <input
                               {...field}
                               type={showPassword.outdated ? 'text' : 'password'}
-                              placeholder='Password'
-                              className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ''}`}
+                              placeholder="Password"
+                              className={`${styles.input} ${
+                                meta.touched && meta.error
+                                  ? styles.inputError
+                                  : ''
+                              }`}
                             />
                           )}
                         </Field>
                         <button
-                          type='button'
+                          type="button"
                           className={styles.butttonEye}
                           onClick={() => togglePassword('outdated')}
                         >
-                          <svg className={styles.uploadSvg} width="16" height="16">
-                            {showPassword.outdated ?
+                          <svg
+                            className={styles.uploadSvg}
+                            width="16"
+                            height="16"
+                          >
+                            {showPassword.outdated ? (
                               <use href={`${sprite}#icon-eye`}></use>
-                              :
+                            ) : (
                               <use href={`${sprite}#icon-eye-slash`}></use>
-                            }
+                            )}
                           </svg>
                         </button>
-                        <ErrorMessage className={styles.errorMsg} name='oldPassword' component='span' />
+                        <ErrorMessage
+                          className={styles.errorMsg}
+                          name="oldPassword"
+                          component="span"
+                        />
                       </div>
                     </label>
                     <label>
-                      <span className={styles.titlePassword}>New Password:</span>
+                      <span className={styles.titlePassword}>
+                        New Password:
+                      </span>
                       <div className={styles.inputPasswordContainer}>
-                        <Field className={styles.input} name='newPassword'>
+                        <Field className={styles.input} name="newPassword">
                           {({ field, meta }) => (
                             <input
                               {...field}
                               type={showPassword.new ? 'text' : 'password'}
-                              placeholder='Password'
-                              className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ''}`}
+                              placeholder="Password"
+                              className={`${styles.input} ${
+                                meta.touched && meta.error
+                                  ? styles.inputError
+                                  : ''
+                              }`}
                             />
                           )}
                         </Field>
                         <button
-                          type='button'
+                          type="button"
                           className={styles.butttonEye}
                           onClick={() => togglePassword('new')}
                         >
-                          <svg className={styles.uploadSvg} width="16" height="16">
-                            {showPassword.new ?
+                          <svg
+                            className={styles.uploadSvg}
+                            width="16"
+                            height="16"
+                          >
+                            {showPassword.new ? (
                               <use href={`${sprite}#icon-eye`}></use>
-                              :
+                            ) : (
                               <use href={`${sprite}#icon-eye-slash`}></use>
-                            }
+                            )}
                           </svg>
                         </button>
-                        <ErrorMessage className={styles.errorMsg} name='newPassword' component='span' />
+                        <ErrorMessage
+                          className={styles.errorMsg}
+                          name="newPassword"
+                          component="span"
+                        />
                       </div>
                     </label>
                     <label>
-                      <span className={styles.titlePassword}>Repeat new password:</span>
+                      <span className={styles.titlePassword}>
+                        Repeat new password:
+                      </span>
                       <div className={styles.inputPasswordContainer}>
-                        <Field className={styles.input} name='newPasswordRepeat'>
+                        <Field
+                          className={styles.input}
+                          name="newPasswordRepeat"
+                        >
                           {({ field, meta }) => (
                             <input
                               {...field}
                               type={showPassword.repeat ? 'text' : 'password'}
-                              placeholder='Password'
-                              className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ''}`}
+                              placeholder="Password"
+                              className={`${styles.input} ${
+                                meta.touched && meta.error
+                                  ? styles.inputError
+                                  : ''
+                              }`}
                             />
                           )}
                         </Field>
                         <button
-                          type='button'
+                          type="button"
                           className={styles.butttonEye}
                           onClick={() => togglePassword('repeat')}
                         >
-                          <svg className={styles.uploadSvg} width="16" height="16">
-                            {showPassword.repeat ?
+                          <svg
+                            className={styles.uploadSvg}
+                            width="16"
+                            height="16"
+                          >
+                            {showPassword.repeat ? (
                               <use href={`${sprite}#icon-eye`}></use>
-                              :
+                            ) : (
                               <use href={`${sprite}#icon-eye-slash`}></use>
-                            }
+                            )}
                           </svg>
                         </button>
-                        <ErrorMessage className={styles.errorMsg} name='newPasswordRepeat' component='span' />
+                        <ErrorMessage
+                          className={styles.errorMsg}
+                          name="newPasswordRepeat"
+                          component="span"
+                        />
                       </div>
                     </label>
                   </div>
                 </div>
                 <div className={styles.buttonContainer}>
-                  <button className={styles.saveButton} type='submit'>Save</button>
+                  <button className={styles.saveButton} type="submit">
+                    Save
+                  </button>
                 </div>
               </Form>
             </Formik>
@@ -350,7 +465,7 @@ const SettingModal = () => {
         </div>
       </div>
     </div>
-   )
-}
+  );
+};
 
 export default SettingModal;

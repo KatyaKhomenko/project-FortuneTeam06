@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const authInstance = axios.create({
   baseURL: 'https://water-tracker-x26o.onrender.com/',
-  withCredentials: true
+  withCredentials: true,
 });
 
 export const setToken = token => {
@@ -32,6 +32,7 @@ export const login = createAsyncThunk(
     try {
       const { data } = await authInstance.post('/auth/login', formData);
       setToken(data.data.accessToken);
+      localStorage.setItem('sessionId', data.data.sessionId);
       return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
