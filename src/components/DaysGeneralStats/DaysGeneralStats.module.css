@@ -68,11 +68,11 @@
 }
 
 .leftPositionModal {
-  transform: translate(-258px, -100%);
+  transform: translate(-275px, -100%);
 }
 
 .rightPositionModal {
-  transform: translate(35px, -100%);
+  transform: translate(17px, -100%);
 }
 
 @media (min-width: 768px) {
