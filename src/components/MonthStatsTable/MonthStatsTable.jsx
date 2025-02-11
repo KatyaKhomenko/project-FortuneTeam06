@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeMonth,
   generateDaysInMonth,
   setSelectedDay,
+  setDailyNorma,
 } from '../../redux/monthWater/slice';
 import {
   selectSelectedMonth,
@@ -14,6 +15,8 @@ import {
   selectIsCurrentMonth,
   selectIsModalOpen,
 } from '../../redux/monthWater/selectors';
+import { selectUser } from '../../redux/userDataSettings/selectors';
+import { selectTodayWater } from '../../redux/todayWater/selectors';
 import {
   fetchMonthWater,
   fetchDayWater,
@@ -24,6 +27,9 @@ import styles from './MonthStatsTable.module.css';
 
 const MonthStatsTable = () => {
   const dispatch = useDispatch();
+  const userData = useSelector(selectUser);
+  const todayWater = useSelector(selectTodayWater);
+  const dailyNorma = userData?.data?.dailyNorm || 1500;
   const selectedMonth = useSelector(selectSelectedMonth);
   const isCurrentMonth = useSelector(selectIsCurrentMonth);
   const daysInMonth = useSelector(selectDaysInMonth);
@@ -33,15 +39,28 @@ const MonthStatsTable = () => {
   const error = useSelector(selectError);
 
   useEffect(() => {
+    dispatch(setDailyNorma(dailyNorma));
     dispatch(generateDaysInMonth());
     if (selectedMonth) {
       dispatch(fetchMonthWater(selectedMonth));
     }
-  }, [selectedMonth, dispatch]);
+  }, [selectedMonth, todayWater, isCurrentMonth, dailyNorma, dispatch]);
 
   const handleMonthChange = offset => {
     dispatch(changeMonth(offset));
   };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isModalOpen]);
 
   const handleDayClick = (day, index, e) => {
     const rect = e.target.getBoundingClientRect();

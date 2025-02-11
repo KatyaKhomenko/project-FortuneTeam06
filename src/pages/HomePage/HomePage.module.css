@@ -3,7 +3,6 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 56px;
   background-color: #ffffff;
   background-image: image-set(
     url('../../assets/img/home/bubbles_home_mobile_1x.png') 1x,
@@ -18,7 +17,7 @@
 .dailyNormPanel {
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 24px;
+  padding-top: 14px;
   padding-bottom: 20px;
   background-image: image-set(
     url('../../assets/img/home/bottle_home_mobile_1x.png') 1x,
@@ -41,13 +40,10 @@
 }
 
 .statisticsContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
   border-radius: 10px;
   padding: 24px 8px;
   max-width: 280px;
-  height: 836px;
+  min-height: 836px;
   box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
   background: #ecf2ff;
 }
@@ -55,7 +51,6 @@
 @media (min-width: 768px) {
   .container {
     max-width: 768px;
-    margin-top: 64px;
     background-image: image-set(
       url('../../assets/img/home/bubbles_home_tablet_1x.png') 1x,
       url('../../assets/img/home/bubbles_home_tablet_2x.png') 2x
@@ -66,7 +61,7 @@
   .dailyNormPanel {
     padding-left: 32px;
     padding-right: 32px;
-    padding-top: 40px;
+    padding-top: 30px;
     padding-bottom: 20px;
     background-image: image-set(
       url('../../assets/img/home/bottle_home_tablet_1x.png') 1x,
@@ -89,7 +84,7 @@
     border-radius: 10px;
     padding: 32px 24px;
     max-width: 704px;
-    height: 688px;
+    min-height: 688px;
   }
 }
 
@@ -100,7 +95,6 @@
     justify-content: center;
     gap: 32px;
     max-width: 1440px;
-    margin-top: 60px;
     background-image: image-set(
       url('../../assets/bubbles_desktop_any_1x.png') 1x,
       url('../../assets/bubbles_desktop_any_2x.png') 2x
@@ -111,13 +105,13 @@
   .dailyNormPanel {
     padding-left: 0;
     padding-right: 0;
-    padding-top: 32px;
-    padding-bottom: 56px;
+    padding-top: 22px;
+    padding-bottom: 66px;
     background-image: image-set(
       url('../../assets/img/home/bottle_home_desktop_1x.png') 1x,
       url('../../assets/img/home/bottle_home_desktop_2x.png') 2x
     );
-    background-position: center top 22px;
+    background-position: center top 12px;
   }
 
   .dailyNorma {
@@ -127,12 +121,12 @@
   .statistics {
     padding-left: 0;
     padding-right: 0;
-    padding-top: 20px;
+    padding-top: 10px;
     padding-bottom: 40px;
   }
 
   .statisticsContainer {
     max-width: 592px;
-    height: 680px;
+    min-height: 680px;
   }
 }

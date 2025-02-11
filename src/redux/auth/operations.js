@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export const authInstance = axios.create({
   baseURL: 'https://water-tracker-x26o.onrender.com/',
+  withCredentials: true,
 });
 
 export const setToken = token => {
@@ -31,6 +32,7 @@ export const login = createAsyncThunk(
     try {
       const { data } = await authInstance.post('/auth/login', formData);
       setToken(data.data.accessToken);
+      localStorage.setItem('sessionId', data.data.sessionId);
       return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -38,11 +40,16 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk('auth/logout', async (_, thunkApi) => {
-  try {
-    await authInstance.post('/auth/logout');
-    clearToken();
-  } catch (error) {
-    return thunkApi.rejectWithValue(error.message);
+export const logout = createAsyncThunk(
+  'auth/logout',
+  async (sessionId, thunkApi) => {
+    try {
+      await authInstance.post('/auth/logout', { sessionId });
+      localStorage.removeItem('sessionId');
+      clearToken();
+      return {};
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
   }
-});
+);

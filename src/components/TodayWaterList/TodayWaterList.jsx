@@ -7,7 +7,11 @@ import sprite from '../../assets/icons/sprite.svg';
 
 import { selectTodayWater } from '../../redux/todayWater/selectors';
 
-import { addWater, getAllTodayWater } from '../../redux/todayWater/operations';
+import {
+  addWater,
+  getAllTodayWater,
+  updateWater,
+} from '../../redux/todayWater/operations';
 
 import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModal';
 import AddWaterModal from '../../components/AddWaterModal/AddWaterModal';
@@ -44,6 +48,11 @@ const TodayWaterList = () => {
 
   const saveWaterData = data => {
     dispatch(addWater(data));
+  };
+
+  const saveEditedWater = updatedEntry => {
+    dispatch(updateWater(updatedEntry));
+    setModalType(null);
   };
 
   const closeModal = () => {
@@ -116,12 +125,6 @@ const TodayWaterList = () => {
         </ul>
       )}
 
-      <DeleteConfirmationModal
-        isOpen={modalType === 'deleteConfirm'}
-        setIsOpen={closeModal}
-        id={selectedWaterId}
-      />
-
       <button
         className={styles.addWaterBtn}
         type="button"
@@ -140,12 +143,18 @@ const TodayWaterList = () => {
         />
       )}
 
+      <DeleteConfirmationModal
+        isOpen={modalType === 'deleteConfirm'}
+        setIsOpen={closeModal}
+        id={selectedWaterId}
+      />
+
       {modalType === 'editWater' && (
         <TodayWaterListModal
           isOpen={true}
           setIsOpen={closeModal}
-          initialData={selectedWaterEntry}
-          onSave={saveWaterData}
+          onSave={saveEditedWater}
+          id={selectedWaterEntry._id}
         />
       )}
     </div>

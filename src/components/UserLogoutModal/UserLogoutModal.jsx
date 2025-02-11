@@ -31,13 +31,12 @@ const UserLogoutModal = ({ isOpen = false, onClose }) => {
   const handleLogout = async () => {
     try {
       await dispatch(logout(sessionId));
-      toast.success('Successfully logged out!');
       handleCloseModal();
+      toast.success('Successfully logged out!');
     } catch (error) {
       toast.error('Failed to log out. Please try again.');
     }
   };
-
   const handleCancel = () => {
     handleCloseModal();
   };

@@ -1,10 +1,20 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import MonthStatsTable from '../../components/MonthStatsTable/MonthStatsTable';
 import DailyNorma from '../../components/DailyNorma/DailyNorma';
 import WaterRatioPanel from '../../components/WaterRatioPanel/WaterRatioPanel';
 import TodayWaterList from '../../components/TodayWaterList/TodayWaterList';
+import { getUserInfo } from '../../redux/userDataSettings/operations';
 import styles from './HomePage.module.css';
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserInfo());
+  }, [dispatch]);
+
   return (
     <main>
       <div className={styles.container}>
