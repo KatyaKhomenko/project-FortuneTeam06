@@ -10,7 +10,7 @@ import {
   selectSelectedMonth,
   selectDaysInMonth,
   selectSelectedDay,
-  selectLoading,
+  selectLoadingMonth,
   selectError,
   selectIsCurrentMonth,
   selectIsModalOpen,
@@ -22,6 +22,8 @@ import {
   fetchDayWater,
 } from '../../redux/monthWater/operations';
 import DaysGeneralStats from '../DaysGeneralStats/DaysGeneralStats';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import sprite from '../../assets/icons/sprite.svg';
 import styles from './MonthStatsTable.module.css';
 
@@ -35,8 +37,7 @@ const MonthStatsTable = () => {
   const daysInMonth = useSelector(selectDaysInMonth);
   const selectedDay = useSelector(selectSelectedDay);
   const isModalOpen = useSelector(selectIsModalOpen);
-  const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
+  const isLoading = useSelector(selectLoadingMonth);
 
   useEffect(() => {
     dispatch(setDailyNorma(dailyNorma));
@@ -135,15 +136,21 @@ const MonthStatsTable = () => {
               {day}
             </div>
             <p className={styles.dayDrinked}>
-              {dailyNorma > 0 ? `${dailyNorma}%` : ''}
+              {isLoading ? (
+                <Skeleton
+                  width={18}
+                  height={2}
+                  borderRadius={2}
+                  baseColor={'#9ebbff'}
+                />
+              ) : (
+                `${dailyNorma > 0 ? `${dailyNorma}%` : ''}`
+              )}
             </p>{' '}
           </li>
         ))}
       </ul>
       {isModalOpen && selectedDay && <DaysGeneralStats />}
-
-      {/* {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>} */}
     </div>
   );
 };
