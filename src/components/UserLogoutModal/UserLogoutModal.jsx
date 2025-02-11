@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from '../UserLogoutModal/UserLogoutModal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/auth/operations';
 import toast from 'react-hot-toast';
 import { selectLoading } from '../../redux/auth/selectors';
 
-
-const UserLogoutModal = ({ isOpen, setIsOpen }) => {
+const UserLogoutModal = ({ isOpen = false, onClose }) => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectLoading)
+  const isLoading = useSelector(selectLoading);
 
   const handleCloseModal = () => {
-    setIsOpen(false);
-  };
-
-  const handleKeyDown = event => {
-    if (event.key === 'Escape' && isOpen) {
-      handleCloseModal();
-    }
+    onClose();
   };
 
   useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.key === 'Escape' && isOpen) {
+        handleCloseModal();
+      }
+    };
+
     document.addEventListener('keydown', handleKeyDown);
 
     return () => {
@@ -58,8 +57,16 @@ const UserLogoutModal = ({ isOpen, setIsOpen }) => {
           >
             <div className={styles.modalHeader}>
               <h2 className={styles.mainTitle}>Log out</h2>
-              <button className={styles.closeBtn} onClick={handleCloseModal}>
-                &times;
+              <button
+                className={styles.closeBtn}
+                onClick={e => {
+                  e.stopPropagation();
+                  handleCloseModal();
+                }}
+              >
+                <svg className={styles.icon} aria-hidden="true">
+                  <use href="/src/assets/icons/sprite.svg#icon-outline" />
+                </svg>
               </button>
             </div>
             <div className={styles.modalContent}>
@@ -73,7 +80,13 @@ const UserLogoutModal = ({ isOpen, setIsOpen }) => {
               >
                 Log out
               </button>
-              <button className={styles.cancelBtn} onClick={handleCancel}>
+              <button
+                className={styles.cancelBtn}
+                onClick={e => {
+                  e.preventDefault();
+                  handleCancel();
+                }}
+              >
                 Cancel
               </button>
             </div>
