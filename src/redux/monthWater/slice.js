@@ -6,7 +6,7 @@ const currentDay = today.getDate();
 const currentMonth = today.toISOString().slice(0, 7);
 
 const initialState = {
-  dailyNorma: 2000,
+  dailyNorma: null,
   selectedMonth: currentMonth,
   isCurrentMonth: true,
   daysInMonth: [],
@@ -109,18 +109,18 @@ const monthWaterSlice = createSlice({
       })
       .addCase(fetchDayWater.fulfilled, (state, action) => {
         state.isLoading = false;
-        const dayData = action.payload.data || []; // Якщо даних немає, встановлюємо порожній масив
+        const dayData = action.payload.data || [];
 
         const totalDrinkedWater = dayData.reduce(
           (sum, entry) => sum + entry.drinkedWater,
           0
         );
-        const servings = dayData.length || 0; // Якщо записів немає, буде 0
+        const servings = dayData.length || 0;
         const fulfillment = Math.min(
           100,
           dayData.length > 0
             ? Math.round((totalDrinkedWater / state.dailyNorma) * 100)
-            : 0 // Якщо немає даних, показуємо 0%
+            : 0
         );
 
         state.selectedDayData = {
