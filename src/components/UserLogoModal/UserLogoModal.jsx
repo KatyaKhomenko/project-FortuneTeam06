@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import css from './UserLogoModal.module.css';
 import UserLogoutModal from '../UserLogoutModal/UserLogoutModal';
 import SettingModal from '../SettingModal/SettingModal';
-import { useDispatch } from 'react-redux';
 import spriteIcon from '../../assets/icons/sprite.svg';
 
 const UserLogoModal = ({ setIsOpenUserModal }) => {
