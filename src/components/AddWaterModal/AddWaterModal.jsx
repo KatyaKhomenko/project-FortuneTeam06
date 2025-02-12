@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import module from "./AddWaterModal.module.css";
+import sprite from '../../assets/icons/sprite.svg';
 
 const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
     const [amountWater, setAmountWater] = useState(50);
@@ -61,7 +62,7 @@ const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
                     <h1 className={module.header}>Add water</h1>
                     <button className={module.closeButton} onClick={() => setIsModalOpen(false)}>
                         <svg className={module.iconCloseButton}>
-                            <use href="../../assets/icons/sprite.svg#icon-outline"></use>
+                            <use href={`${sprite}#icon-outline`}></use>
                         </svg>
                     </button>
                 </div>
@@ -75,7 +76,7 @@ const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
                                 onClick={() => setAmountWater((prev) => Math.max(prev - 10, 0))}
                             >
                                 <svg className={module.icon}>
-                                    <use href="../../assets/icons/sprite.svg#icon-minus-small"></use>
+                                    <use href={`${sprite}#icon-minus-small`}></use>
                                 </svg>
                             </button>
                             <p className={module.answerText}>{amountWater}<span>ml</span></p>
@@ -84,7 +85,7 @@ const AddWaterModal = ({ setIsModalOpen, saveWaterData }) => {
                                 onClick={() => setAmountWater((prev) => prev + 10)}
                             >
                                 <svg className={module.icon}>
-                                    <use href="../../assets/icons/sprite.svg#icon-plus-small"></use>
+                                    <use href={`${sprite}#icon-plus-small`}></use>
                                 </svg>
                             </button>
                         </div>
