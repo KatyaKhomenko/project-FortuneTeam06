@@ -8,6 +8,7 @@ import AddWaterModal from '../../components/AddWaterModal/AddWaterModal';
 import { addWater } from '../../redux/todayWater/operations';
 
 import { selectTodayWater } from '../../redux/todayWater/selectors';
+import { selectUser } from '../../redux/userDataSettings/selectors';
 
 import styles from './WaterRatioPanel.module.css';
 
@@ -15,6 +16,9 @@ const WaterRatioPanel = () => {
   const dispatch = useDispatch();
   const todayWater = useSelector(selectTodayWater);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const userData = useSelector(selectUser);
+  const dailyNorma = userData?.data?.dailyNorm;
 
   const saveWaterData = data => {
     dispatch(addWater(data));
@@ -25,11 +29,9 @@ const WaterRatioPanel = () => {
     setIsModalOpen(prev => !prev);
   };
 
-  const norma = 2000;
-  const totalWater = todayWater.reduce(
-    (sum, item) => sum + item.drinkedWater,
-    0
-  );
+  const norma = dailyNorma;
+  const totalWater =
+    todayWater?.reduce((sum, item) => sum + item.drinkedWater, 0) || 0;
 
   const ratio = Math.min(totalWater / norma, 1) * 100;
 

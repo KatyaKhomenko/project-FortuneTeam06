@@ -202,6 +202,27 @@
   stroke: #ff9d43;
 }
 
+.errorMessage {
+  color: #721c24;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 20px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media screen and (min-width: 768px) {
   .todayWaterBox {
     width: 656px;

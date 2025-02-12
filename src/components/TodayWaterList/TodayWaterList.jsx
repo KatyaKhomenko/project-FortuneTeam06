@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import sprite from '../../assets/icons/sprite.svg';
 
 import { selectTodayWater } from '../../redux/todayWater/selectors';
+import { selectIsLoading } from '../../redux/todayWater/selectors';
 
 import {
   addWater,
@@ -16,12 +17,14 @@ import {
 import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModal';
 import AddWaterModal from '../../components/AddWaterModal/AddWaterModal';
 import TodayWaterListModal from '../../components/TodayWaterListModal/TodayWaterListModal';
+import Loader from '../../components/Loader/Loader';
 
 import styles from './TodayWaterList.module.css';
 
 const TodayWaterList = () => {
   const dispatch = useDispatch();
   const water = useSelector(selectTodayWater);
+  const isLoading = useSelector(selectIsLoading);
 
   const [modalType, setModalType] = useState(null);
   const [selectedWaterId, setSelectedWaterId] = useState(null);
@@ -50,9 +53,9 @@ const TodayWaterList = () => {
     dispatch(addWater(data));
   };
 
-  const saveEditedWater = updatedEntry => {
-    dispatch(updateWater(updatedEntry));
-    setModalType(null);
+  const saveEditedWater = async updatedEntry => {
+    await dispatch(updateWater(updatedEntry)); // Цей запит вже має оновлювати Redux-стан
+    setModalType(null); // Закриваємо модалку після збереження
   };
 
   const closeModal = () => {
@@ -74,7 +77,14 @@ const TodayWaterList = () => {
   return (
     <div className={styles.todayWaterBox}>
       <h3 className={styles.todayWaterTitle}>Today</h3>
-      {water?.length > 0 && (
+
+      {isLoading && (
+        <div>
+          <Loader />
+        </div>
+      )}
+
+      {water?.length > 0 && !isLoading && (
         <ul className={styles.todayWaterList}>
           {water.map(entry => (
             <li className={styles.todayWaterItem} key={entry._id}>
@@ -144,12 +154,12 @@ const TodayWaterList = () => {
       )}
 
       <DeleteConfirmationModal
-        isOpen={modalType === 'deleteConfirm'}
+        isOpen={modalType === 'deleteConfirm' && !isLoading}
         setIsOpen={closeModal}
         id={selectedWaterId}
       />
 
-      {modalType === 'editWater' && (
+      {modalType === 'editWater' && !isLoading && (
         <TodayWaterListModal
           isOpen={true}
           setIsOpen={closeModal}
