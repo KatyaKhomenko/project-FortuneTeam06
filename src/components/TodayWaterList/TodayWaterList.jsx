@@ -33,7 +33,7 @@ const TodayWaterList = () => {
   useEffect(() => {
     const today = format(new Date(), 'yyyy-MM-dd');
     dispatch(getAllTodayWater(today));
-  }, [dispatch]);
+  }, []);
 
   const handleAddWater = () => {
     setModalType('addWater');
@@ -77,11 +77,14 @@ const TodayWaterList = () => {
   return (
     <div className={styles.todayWaterBox}>
       <h3 className={styles.todayWaterTitle}>Today</h3>
-
       {isLoading && (
         <div>
           <Loader />
         </div>
+      )}
+
+      {!isLoading && water?.length === 0 && (
+        <p className={styles.noNotesMessage}>No notes yet.</p>
       )}
 
       {water?.length > 0 && !isLoading && (
@@ -134,7 +137,6 @@ const TodayWaterList = () => {
           ))}
         </ul>
       )}
-
       <button
         className={styles.addWaterBtn}
         type="button"
@@ -145,20 +147,17 @@ const TodayWaterList = () => {
         </svg>
         Add water
       </button>
-
       {modalType === 'addWater' && (
         <AddWaterModal
           setIsModalOpen={closeModal}
           saveWaterData={saveWaterData}
         />
       )}
-
       <DeleteConfirmationModal
         isOpen={modalType === 'deleteConfirm' && !isLoading}
         setIsOpen={closeModal}
         id={selectedWaterId}
       />
-
       {modalType === 'editWater' && !isLoading && (
         <TodayWaterListModal
           isOpen={true}
