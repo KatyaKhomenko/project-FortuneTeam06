@@ -59,6 +59,10 @@
   width: 100%;
 }
 
+.todayWaterItem:first-child {
+  padding-top: 0;
+}
+
 .glassIcon {
   width: 26px;
   height: 26px;
