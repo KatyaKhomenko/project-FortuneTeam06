@@ -83,14 +83,9 @@ const SettingModal = () => {
       const formPhoto = new FormData();
       formPhoto.append('photo', photo);
 
-      try {
-        dispatch(updateUser(formPhoto));
-        setSendData(true);
-        actions.resetForm();
-      } catch (error) {
-        toast.error('Photo not found');
-      }
-
+      dispatch(updateUser(formPhoto));
+      setSendData(true);
+      
       const reader = new FileReader();
 
       reader.onloadend = () => {
