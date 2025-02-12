@@ -1,5 +1,6 @@
 import styles from './SettingModal.module.css';
 import toast from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import sprite from '../../assets/icons/sprite.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -153,7 +154,8 @@ const SettingModal = () => {
         : changedValues;
 
       try {
-        dispatch(updateUser(requestData));
+        await dispatch(updateUser(requestData));
+        await dispatch(getUserInfo());
         setSendData(true);
         actions.resetForm();
       } catch (error) {
@@ -209,6 +211,7 @@ const SettingModal = () => {
       className={`${styles.modalOverlay} ${isModalOpen ? styles.isOpen : ''}`}
       onClick={handleBackdropClick}
     >
+      <Toaster position="top-center" reverseOrder={false} />
       {loading?(<Loader loader = { true } />):
         (<div className={styles.modalContainer} onClick={e => e.stopPropagation()}>
         <div className={styles.headerModalContainer}>
@@ -222,8 +225,8 @@ const SettingModal = () => {
         <div>
           <div className={styles.formButton}>
             <Formik
-              initialValues={initialValues}
               enableReinitialize={true}
+              initialValues={initialValues}
               validationSchema={profileUserDataSchema}
               onSubmit={handleSubmit}
             >
