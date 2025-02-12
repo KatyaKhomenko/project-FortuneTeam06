@@ -95,6 +95,8 @@ const SettingModal = () => {
       reader.onloadend = () => {
         setUserImg(reader.result);
       };
+
+      reader.readAsDataURL(photo);
     }
   };
 

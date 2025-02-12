@@ -6,6 +6,7 @@ export const getUserInfo = createAsyncThunk(
     'user/getUserInfo',
     async (_, thunkApi) => {
       try {
+        console.log('Making request');
           const { data } = await authInstance.get('/user');
           return data;
       } catch (error) {
