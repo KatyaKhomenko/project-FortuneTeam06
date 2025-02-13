@@ -284,7 +284,6 @@
 @media screen and (min-width: 1404px) {
   .container {
     background-image: url('../../assets//img/welcome/BkgWeb.png');
-    /* background-size: 1650px; */
   }
 
   .main {
