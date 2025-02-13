@@ -32,7 +32,12 @@ export default function App() {
         <Routes>
           <Route path="/" element={<SharedLayout />}>
             <Route index element={<Navigate to="/welcome" replace />} />
-            <Route path="/welcome" element={<WelcomePage />}></Route>
+            <Route
+              path="/welcome"
+              element={
+                <RestrictedRoute redirectTo="/home" component={<WelcomePage />} />
+              }
+            ></Route>
             <Route
               path="/signup"
               element={
